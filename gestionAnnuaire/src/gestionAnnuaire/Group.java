@@ -1,8 +1,8 @@
 package gestionAnnuaire;
 
 public class Group {
-	int idGroup;
-	String nameGroup;
+	private int idGroup;
+	private String nameGroup;
 
 	public Group(){}
 

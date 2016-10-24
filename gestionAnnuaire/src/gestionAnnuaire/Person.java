@@ -1,8 +1,8 @@
 package gestionAnnuaire;
 
 public class Person {
-	int idPers;
-	String firstName, lastName, mail, web, password;
+	private int idPers;
+	private String firstName, lastName, mail, web, password;
 	
 	public Person(){}
 	
