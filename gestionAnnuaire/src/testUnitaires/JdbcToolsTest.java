@@ -1,6 +1,7 @@
 package testUnitaires;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -104,6 +105,11 @@ public class JdbcToolsTest {
 	@Test(expected = SQLException.class)
 	public void testQuietCloseWithException() throws SQLException {
 		jdbc.quietClose(null);
+	}
+	
+	@Test
+	public void testIsConnected() throws ClassNotFoundException, SQLException  {  
+		assertTrue( jdbc.isConnect() );
 	}
 	/* Fin ajout par rapport au tp*/
 }

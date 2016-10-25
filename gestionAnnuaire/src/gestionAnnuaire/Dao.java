@@ -11,14 +11,27 @@ import exceptions.DaoException;
 
 
 public class Dao extends JdbcTools{
-	JdbcTools jdbc = new JdbcTools();
+//	JdbcTools jdbc = new JdbcTools();
 
-	public Collection<Person> findPersons() throws DaoException {
-		Collection<Person> listPerson = new ArrayList<>();
-		String query = "Select nom, prenom From Personnes";
+	
+	public Dao(){
+//		jdbc.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
+//		jdbc.setUser("root");
+//		jdbc.setPassword("");
+//		jdbc.setDriverName("com.mysql.jdbc.Driver");
+	}
+	
+	public Person findPerson(long id) throws DaoException {
+		
+		Person p = null;
+		
+		String strId = Long.toString( id );
+		String query = "SELECT nomPers, PrenomPers From personne "
+				+ "Where idPers = " + strId;
 
 		// 1. créer une connexion
 		try (Connection conn = newConnection()){
+
 			// 2. préparer l'instruction
 			Statement st = conn.createStatement();
 
@@ -27,10 +40,17 @@ public class Dao extends JdbcTools{
 
 
 			// 4. lire le résultat
-			while (rs.next()) {
-				System.out.printf("%-20s | %-20s | %3d\n", //
-						rs.getString(1), rs.getString("prenom"), rs.getInt(3));
-			}
+//			while (rs.next()) {
+				System.out.printf("%-20s | %-20s \n", //
+						rs.getString(2), rs.getString("prenom") );
+				
+				p.setFirstName( rs.getString(2) );
+				p.setLastName(rs.getString("prenom"));
+				p.setMail(rs.getString(4));
+				p.setWeb( rs.getString(5) );
+				p.setNaissance( rs.getString(6) );
+				p.setPassword( rs.getString(7) );
+//			}
 
 		} catch (SQLException e) {
 			// 5. construire l'exception DAO
@@ -38,6 +58,6 @@ public class Dao extends JdbcTools{
 			// 6. renvoyer cette exception
 			e.printStackTrace();
 		}
-		return listPerson;
+		return p;
 	}
 }

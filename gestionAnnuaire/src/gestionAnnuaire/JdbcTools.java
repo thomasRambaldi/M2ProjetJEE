@@ -69,6 +69,7 @@ public class JdbcTools {
 			c.close();
 	}
 
+	
 	public int executeUpdate(String query, Object ... parameters) { 
 		try (Connection conn = newConnection()){
 			// préparer l'instruction
@@ -100,4 +101,11 @@ public class JdbcTools {
 		return -1;
 	}
 
+	
+
+	public boolean isConnect() throws SQLException{
+		if( newConnection() != null )
+			return true;
+		return false;
+	}
 }

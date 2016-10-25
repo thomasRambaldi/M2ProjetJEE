@@ -2,8 +2,9 @@ package gestionAnnuaire;
 
 public class Person {
 	private int idPers;
-	private String firstName, lastName, mail, web, password;
+	private String firstName, lastName, mail, web, naissance, password;
 	
+
 	public Person(){}
 	
 	public int getId() {
@@ -50,6 +51,14 @@ public class Person {
 		return password;
 	}
 
+	public String getNaissance() {
+		return naissance;
+	}
+
+	public void setNaissance(String naissance) {
+		this.naissance = naissance;
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
