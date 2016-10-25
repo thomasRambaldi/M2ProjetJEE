@@ -14,7 +14,7 @@ import gestionAnnuaire.JdbcTools;
 import gestionAnnuaire.Person;
 
 
-public class DaoTest {
+public class DaoTest extends JdbcTools{
 
 	private Dao dao;
 	private JdbcTools jdbc;
@@ -24,16 +24,17 @@ public class DaoTest {
 	
 	@Before
 	public void before() throws SQLException{
-		jdbc = new JdbcTools();
-		jdbc.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		jdbc.setUser("root");
-		jdbc.setPassword("");
-		jdbc.setDriverName("com.mysql.jdbc.Driver");
-		jdbc.newConnection();
-		
+
 		dao = new Dao();
 		
+		dao.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
+		dao.setUser("root");
+		dao.setPassword("");
+		dao.setDriverName("com.mysql.jdbc.Driver");
+		
+		
 		p1 = new Person();
+		p1.setId(1);
 		p1.setFirstName("Rambaldi");
 		p1.setLastName("Thomas");
 		p1.setMail("t.rambaldi13@gmail.com");
@@ -42,6 +43,7 @@ public class DaoTest {
 		p1.setPassword("PassWord");
 		
 		p2 = new Person();
+		p2.setId(2);
 		p2.setFirstName("Lebreton");
 		p2.setLastName("Kévin");
 		p1.setMail("k.lebreton@gmail.com");
@@ -53,8 +55,10 @@ public class DaoTest {
 	}
 	
 	@Test
-	public void findPersonTest() throws DaoException  {
-		assertEquals(p1, dao.findPerson(1));
+	public void findPersonTest() throws DaoException, SQLException  {
+		System.out.println(p1.getId());
+		System.out.println(dao.findPerson(1).getId());
+		assertEquals(p1.getId(), dao.findPerson(1).getId());
 	}
 	
 

@@ -22,6 +22,4 @@ public class Group {
 		this.nameGroup = nameGroup;
 	}
 
-
-
 }
