@@ -64,13 +64,9 @@ public class JdbcTools {
 		return conn;
 	}
 
-	public void quietClose(Connection c) { 
-		try {
-			if(c != null)
-				c.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void quietClose(Connection c) throws SQLException { 
+		if(c != null)
+			c.close();
 	}
 
 	public int executeUpdate(String query, Object ... parameters) { 
