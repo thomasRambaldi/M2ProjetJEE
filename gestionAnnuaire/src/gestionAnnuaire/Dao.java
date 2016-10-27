@@ -34,18 +34,18 @@ public class Dao extends JdbcTools{
 
 			// 3. exécuter la requête
 			ResultSet rs = st.executeQuery(query);
-
+			System.out.println("------->"+rs.getString(0));
 			// 4. lire le résultat
-			//			while (rs.next()) {
+			while (rs.next()) {
 
-			
-			p.setFirstName(rs.getString(1));
-			p.setLastName(rs.getString("prenom"));
-			p.setMail(rs.getString(4));
-			p.setWeb( rs.getString(5) );
-			p.setNaissance( rs.getString(6) );
-			p.setPassword( rs.getString(7) );
-			//			}
+				System.out.println("------->"+rs.getString(0));
+				p.setFirstName(rs.getString(1));
+				p.setLastName(rs.getString("prenom"));
+				p.setMail(rs.getString(4));
+				p.setWeb( rs.getString(5) );
+				p.setNaissance( rs.getString(6) );
+				p.setPassword( rs.getString(7) );
+			}
 
 		} catch (SQLException e) {
 			// 5. construire l'exception DAO

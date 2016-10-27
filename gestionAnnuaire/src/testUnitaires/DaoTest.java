@@ -56,8 +56,8 @@ public class DaoTest extends JdbcTools{
 	
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
-		System.out.println(p1.getId());
-		System.out.println(dao.findPerson(1).getId());
+//		System.out.println(p1.getId());
+//		System.out.println(dao.findPerson(1).getId());
 		assertEquals(p1.getId(), dao.findPerson(1).getId());
 	}
 	
