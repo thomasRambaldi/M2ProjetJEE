@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exceptions.DaoException;
-import gestionAnnuaire.Dao;
-import gestionAnnuaire.JdbcTools;
-import gestionAnnuaire.Person;
+import gestionnaireAnnuaire.Dao;
+import gestionnaireAnnuaire.JdbcTools;
+import gestionnaireAnnuaire.Person;
 
 
 public class DaoTest extends JdbcTools{

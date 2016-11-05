@@ -3,17 +3,16 @@ package testUnitaires;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import javax.swing.JButton;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mysql.jdbc.Connection;
 
-import gestionAnnuaire.JdbcTools;
+
+import gestionnaireAnnuaire.JdbcTools;
 
 public class JdbcToolsTest {
 

@@ -1,4 +1,4 @@
-package gestionAnnuaire;
+package gestionnaireAnnuaire;
 
 import java.util.Collection;
 
