@@ -100,15 +100,8 @@ public class JdbcToolsTest {
 		jdbc.quietClose(conn);
 	}
 	
-	/* Ajout par rapport au tp*/
-	@Test(expected = SQLException.class)
-	public void testQuietCloseWithException() throws SQLException {
-		jdbc.quietClose(null);
-	}
-	
 	@Test
 	public void testIsConnected() throws ClassNotFoundException, SQLException  {  
 		assertTrue( jdbc.isConnect() );
 	}
-	/* Fin ajout par rapport au tp*/
 }

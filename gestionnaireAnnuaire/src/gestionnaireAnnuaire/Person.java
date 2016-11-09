@@ -1,13 +1,17 @@
 package gestionnaireAnnuaire;
 
 public class Person {
-	
-	private int idPers;
-	private String firstName, lastName, mail, web, naissance, password;
-	
+
+	private int idPers, idGroup;
+	private String firstName = null;
+	private String lastName= null ;
+	private String  mail = null;
+	private String web = null;
+	private String  naissance = null;
+	private String password = null ;
 
 	public Person(){}
-	
+
 	public int getId() {
 		return idPers;
 	}
@@ -15,6 +19,15 @@ public class Person {
 	public void setId(int id) {
 		this.idPers = id;
 	}
+
+	public int getIdGroup() {
+		return idGroup;
+	}
+
+	public void setIdGroup(int idGroup) {
+		this.idGroup = idGroup;
+	}
+
 
 	public String getFirstName() {
 		return firstName;
@@ -59,10 +72,10 @@ public class Person {
 	public void setNaissance(String naissance) {
 		this.naissance = naissance;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	
+
 }

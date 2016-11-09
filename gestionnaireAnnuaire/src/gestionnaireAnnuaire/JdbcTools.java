@@ -71,6 +71,7 @@ public class JdbcTools {
 
 	
 	public int executeUpdate(String query, Object ... parameters) { 
+		
 		try (Connection conn = newConnection()){
 			// préparer l'instruction
 			PreparedStatement st = conn.prepareStatement(query);
