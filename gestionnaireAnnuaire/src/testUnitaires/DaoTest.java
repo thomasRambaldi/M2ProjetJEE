@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class DaoTest extends JdbcTools{
 	private Group g2;
 
 	@Before
-	public void before() throws SQLException{
+	public void setup() throws SQLException{
 
 		dao = new Dao();
 
@@ -69,6 +70,11 @@ public class DaoTest extends JdbcTools{
 		g2 = new Group();
 		g2.setIdGroup(2);
 		g2.setNameGroup("M2 IM 2015/2016");
+	}
+	
+	@After
+	public void tearDown(){
+//		TODO : write the code
 	}
 
 	@Test
@@ -131,6 +137,11 @@ public class DaoTest extends JdbcTools{
 	}
 	
 	@Test
+	public void updatePersonTest(){
+//		TODO : write the code
+	}
+	
+	@Test
 	public void findGroupTest(){
 		assertEquals(g1.getIdGroup(), dao.findGroup(1).getIdGroup());
 	}
@@ -175,6 +186,11 @@ public class DaoTest extends JdbcTools{
 		
 		dao.deleteGroup(g);
 		
+	}
+	
+	@Test
+	public void updateGroupTest(){
+//		TODO : write the code
 	}
 
 }
