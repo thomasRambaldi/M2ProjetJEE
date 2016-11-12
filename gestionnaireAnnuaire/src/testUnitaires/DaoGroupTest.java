@@ -15,7 +15,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
-import gestionnaireAnnuaire.Person;
 
 public class DaoGroupTest {
 
@@ -67,7 +66,7 @@ public class DaoGroupTest {
 	}
 
 	@Test
-	public void findAllGroupTest(){
+	public void findAllGroupTest() throws SQLException{
 		Collection<Group> listGroup = new ArrayList<>();
 		listGroup.add(g1); listGroup.add(g2);
 

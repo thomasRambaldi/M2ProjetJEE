@@ -87,7 +87,7 @@ public class DaoPersonTest {
 	}
 
 	@Test
-	public void findAllPersons(){
+	public void findAllPersons() throws SQLException{
 		Collection<Person> listPers = new ArrayList<>();
 		listPers.add(p1); listPers.add(p2);
 

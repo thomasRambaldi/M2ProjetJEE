@@ -9,10 +9,11 @@ import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-
-
 public class Dao extends JdbcTools implements PersonDao, GroupDao{
 
+	/**
+	 * Constructor of the class Dao
+	 */
 	public Dao(){
 		super();
 	}
@@ -63,9 +64,10 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	 * Return all people in a group
 	 * @param groupId group who contains people
 	 * @return return all people in a group
+	 * @throws SQLException 
 	 */
 	@Override
-	public Collection<Person> findAllPersons(long groupId) {
+	public Collection<Person> findAllPersons(long groupId) throws SQLException {
 
 		Collection<Person> listPerson= new ArrayList<>();
 
@@ -96,17 +98,12 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 				listPerson.add(p);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new SQLException();
 		} finally {
 			// close result, statement and connection
 			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				conn.close();
 		}
 		return listPerson;
 	}
@@ -115,9 +112,10 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	 * Return one person with him id
 	 * @param id The identifiant of the person
 	 * @return return the person with this id
+	 * @throws SQLException 
 	 */
 	@Override
-	public Person findPerson(long id) {
+	public Person findPerson(long id) throws SQLException {
 
 		Person p = new Person();
 
@@ -127,13 +125,11 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 
 		Connection conn = null;
 		try {
-
 			// create new connection and statement
 			conn = newConnection();
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-
 				p.setId( Integer.parseInt( rs.getString(1) ) );
 				p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
 				p.setFirstName( rs.getString(3) );
@@ -142,20 +138,14 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 				p.setWeb( rs.getString(6) );
 				p.setNaissance( rs.getString(7) );
 				p.setPassword( rs.getString(8) );
-
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new SQLException();
 		} finally {
 			// close result, statement and connection
 			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				conn.close();
 		}
 		return p;
 	}
@@ -196,6 +186,11 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 		executeUpdate(query);
 	}
 
+	/**
+	 * Update a person with the new information of a Person in parameter
+	 * @param p A new information of Person
+	 * @throws SQLException 
+	 */
 	@Override
 	public void updatePerson(Person p) throws SQLException {
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
@@ -217,9 +212,10 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	/**
 	 * Return all group
 	 * @return return all group
+	 * @throws SQLException 
 	 */
 	@Override
-	public Collection<Group> findAllGroups() {
+	public Collection<Group> findAllGroups() throws SQLException {
 		Collection<Group> listGroup= new ArrayList<>();
 
 		String query = "SELECT idGroup, NomGroup FROM groupe";
@@ -231,7 +227,7 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				Group g =new Group();
+				Group g = new Group();
 
 				g.setIdGroup( rs.getInt(1) );
 				g.setNameGroup( rs.getString(2) );
@@ -239,17 +235,12 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 				listGroup.add(g);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new SQLException();
 		} finally {
 			// close result, statement and connection
 			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				conn.close();
 		}
 		return listGroup;
 	}
@@ -262,7 +253,7 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	 */
 	@Override
 	public Group findGroup(long id) throws SQLException {
-		
+
 		Group g = new Group();
 		String strId = Long.toString( id );
 		String query =  "SELECT idGroup, NomGroup FROM groupe WHERE idGroup = " + strId ;
@@ -280,18 +271,12 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new SQLException();
 		} finally {
 			// close result, statement and connection
 			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				conn.close();
 		}
 		return g;
 	}
@@ -322,14 +307,19 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 
 		executeUpdate(query);
 	}
-
+	
+	/**
+	 * Update a Group with the new information of a Group in parameter
+	 * @param g A new information of Group
+	 * @throws SQLException 
+	 */
 	@Override
 	public void updateGroup(Group g) throws SQLException {
 		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + g.getIdGroup();
 
 		int idGroup = g.getIdGroup();
 		String nomGroup = g.getNameGroup();
-		
+
 		executeUpdate(query, idGroup, nomGroup);
 	}
 

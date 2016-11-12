@@ -10,9 +10,7 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import gestionnaireAnnuaire.JdbcTools;
-import junit.framework.TestCase;
 
 public class JdbcToolsTest {
 
@@ -71,11 +69,6 @@ public class JdbcToolsTest {
 	}
 
 	@Test
-	public void testClose()  {  
-		jdbc.close();
-	}
-
-	@Test
 	public void testQuietClose() throws SQLException {
 		String url = "jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false";
 		String user = "root";
@@ -92,27 +85,27 @@ public class JdbcToolsTest {
 	@Test
 	public void executeUpdatePersonneTest() throws SQLException, ClassNotFoundException  {
 		jdbc.init();
-		jdbc.newConnection();
+		Connection c = jdbc.newConnection();
 		jdbc.executeUpdate("SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne;");
-		jdbc.close();
+		jdbc.quietClose(c);
 	}
 
 	@Test
-	public void ExecuteUpdateGroupeTest() throws SQLException, ClassNotFoundException  {
+	public void executeUpdateGroupeTest() throws SQLException, ClassNotFoundException  {
 		jdbc.init();
-		jdbc.newConnection();
+		Connection c = jdbc.newConnection();
 		jdbc.executeUpdate("SELECT idGroup, nomGroup FROM groupe;");
-		jdbc.close();
+		jdbc.quietClose(c);
 	}
 	
-	@Test
-	public void ExecuteUpdateViolation() throws SQLException, ClassNotFoundException  {
+	@Test(expected = SQLException.class)
+	public void executeUpdateViolation() throws SQLException, ClassNotFoundException  {
 		// TODO : Write the code
 		jdbc.init();
-		jdbc.newConnection();
+		Connection c = jdbc.newConnection();
 		jdbc.executeUpdate("SELECT idGroup, nomGroup FROM groupe;");
-		jdbc.close();
+		jdbc.quietClose(c);
 	}
 	
 

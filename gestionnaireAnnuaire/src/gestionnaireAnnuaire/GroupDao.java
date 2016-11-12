@@ -15,8 +15,9 @@ public interface GroupDao {
 	/**
 	 * Return all group
 	 * @return return all group
+	 * @throws SQLException 
 	 */
-	Collection<Group> findAllGroups();
+	Collection<Group> findAllGroups() throws SQLException;
 
 	//Récupérer un groupe
 	/**

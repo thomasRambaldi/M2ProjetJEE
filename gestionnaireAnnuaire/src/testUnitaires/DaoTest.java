@@ -11,8 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-
 import exceptions.DaoException;
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
@@ -79,7 +77,7 @@ public class DaoTest extends JdbcTools{
 	}
 
 	@Test
-	public void findAllPersons(){
+	public void findAllPersons() throws SQLException{
 		Collection<Person> listPers = new ArrayList<>();
 		listPers.add(p1); listPers.add(p2);
 
@@ -149,7 +147,7 @@ public class DaoTest extends JdbcTools{
 	}
 
 	@Test
-	public void findAllGroupTest(){
+	public void findAllGroupTest() throws SQLException{
 		Collection<Group> listGroup = new ArrayList<>();
 		listGroup.add(g1); listGroup.add(g2);
 

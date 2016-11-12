@@ -16,16 +16,18 @@ public interface PersonDao {
 	 * Return all people in a group
 	 * @param groupId group who contains people
 	 * @return return all people in a group
+	 * @throws SQLException 
 	 */
-	Collection<Person> findAllPersons(long groupId);
+	Collection<Person> findAllPersons(long groupId) throws SQLException;
 
 	// lire une personne
 	/**
 	 * Return one person with him id
 	 * @param id The identifiant of the person
 	 * @return return the person with this id
+	 * @throws SQLException 
 	 */
-	Person findPerson(long id);
+	Person findPerson(long id) throws SQLException;
 
 	// modification ou ajout d'une nouvelle personne
 	/**
