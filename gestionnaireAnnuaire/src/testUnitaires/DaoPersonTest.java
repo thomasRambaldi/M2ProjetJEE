@@ -15,19 +15,14 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 import exceptions.DaoException;
 import gestionnaireAnnuaire.Dao;
-import gestionnaireAnnuaire.Group;
-import gestionnaireAnnuaire.JdbcTools;
 import gestionnaireAnnuaire.Person;
 
-
-public class DaoTest extends JdbcTools{
+public class DaoPersonTest {
 
 	private Dao dao;
 	private Person p1;
 	private Person p2;
-
-	private Group g1;
-	private Group g2;
+	private Person p3;
 
 	@Before
 	public void setup() throws SQLException{
@@ -53,26 +48,39 @@ public class DaoTest extends JdbcTools{
 		p2.setId(2);
 		p2.setIdGroup(1);
 		p2.setFirstName("Lebreton");
-		p2.setLastName("Kevin");
-		p2.setMail(null);
-		p2.setWeb("");
-		p1.setNaissance(null);
+		p2.setLastName("lebtreton");
+		p2.setMail("k.lebtreton@gmail.com");
+		p2.setWeb("http://k.leb.etu.perso.luminy.univ-amu.fr");
+		p2.setNaissance("08/11/94");
 		p2.setPassword("azerty");
+		
+		
+		dao.savePerson(p1);
+		dao.savePerson(p2);
+		
+		p3 =new Person();
+		p3.setId(3);
+		p3.setIdGroup(2);
+		p3.setFirstName("Magron");
+		p3.setLastName("Benjamin");
+		p3.setMail("b.magron@gmail.com");
+		p3.setWeb("http://benjamin.magron.etu.perso.luminy.univ-amu.fr");
+		p3.setNaissance("28/28/28");
+		p3.setPassword("coucou");
 
-		g1 = new Group();
-		g1.setIdGroup(1);
-		g1.setNameGroup("M2 FSIL 2015/2016");
-
-		g2 = new Group();
-		g2.setIdGroup(2);
-		g2.setNameGroup("M2 IM 2015/2016");
 	}
 
 	@After
-	public void tearDown(){
-		//		TODO : write the code
+	public void tearDown() throws SQLException{
+		dao.deletePerson(p1);
+		dao.deletePerson(p2);
+		dao.deletePerson(p3);
+		dao = null;
+		p1 = null;
+		p2 = null;
+		p3 = null;
 	}
-	
+
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
 		assertEquals(p1.getId(), dao.findPerson(1).getId());
@@ -95,14 +103,18 @@ public class DaoTest extends JdbcTools{
 
 			assertEquals(pers.getId(),  persFap.getId());
 		}
-
 	}
 
 	@Test
 	public void savePersonTest() throws SQLException{
-		//		TODO : correction bug
+		dao.savePerson(p3);
+		assertEquals(3, dao.findPerson(3).getId());
+	}
+
+	@Test(expected = MySQLIntegrityConstraintViolationException.class)
+	public void savePersonViolationTest() throws SQLException{
 		Person p = new Person();
-		p.setId(3);
+		p.setId(1);
 		p.setIdGroup(2);
 		p.setFirstName("Magron");
 		p.setLastName("Benjamin");
@@ -112,94 +124,19 @@ public class DaoTest extends JdbcTools{
 		p.setPassword("coucou");
 
 		dao.savePerson(p);
-
-		//		assertEquals("Magron", dao.findPerson(3).getFirstName());
-
 	}
 
 	@Test
 	public void deletePersonTest() throws SQLException{
-		// TODO : correction bug (La person est null dans la fonction delete perosn)
-		Person p =new Person();
-
-		p.setIdGroup(4);
-		p.setFirstName("Test");
-		p.setLastName("Test");
-		p.setMail("");
-		p.setWeb(null);
-		p.setNaissance("");
-		p.setPassword("mdp");
-
-		dao.deletePerson(p);
-
+		dao.deletePerson(p3);
 	}
 
 	@Test
 	public void updatePersonTest() throws SQLException{
-		//TODO : correction bug
-		p2.setMail("k.kevin@gmail.com");
-		p2.setNaissance("");
-		
-		dao.updatePerson(p2);
+		p3.setMail("k.kevin@gmail.com");
+		p3.setNaissance("");
+
+		dao.updatePerson(p3);
 	}
 
-	@Test
-	public void findGroupTest() throws SQLException{
-		assertEquals(g1.getIdGroup(), dao.findGroup(1).getIdGroup());
-	}
-
-	@Test
-	public void findAllGroupTest(){
-		Collection<Group> listGroup = new ArrayList<>();
-		listGroup.add(g1); listGroup.add(g2);
-
-		Collection<Group> fap = dao.findAllGroups();
-
-		Iterator<Group> iterator = listGroup.iterator();
-		Iterator<Group> iterator2 = fap.iterator();
-
-		while (iterator.hasNext() && iterator2.hasNext() ){
-
-			Group group = iterator.next();
-			Group  groupFap =  iterator2.next();
-
-			assertEquals(group.getIdGroup(),  groupFap.getIdGroup());
-		}
-
-	}
-
-	@Test
-	public void saveGroupTest() throws SQLException{
-		//TODO : correction bug
-		Group g =new Group();
-
-		g.setIdGroup(3);
-		g.setNameGroup("M2 ID 2015/2016");
-
-		dao.saveGroup(g);
-
-//		assertEquals("Magron", dao.findPerson(3).getFirstName());
-
-	}
-
-	@Test
-	public void deleteGroupTest() throws SQLException{
-		//TODO correction bug
-		Group g =new Group();
-
-		g.setIdGroup(g.getIdGroup());
-		g.setNameGroup("M2 ID 2015/2016");
-
-		
-		dao.deleteGroup(g);
-
-	}
-
-	@Test
-	public void updateGroupTest() throws SQLException{
-		//TODO : correction bug
-		g1.setNameGroup("M2 ISL 2015/2016");
-		
-		dao.updateGroup(g1);
-	}
 }

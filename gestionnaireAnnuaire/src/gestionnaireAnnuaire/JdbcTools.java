@@ -4,6 +4,9 @@ package gestionnaireAnnuaire;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import java.sql.ResultSet;
 
 import java.sql.Connection;
@@ -14,6 +17,13 @@ public class JdbcTools {
 	private String user;
 	private String password;
 	private String driverName;
+
+	public JdbcTools(){
+		setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
+		setUser("root");
+		setPassword("");
+		setDriverName("com.mysql.jdbc.Driver");
+	}
 
 	public String getUrl() {
 		return url;
@@ -69,15 +79,14 @@ public class JdbcTools {
 			c.close();
 	}
 
-	
-	public int executeUpdate(String query, Object ... parameters) { 
-		
+
+	public int executeUpdate(String query, Object ... parameters)  throws SQLException  { 
+
 		try (Connection conn = newConnection()){
 			// préparer l'instruction
 			PreparedStatement st = conn.prepareStatement(query);
 
 			for ( int i=0; i< parameters.length ; i++){
-
 				if(parameters[i] instanceof String)
 					st.setString(i+1, (String) parameters[i]);
 				else if(parameters[i] instanceof Integer)
@@ -86,23 +95,29 @@ public class JdbcTools {
 					st.setBigDecimal(i+1, (java.math.BigDecimal) parameters[i]);
 			}
 			int nb=0;
-
 			// exécuter l'instruction
 			st.execute();
 			ResultSet rs = st.getResultSet();
+			if(rs==null){
+				conn.close();
+				return nb;
+			}
+
 			while(rs.next()){
 				nb++;
 				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5));
 			}	
 			conn.close();
 			return nb;
-		} catch (SQLException e) {
+		} catch(MySQLIntegrityConstraintViolationException e){
 			e.printStackTrace();
+			throw new MySQLIntegrityConstraintViolationException();
 		}
-		return -1;
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
 	}
-
-	
 
 	public boolean isConnect() throws SQLException{
 		if( newConnection() != null )
