@@ -81,13 +81,9 @@ public class DaoPersonTest {
 		p3 = null;
 	}
 
-	@Test
-	public void findPersonTest() throws DaoException, SQLException  {
-		assertEquals(p1.getId(), dao.findPerson(1).getId());
-	}
 
 	@Test
-	public void findAllPersons() throws SQLException{
+	public void findAllPersonsTest() throws SQLException{
 		Collection<Person> listPers = new ArrayList<>();
 		listPers.add(p1); listPers.add(p2);
 
@@ -103,6 +99,11 @@ public class DaoPersonTest {
 
 			assertEquals(pers.getId(),  persFap.getId());
 		}
+	}
+		
+	@Test
+	public void findPersonTest() throws DaoException, SQLException  {
+		assertEquals(p1.getId(), dao.findPerson(1).getId());
 	}
 
 	@Test

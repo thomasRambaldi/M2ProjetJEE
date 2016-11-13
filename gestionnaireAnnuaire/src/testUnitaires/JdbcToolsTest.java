@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,12 +31,17 @@ public class JdbcToolsTest {
 		jdbc.setDriverName("com.mysql.jdbc.Driver");
 
 		jdbcFalse = new JdbcTools();
-		jdbcFalse.setUrl("jdbc:mysql://dbs-perso.luminy.univmed.fr/r21101993");
-		jdbcFalse.setUser("root");
-		jdbcFalse.setPassword("");
-		jdbcFalse.setDriverName("com.mysql.jdbc.Driver");
+		jdbcFalse.setUrl(null);
+		jdbcFalse.setUser(null);
+		jdbcFalse.setPassword(null);
+		jdbcFalse.setDriverName(null);
 	}
 
+	@After
+	public void tearDown(){
+		
+	}
+	
 	@Test
 	public void getUrlTest(){
 		assertEquals("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false",
@@ -58,18 +64,18 @@ public class JdbcToolsTest {
 	}
 
 	@Test
-	public void testInit() throws ClassNotFoundException  {  
+	public void InitTest() throws ClassNotFoundException  {  
 		jdbc.init();
 	}
 
 	@Test
-	public void testNewConnection() throws SQLException, ClassNotFoundException  {
+	public void NewConnectionTest() throws SQLException, ClassNotFoundException  {
 		jdbc.init();
 		conn = jdbc.newConnection();
 	}
 
 	@Test
-	public void testQuietClose() throws SQLException {
+	public void QuietCloseTest() throws SQLException {
 		String url = "jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false";
 		String user = "root";
 		String password = "";
@@ -78,7 +84,12 @@ public class JdbcToolsTest {
 	}
 
 	@Test
-	public void testIsConnected() throws ClassNotFoundException, SQLException  {  
+	public void QuietCloseSQLExceptionTest() throws SQLException {
+		jdbc.quietClose(null);
+	}
+	
+	@Test
+	public void IsConnectedTest() throws ClassNotFoundException, SQLException  {  
 		assertTrue( jdbc.isConnect() );
 	}
 
@@ -100,26 +111,24 @@ public class JdbcToolsTest {
 	}
 	
 	@Test(expected = SQLException.class)
-	public void executeUpdateViolation() throws SQLException, ClassNotFoundException  {
+	public void executeUpdateViolationTest() throws SQLException, ClassNotFoundException  {
 		// TODO : Write the code
 		jdbc.init();
 		Connection c = jdbc.newConnection();
-		jdbc.executeUpdate("SELECT idGroup, nomGroup FROM groupe;");
+		jdbc.executeUpdate("");
 		jdbc.quietClose(c);
 	}
 	
 
 	@Test(expected = SQLException.class)
-	public void testConnectFalse() throws SQLException, ClassNotFoundException  {
+	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {
 		jdbcFalse.init();
 		connFalse = jdbcFalse.newConnection();
 	}
 
 
 	@Test(expected = SQLException.class)
-	public void testIsConnectedFalse() throws ClassNotFoundException, SQLException  {  
+	public void IsConnectedFalseTest() throws ClassNotFoundException, SQLException  {  
 		jdbcFalse.isConnect();
 	}
-
-
 }

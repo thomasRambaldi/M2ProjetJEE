@@ -12,7 +12,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 public class Dao extends JdbcTools implements PersonDao, GroupDao{
 
 	/**
-	 * Constructor of the class Dao
+	 * Constructor of the class Dao 
 	 */
 	public Dao(){
 		super();

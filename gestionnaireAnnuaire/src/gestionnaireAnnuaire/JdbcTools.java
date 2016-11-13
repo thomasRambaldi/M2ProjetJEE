@@ -183,7 +183,7 @@ public class JdbcTools {
 	 */
 	public boolean isConnect() throws SQLException{
 		if( newConnection() != null )
-			return true;
+			return true; 
 		return false;
 	}
 }
