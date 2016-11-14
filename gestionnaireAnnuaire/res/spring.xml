@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
     xmlns:tx="http://www.springframework.org/schema/tx"
@@ -10,11 +9,12 @@
 
     <context:component-scan base-package="com.developpez.rpouiller.springtest" />
 
-    <bean id="dataSource" class="testUnitaires.JdbcToolsTest">
-        <property name="url" 
-        	value="jdbc:mysql://localhost:3306/projetjee?autoReconnect=true;useSSL=false" />
-        <property name="user" value="root" />
-        <property name="password" value="" />
-    </bean>
+ <bean id="dataSource"
+    class="testUnitaires.IGroupDao">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url"      value="jdbc:mysql://localhost:3306/projetjee?autoReconnect=true;useSSL=false" />
+    <property name="username" value="root" />
+    <property name="password" value="" />
+</bean>
 </beans>
- -->
+ 

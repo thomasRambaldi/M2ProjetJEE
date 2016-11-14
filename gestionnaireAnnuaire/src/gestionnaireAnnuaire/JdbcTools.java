@@ -34,10 +34,10 @@ public class JdbcTools {
 	 * Constructor of JdbcTools
 	 */
 	public JdbcTools(){
-		setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		setUser("root");
-		setPassword("");
-		setDriverName("com.mysql.jdbc.Driver");
+//		setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
+//		setUser("root");
+//		setPassword("");
+//		setDriverName("com.mysql.jdbc.Driver");
 	}
 
 	/**

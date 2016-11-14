@@ -7,22 +7,46 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.sql.DataSource;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
 
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration (locations = "spring.xml")
 public class DaoGroupTest {
 
+	@Autowired
 	private Dao dao;
 	private Group g1;
 	private Group g2;
 	private Group g3;
+	
 
+    private JdbcTemplate jdbcTemplate;
+	
+    @Autowired
+    ApplicationContext context;
+    
+    
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+    
 	@Before
 	public void setup() throws SQLException{
 
