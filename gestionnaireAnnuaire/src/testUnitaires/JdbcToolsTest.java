@@ -11,15 +11,43 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import gestionnaireAnnuaire.JdbcTools;
+//import org.springframework.context.ApplicationContext;
 
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.context.support.ApplicationContext;
+//import org.springframework.test.context.TestExecutionListeners;
+//import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+
+
+
+import gestionnaireAnnuaire.IGroupDao;
+import gestionnaireAnnuaire.JdbcTools;
+import gestionnaireAnnuaire.IPersonDao;
+
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = "/spring.xml")
 public class JdbcToolsTest {
 
+//	 @Autowired
+//	 ApplicationContext context;
+//	
+//	 @Autowired
+//	 IPersonDao personDao;
+//	 
+//	 @Autowired
+//	 IGroupDao groupDao;
+
+	 
 	JdbcTools jdbc;
 	JdbcTools jdbcFalse;
 
 	Connection conn;
-	Connection connFalse;
+	Connection connFalse = null;
 
 	@Before
 	public void before(){
@@ -30,11 +58,12 @@ public class JdbcToolsTest {
 		jdbc.setPassword("");
 		jdbc.setDriverName("com.mysql.jdbc.Driver");
 
-		jdbcFalse = new JdbcTools();
-		jdbcFalse.setUrl(null);
-		jdbcFalse.setUser(null);
-		jdbcFalse.setPassword(null);
-		jdbcFalse.setDriverName(null);
+		jdbcFalse = null;
+//		jdbcFalse = new JdbcTools();
+//		jdbcFalse.setUrl(null);
+//		jdbcFalse.setUser(null);
+//		jdbcFalse.setPassword(null);
+//		jdbcFalse.setDriverName(null);
 	}
 
 	@After
@@ -122,7 +151,7 @@ public class JdbcToolsTest {
 
 	@Test(expected = SQLException.class)
 	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {
-		jdbcFalse.init();
+//		jdbcFalse.init();
 		connFalse = jdbcFalse.newConnection();
 	}
 

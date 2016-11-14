@@ -11,12 +11,24 @@ import java.sql.ResultSet;
 
 import java.sql.Connection;
 
+//import javax.annotation.PostConstruct;
+//import javax.sql.DataSource;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Qualifier;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.stereotype.Service;
+
 public class JdbcTools {
 
 	private String url;
 	private String user;
 	private String password;
 	private String driverName;
+	
+//	private JdbcTemplate jdbcTemplate;
 
 	/**
 	 * Constructor of JdbcTools
@@ -94,7 +106,7 @@ public class JdbcTools {
 
 	/**
 	 * Load the driver
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException if the class cannot be located
 	 */
 	public void init() throws ClassNotFoundException  {  
 		loadDriver();
@@ -102,7 +114,7 @@ public class JdbcTools {
 
 	/**
 	 * 
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException if the class cannot be located
 	 */
 	public void loadDriver() throws ClassNotFoundException {
 		Class.forName(driverName);
@@ -110,8 +122,8 @@ public class JdbcTools {
 
 	/**
 	 * Create and return the connection at the data base
-	 * @return
-	 * @throws SQLException
+	 * @return a connection to the URL
+	 * @throws SQLException if a database access error occurs
 	 */
 	public Connection newConnection() throws SQLException {
 		Connection conn = DriverManager.getConnection(url, user, password);
@@ -121,7 +133,7 @@ public class JdbcTools {
 	/**
 	 * Close the connection of the data base
 	 * @param c the current connection
-	 * @throws SQLException
+	 * @throws SQLException if a database access error occurs
 	 */
 	public void quietClose(Connection c) throws SQLException { 
 		if(c != null)
@@ -134,7 +146,7 @@ public class JdbcTools {
 	 * @param query the query (SELECT / INSERT / INSERT INTO / DELETE)
 	 * @param parameters the differents value of the colum
 	 * @return a number of ligne modified
-	 * @throws SQLException
+	 * @throws SQLException if a database access error occurs
 	 */
 	public int executeUpdate(String query, Object ... parameters)  throws SQLException  { 
 
@@ -179,7 +191,7 @@ public class JdbcTools {
 	/**
 	 * Test  the connection
 	 * @return True if connection is established, else return false
-	 * @throws SQLException
+	 * @throws SQLException if a database access error occurs
 	 */
 	public boolean isConnect() throws SQLException{
 		if( newConnection() != null )

@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public interface PersonDao {
+public interface IPersonDao {
 
 	/* **************** */ 
 	/*		Person		*/
