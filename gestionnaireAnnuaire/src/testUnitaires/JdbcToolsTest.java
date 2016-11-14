@@ -33,8 +33,7 @@ public class JdbcToolsTest {
 
 
 	@Before
-	public void before() throws SQLException{
-
+	public void before(){
 		jdbcFalse = new JdbcTools();
 		jdbcFalse.setUrl(null);
 		jdbcFalse.setUser(null);
@@ -127,7 +126,7 @@ public class JdbcToolsTest {
 
 	@Test(expected = SQLException.class)
 	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {
-		//		jdbcFalse.init();
+		//jdbcFalse.init();
 		connFalse = jdbcFalse.newConnection();
 	}
 
