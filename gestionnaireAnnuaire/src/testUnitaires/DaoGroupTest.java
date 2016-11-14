@@ -10,29 +10,31 @@ import java.util.Iterator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
 
-public class DaoGroupTest {
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "spring.xml")
+public class DaoGroupTest {
+// TODO	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
 	private Dao dao;
+	
 	private Group g1;
 	private Group g2;
 	private Group g3;
 
 	@Before
 	public void setup() throws SQLException{
-
-		dao = new Dao();
-
-		dao.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		dao.setUser("root");
-		dao.setPassword("");
-		dao.setDriverName("com.mysql.jdbc.Driver");
-
 		g1 = new Group();
 		g1.setIdGroup(1);
 		g1.setNameGroup("M2 FSIL 2015/2016");
@@ -41,12 +43,12 @@ public class DaoGroupTest {
 		g2.setIdGroup(2);
 		g2.setNameGroup("M2 IM 2015/2016");
 		
-		dao.saveGroup(g1);
-		dao.saveGroup(g2);
-		
 		g3 = new Group();
 		g3.setIdGroup(3);
 		g3.setNameGroup("M2 ID 2015/2016");
+	
+		dao.saveGroup(g1);
+		dao.saveGroup(g2);
 	}
 
 	@After
@@ -107,7 +109,6 @@ public class DaoGroupTest {
 	@Test
 	public void updateGroupTest() throws SQLException{
 		g3.setNameGroup("M2 ISL 2015/2016");
-		
 		dao.updateGroup(g3);
 	}
 

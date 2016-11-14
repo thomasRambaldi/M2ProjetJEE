@@ -10,6 +10,10 @@ import java.util.Iterator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
@@ -17,23 +21,20 @@ import exceptions.DaoException;
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Person;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "spring.xml")
 public class DaoPersonTest {
+//TODO	private JdbcTemplate jdbcTemplate;
 
+	@Autowired
 	private Dao dao;
+
 	private Person p1;
 	private Person p2;
 	private Person p3;
 
 	@Before
 	public void setup() throws SQLException{
-
-		dao = new Dao();
-
-		dao.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		dao.setUser("root");
-		dao.setPassword("");
-		dao.setDriverName("com.mysql.jdbc.Driver");
-
 		p1 = new Person();
 		p1.setId(1);
 		p1.setIdGroup(1);
@@ -53,11 +54,7 @@ public class DaoPersonTest {
 		p2.setWeb("http://k.leb.etu.perso.luminy.univ-amu.fr");
 		p2.setNaissance("08/11/94");
 		p2.setPassword("azerty");
-		
-		
-		dao.savePerson(p1);
-		dao.savePerson(p2);
-		
+
 		p3 =new Person();
 		p3.setId(3);
 		p3.setIdGroup(2);
@@ -67,7 +64,9 @@ public class DaoPersonTest {
 		p3.setWeb("http://benjamin.magron.etu.perso.luminy.univ-amu.fr");
 		p3.setNaissance("28/28/28");
 		p3.setPassword("coucou");
-
+		
+		dao.savePerson(p1);
+		dao.savePerson(p2);
 	}
 
 	@After
@@ -100,7 +99,7 @@ public class DaoPersonTest {
 			assertEquals(pers.getId(),  persFap.getId());
 		}
 	}
-		
+
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
 		assertEquals(p1.getId(), dao.findPerson(1).getId());
@@ -136,7 +135,6 @@ public class DaoPersonTest {
 	public void updatePersonTest() throws SQLException{
 		p3.setMail("k.kevin@gmail.com");
 		p3.setNaissance("");
-
 		dao.updatePerson(p3);
 	}
 

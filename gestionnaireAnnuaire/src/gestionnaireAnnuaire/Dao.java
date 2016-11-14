@@ -15,8 +15,8 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	 * Constructor of the class Dao 
 	 */
 	public Dao(){
-		super();
 	}
+	
 
 	//	@Override
 	//	public Person findPerson(long id) {
@@ -26,19 +26,19 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	//		String strId = Long.toString( id );
 	//		String query = "SELECT * FROM personne" ;
 	//
-	//		// 1. créer une connexion
+	//		// 1. crï¿½er une connexion
 	//		try (Connection conn = newConnection()){
 	//
-	//			// 2. préparer l'instruction
+	//			// 2. prï¿½parer l'instruction
 	//			Statement st = conn.createStatement();
 	//
-	//			// 3. exécuter la requête
+	//			// 3. exï¿½cuter la requï¿½te
 	//			ResultSet rs = st.executeQuery(query);
 	//			System.out.println("------->"+rs.getString(0));
 	//			
 	//			System.out.println(query);
 	//			
-	//			// 4. lire le résultat
+	//			// 4. lire le rï¿½sultat
 	//			while (rs.next()) {
 	//
 	//				System.out.println("------->"+rs.getString(0));

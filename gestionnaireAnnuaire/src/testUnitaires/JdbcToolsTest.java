@@ -10,12 +10,20 @@ import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import gestionnaireAnnuaire.JdbcTools;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "spring.xml")
 public class JdbcToolsTest {
 
+	@Autowired
 	JdbcTools jdbc;
+
 	JdbcTools jdbcFalse;
 
 	Connection conn;
@@ -24,11 +32,11 @@ public class JdbcToolsTest {
 	@Before
 	public void before(){
 
-		jdbc = new JdbcTools();
-		jdbc.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		jdbc.setUser("root");
-		jdbc.setPassword("");
-		jdbc.setDriverName("com.mysql.jdbc.Driver");
+		//		jdbc = new JdbcTools();
+		//		jdbc.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
+		//		jdbc.setUser("root");
+		//		jdbc.setPassword("");
+		//		jdbc.setDriverName("com.mysql.jdbc.Driver");
 
 		jdbcFalse = new JdbcTools();
 		jdbcFalse.setUrl(null);
@@ -39,13 +47,13 @@ public class JdbcToolsTest {
 
 	@After
 	public void tearDown(){
-		
+
 	}
-	
+
 	@Test
 	public void getUrlTest(){
-		assertEquals("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false",
-				jdbc.getUrl());
+		//		jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false
+		assertEquals("jdbc:mysql://localhost:3306/projetjee", jdbc.getUrl());
 	}
 
 	@Test
@@ -87,7 +95,7 @@ public class JdbcToolsTest {
 	public void QuietCloseSQLExceptionTest() throws SQLException {
 		jdbc.quietClose(null);
 	}
-	
+
 	@Test
 	public void IsConnectedTest() throws ClassNotFoundException, SQLException  {  
 		assertTrue( jdbc.isConnect() );
@@ -109,7 +117,7 @@ public class JdbcToolsTest {
 		jdbc.executeUpdate("SELECT idGroup, nomGroup FROM groupe;");
 		jdbc.quietClose(c);
 	}
-	
+
 	@Test(expected = SQLException.class)
 	public void executeUpdateViolationTest() throws SQLException, ClassNotFoundException  {
 		// TODO : Write the code
@@ -118,7 +126,7 @@ public class JdbcToolsTest {
 		jdbc.executeUpdate("");
 		jdbc.quietClose(c);
 	}
-	
+
 
 	@Test(expected = SQLException.class)
 	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {
