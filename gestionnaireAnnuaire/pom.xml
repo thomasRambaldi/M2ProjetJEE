@@ -4,7 +4,6 @@
 	<groupId>gestionnaireAnnuaire</groupId>
 	<artifactId>gestionnaireAnnuaire</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -27,7 +26,6 @@
 	</build>
 
 	<dependencies>
-
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -40,6 +38,24 @@
 			<artifactId>spring-test</artifactId>
 			<version>4.3.1.RELEASE</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.3.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.3.RELEASE</version>
+		</dependency>
+
+
+
 	</dependencies>
+
+
+
 </project>
