@@ -7,15 +7,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.sql.DataSource;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,37 +22,19 @@ import gestionnaireAnnuaire.Group;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration (locations = "spring.xml")
+@ContextConfiguration(locations = "spring.xml")
 public class DaoGroupTest {
-
+// TODO	private JdbcTemplate jdbcTemplate;
+	
 	@Autowired
 	private Dao dao;
+	
 	private Group g1;
 	private Group g2;
 	private Group g3;
-	
 
-    private JdbcTemplate jdbcTemplate;
-	
-    @Autowired
-    ApplicationContext context;
-    
-    
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-    
 	@Before
 	public void setup() throws SQLException{
-
-		dao = new Dao();
-
-		dao.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		dao.setUser("root");
-		dao.setPassword("");
-		dao.setDriverName("com.mysql.jdbc.Driver");
-
 		g1 = new Group();
 		g1.setIdGroup(1);
 		g1.setNameGroup("M2 FSIL 2015/2016");
@@ -65,12 +43,12 @@ public class DaoGroupTest {
 		g2.setIdGroup(2);
 		g2.setNameGroup("M2 IM 2015/2016");
 		
-		dao.saveGroup(g1);
-		dao.saveGroup(g2);
-		
 		g3 = new Group();
 		g3.setIdGroup(3);
 		g3.setNameGroup("M2 ID 2015/2016");
+	
+		dao.saveGroup(g1);
+		dao.saveGroup(g2);
 	}
 
 	@After
@@ -131,7 +109,6 @@ public class DaoGroupTest {
 	@Test
 	public void updateGroupTest() throws SQLException{
 		g3.setNameGroup("M2 ISL 2015/2016");
-		
 		dao.updateGroup(g3);
 	}
 

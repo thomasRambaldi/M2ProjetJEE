@@ -14,62 +14,32 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import gestionnaireAnnuaire.JdbcTools;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration (locations = "spring.xml")
+@ContextConfiguration(locations = "spring.xml")
 public class JdbcToolsTest {
 
 	@Autowired
-	ApplicationContext context;
-
-	//	 @Autowired
-	//	 IPersonDao personDao;
-
-	//	 @Autowired
-	//	 IGroupDao groupDao;
-
-	JdbcTemplate jdbcTemplate;
-	
 	JdbcTools jdbc;
+
 	JdbcTools jdbcFalse;
 
 	Connection conn;
 	Connection connFalse = null;
 
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
 
-	
 	@Before
 	public void before() throws SQLException{
 
-//		jdbc = new JdbcTools();
-//		jdbc.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-//		jdbc.setUser("root");
-//		jdbc.setPassword("");
-//		jdbc.setDriverName("com.mysql.jdbc.Driver");
-
-		ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("spring.xml");
-		jdbcTemplate = (JdbcTemplate) appContext.getBean("JdbcTemplate");
-		
-		
-		
-		jdbcFalse = null;
-		//		jdbcFalse = new JdbcTools();
-		//		jdbcFalse.setUrl(null);
-		//		jdbcFalse.setUser(null);
-		//		jdbcFalse.setPassword(null);
-		//		jdbcFalse.setDriverName(null);
+		jdbcFalse = new JdbcTools();
+		jdbcFalse.setUrl(null);
+		jdbcFalse.setUser(null);
+		jdbcFalse.setPassword(null);
+		jdbcFalse.setDriverName(null);
 	}
 
 	@After
@@ -79,8 +49,8 @@ public class JdbcToolsTest {
 
 	@Test
 	public void getUrlTest(){
-		assertEquals("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false",
-				jdbc.getUrl());
+		//		jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false
+		assertEquals("jdbc:mysql://localhost:3306/projetjee?useSSL=false", jdbc.getUrl());
 	}
 
 	@Test
