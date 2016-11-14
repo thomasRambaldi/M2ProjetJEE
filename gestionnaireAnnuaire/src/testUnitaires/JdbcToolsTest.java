@@ -31,13 +31,6 @@ public class JdbcToolsTest {
 
 	@Before
 	public void before(){
-
-		//		jdbc = new JdbcTools();
-		//		jdbc.setUrl("jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false");
-		//		jdbc.setUser("root");
-		//		jdbc.setPassword("");
-		//		jdbc.setDriverName("com.mysql.jdbc.Driver");
-
 		jdbcFalse = new JdbcTools();
 		jdbcFalse.setUrl(null);
 		jdbcFalse.setUser(null);
@@ -130,7 +123,7 @@ public class JdbcToolsTest {
 
 	@Test(expected = SQLException.class)
 	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {
-		jdbcFalse.init();
+		//jdbcFalse.init();
 		connFalse = jdbcFalse.newConnection();
 	}
 

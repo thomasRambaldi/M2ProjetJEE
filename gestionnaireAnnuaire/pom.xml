@@ -46,11 +46,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.3.3.RELEASE</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
