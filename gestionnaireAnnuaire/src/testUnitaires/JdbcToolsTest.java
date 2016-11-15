@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +29,8 @@ public class JdbcToolsTest {
 	JdbcTools jdbcFalse;
 
 	Connection conn;
-	Connection connFalse;
+	Connection connFalse = null;
+
 
 	@Before
 	public void before(){
@@ -46,7 +49,7 @@ public class JdbcToolsTest {
 	@Test
 	public void getUrlTest(){
 		//		jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false
-		assertEquals("jdbc:mysql://localhost:3306/projetjee", jdbc.getUrl());
+		assertEquals("jdbc:mysql://localhost:3306/projetjee?useSSL=false", jdbc.getUrl());
 	}
 
 	@Test

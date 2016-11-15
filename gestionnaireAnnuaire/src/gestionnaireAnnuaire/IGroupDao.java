@@ -49,4 +49,5 @@ public interface IGroupDao {
 	 * @throws SQLException 
 	 */
 	void updateGroup(Group g, int idGrp) throws MySQLIntegrityConstraintViolationException, SQLException;
+
 }

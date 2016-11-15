@@ -9,7 +9,6 @@ import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-import exceptions.DaoException;
 
 public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
@@ -66,7 +65,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 * Return all people in a group
 	 * @param groupId group who contains people
 	 * @return return all people in a group
-	 * @throws SQLException 
+	 * @throws SQLException if a database access error occurs
 	 */
 	@Override
 	public Collection<Person> findAllPersons(long groupId) throws SQLException {
@@ -114,7 +113,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 * Return one person with him id
 	 * @param id The identifiant of the person
 	 * @return return the person with this id
-	 * @throws SQLException 
+	 * @throws SQLException if a database access error occurs
 	 */
 	@Override
 	public Person findPerson(long id) throws SQLException {
@@ -150,7 +149,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	/**
 	 * Add a person in the data base
 	 * @param p A person
-	 * @throws MySQLIntegrityConstraintViolationException 
+	 * @throws MySQLIntegrityConstraintViolationException if the primary key already exist in the database
 	 */
 	@Override
 	public void savePerson(Person p) throws SQLException{

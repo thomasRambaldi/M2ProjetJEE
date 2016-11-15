@@ -4,14 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="daoSource" class="gestionnaireAnnuaire.Dao">
-		<property name="url" value="jdbc:mysql://localhost:3306/projetjee" />
+		<property name="url" value="jdbc:mysql://localhost:3306/projetjee?useSSL=false" />
 		<property name="user" value="root" />
 		<property name="password" value="" />
 		<property name="driverName" value="com.mysql.jdbc.Driver" />
 	</bean>
 	
-	
-
-
 </beans>
-          

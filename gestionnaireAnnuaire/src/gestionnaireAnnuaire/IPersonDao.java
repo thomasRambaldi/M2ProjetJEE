@@ -52,6 +52,4 @@ public interface IPersonDao {
 	 */
 	void updatePerson(Person p, int idPerson) throws MySQLIntegrityConstraintViolationException, SQLException;
 
-	//	   ...
-
 }
