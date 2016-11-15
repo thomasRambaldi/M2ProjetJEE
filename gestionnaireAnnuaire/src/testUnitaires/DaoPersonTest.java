@@ -1,6 +1,8 @@
 package testUnitaires;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -99,10 +101,15 @@ public class DaoPersonTest {
 			assertEquals(pers.getId(),  persFap.getId());
 		}
 	}
-
+	
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
 		assertEquals(p1.getId(), dao.findPerson(1).getId());
+	}
+	
+	@Test
+	public void findPersonDontExistTest() throws DaoException, SQLException  { 
+		assertEquals(null, dao.findPerson(300));
 	}
 
 	@Test
@@ -110,9 +117,9 @@ public class DaoPersonTest {
 		dao.savePerson(p3);
 		assertEquals(3, dao.findPerson(3).getId());
 	}
-
+	
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
-	public void savePersonViolationTest() throws SQLException{
+	public void savePersonAlreadyExistTest() throws SQLException{
 		Person p = new Person();
 		p.setId(1);
 		p.setIdGroup(2);
@@ -130,12 +137,49 @@ public class DaoPersonTest {
 	public void deletePersonTest() throws SQLException{
 		dao.deletePerson(p3);
 	}
+	
+	@Test
+	public void deletePersonDontExistTest() throws SQLException{
+		Person p = new Person();
+		p.setId(200);
+		p.setIdGroup(2);
+		p.setFirstName("Campanella");
+		p.setLastName("Florian");
+		p.setMail("f.campanella@gmail.com");
+		p.setWeb("http://florian.campanella.etu.perso.luminy.univ-amu.fr");
+		p.setNaissance("12/01/1993");
+		p.setPassword("test");
+		
+		dao.deletePerson(p);
+	}
 
 	@Test
 	public void updatePersonTest() throws SQLException{
 		p3.setMail("k.kevin@gmail.com");
 		p3.setNaissance("");
 		dao.updatePerson(p3);
+	}
+	
+	@Test(expected = MySQLIntegrityConstraintViolationException.class)
+	public void updatePersonAlreadyExist() throws SQLException{
+		// TODO : pas exception
+		p3.setId(1);
+		dao.updatePerson(p3);
+	}
+	
+	@Test
+	public void updatePersonDontExist() throws SQLException{
+		Person p = new Person();
+		p.setId(200);
+		p.setIdGroup(2);
+		p.setFirstName("Campanella");
+		p.setLastName("Florian");
+		p.setMail("f.campanella@gmail.com");
+		p.setWeb("http://florian.campanella.etu.perso.luminy.univ-amu.fr");
+		p.setNaissance("12/01/1993");
+		p.setPassword("test");
+		
+		dao.updatePerson(p);
 	}
 
 }

@@ -1,6 +1,7 @@
 package testUnitaires;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -63,11 +64,6 @@ public class DaoGroupTest {
 	}	
 
 	@Test
-	public void findGroupTest() throws SQLException{
-		assertEquals(g1.getIdGroup(), dao.findGroup(1).getIdGroup());
-	}
-
-	@Test
 	public void findAllGroupTest() throws SQLException{
 		Collection<Group> listGroup = new ArrayList<>();
 		listGroup.add(g1); listGroup.add(g2);
@@ -85,7 +81,18 @@ public class DaoGroupTest {
 			assertEquals(group.getIdGroup(),  groupFap.getIdGroup());
 		}
 	}
+	
+	@Test
+	public void findGroupTest() throws SQLException{
+		assertEquals(g1.getIdGroup(), dao.findGroup(1).getIdGroup());
+	}
+	
+	@Test
+	public void findGroupDontExistTest() throws SQLException{
+		assertEquals(null, dao.findGroup(300));
 
+	}
+	
 	@Test
 	public void saveGroupTest() throws SQLException{
 		dao.saveGroup(g3);
@@ -93,23 +100,40 @@ public class DaoGroupTest {
 	}
 
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
-	public void saveGroupViolationTest() throws SQLException{
+	public void saveGroupAlreadyExistTest() throws SQLException{
 		Group g = new Group();
 		g.setIdGroup(1);
 		g.setNameGroup("M2 GL 2015/2016");
 		dao.saveGroup(g);
 	}
 
-	
 	@Test
 	public void deleteGroupTest() throws SQLException{
 		dao.deleteGroup(g3);
+	}
+	
+	@Test
+	public void deleteGroupDontExistTest() throws SQLException{
+		Group g = new Group();
+		g.setIdGroup(200);
+		g.setNameGroup("M2 FSI 2015/2016");
+		
+		dao.deleteGroup(g);
 	}
 
 	@Test
 	public void updateGroupTest() throws SQLException{
 		g3.setNameGroup("M2 ISL 2015/2016");
 		dao.updateGroup(g3);
+	}
+		
+	@Test
+	public void updateGroupDontExistTest() throws SQLException{
+		Group g = new Group();
+		g.setIdGroup(200);
+		g.setNameGroup("M2 FSI 2015/2016");
+		
+		dao.updateGroup(g);
 	}
 
 }
