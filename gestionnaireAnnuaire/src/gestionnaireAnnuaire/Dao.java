@@ -9,14 +9,16 @@ import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public class Dao extends JdbcTools implements PersonDao, GroupDao{
+import exceptions.DaoException;
+
+public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 	/**
 	 * Constructor of the class Dao 
 	 */
 	public Dao(){
 	}
-	
+
 
 	//	@Override
 	//	public Person findPerson(long id) {
@@ -117,38 +119,33 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	@Override
 	public Person findPerson(long id) throws SQLException {
 
-		Person p = new Person();
-
+		Person p = new Person();;
 		String strId = Long.toString( id );
 		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne WHERE idPers = " + strId ;
 
-		Connection conn = null;
-		try {
+		//Connection conn = null;
+		try (Connection conn = newConnection()){
 			// create new connection and statement
-			conn = newConnection();
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				p.setId( Integer.parseInt( rs.getString(1) ) );
-				p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
-				p.setFirstName( rs.getString(3) );
-				p.setLastName( rs.getString(4) );
-				p.setMail( rs.getString(5) );
-				p.setWeb( rs.getString(6) );
-				p.setNaissance( rs.getString(7) );
-				p.setPassword( rs.getString(8) );
-			}
+			if(! rs.next())
+				return null;
+			p.setId( Integer.parseInt( rs.getString(1) ) );
+			p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
+			p.setFirstName( rs.getString(3) );
+			p.setLastName( rs.getString(4) );
+			p.setMail( rs.getString(5) );
+			p.setWeb( rs.getString(6) );
+			p.setNaissance( rs.getString(7) );
+			p.setPassword( rs.getString(8) );
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
-		} finally {
-			// close result, statement and connection
-			if (conn != null)
-				conn.close();
-		}
+		} 
 		return p;
 	}
+
 
 	/**
 	 * Add a person in the data base
@@ -192,10 +189,10 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 	 * @throws SQLException 
 	 */
 	@Override
-	public void updatePerson(Person p) throws SQLException {
+	public void updatePerson(Person p, int idPerson) throws SQLException {
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
-				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ?"
-				+ "WHERE idPers = " + p.getId();
+				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
+				+ "WHERE idPers = " + idPerson;
 
 		int idPers = p.getId();
 		int idGroup = p.getIdGroup();
@@ -264,12 +261,10 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 			conn = newConnection();
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-
-				g.setIdGroup(  rs.getInt(1) );
-				g.setNameGroup( rs.getString(2)  );
-
-			}
+			if (! rs.next())
+				return null;
+			g.setIdGroup(  rs.getInt(1) );
+			g.setNameGroup( rs.getString(2)  );
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
@@ -307,15 +302,15 @@ public class Dao extends JdbcTools implements PersonDao, GroupDao{
 
 		executeUpdate(query);
 	}
-	
+
 	/**
 	 * Update a Group with the new information of a Group in parameter
 	 * @param g A new information of Group
 	 * @throws SQLException 
 	 */
 	@Override
-	public void updateGroup(Group g) throws SQLException {
-		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + g.getIdGroup();
+	public void updateGroup(Group g, int idGrp) throws SQLException {
+		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + idGrp;
 
 		int idGroup = g.getIdGroup();
 		String nomGroup = g.getNameGroup();

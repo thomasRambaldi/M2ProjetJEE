@@ -1,6 +1,6 @@
 package testUnitaires;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,29 +80,35 @@ public class DaoPersonTest {
 		p3 = null;
 	}
 
-
 	@Test
 	public void findAllPersonsTest() throws SQLException{
-		Collection<Person> listPers = new ArrayList<>();
+		ArrayList<Person> listPers = new ArrayList<>();
 		listPers.add(p1); listPers.add(p2);
 
 		Collection<Person> fap = dao.findAllPersons(1);
 
-		Iterator<Person> iterator = listPers.iterator();
 		Iterator<Person> iterator2 = fap.iterator();
 
-		while (iterator.hasNext() && iterator2.hasNext() ){
-
-			Person pers = iterator.next();
+		while (iterator2.hasNext() ){
 			Person persFap =  iterator2.next();
-
-			assertEquals(pers.getId(),  persFap.getId());
+			assertTrue(contains(listPers, persFap));
 		}
+	}
+	
+	@Test 
+	public void findAllPersonsInGroupDontExistTest() throws SQLException{
+		Collection<Person> fap = dao.findAllPersons(3);
+		assertEquals(0, fap.size());
 	}
 
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
 		assertEquals(p1.getId(), dao.findPerson(1).getId());
+	}
+	
+	@Test 
+	public void findPersonDontExistTest() throws DaoException, SQLException  {
+		assertEquals(null, dao.findPerson(300));
 	}
 
 	@Test
@@ -112,7 +118,7 @@ public class DaoPersonTest {
 	}
 
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
-	public void savePersonViolationTest() throws SQLException{
+	public void savePersonAlreadyExistTest() throws SQLException{
 		Person p = new Person();
 		p.setId(1);
 		p.setIdGroup(2);
@@ -130,12 +136,45 @@ public class DaoPersonTest {
 	public void deletePersonTest() throws SQLException{
 		dao.deletePerson(p3);
 	}
+	
+	@Test
+	public void deletePersonDontExistTest() throws SQLException{
+		
+	}
 
 	@Test
 	public void updatePersonTest() throws SQLException{
 		p3.setMail("k.kevin@gmail.com");
 		p3.setNaissance("");
-		dao.updatePerson(p3);
+		dao.updatePerson(p3, p3.getId());
 	}
-
+	
+	@Test (expected = MySQLIntegrityConstraintViolationException.class)
+	public void updatePersonAlreadyExistTest() throws SQLException{
+		int oldId = p3.getId();
+		dao.savePerson(p3);
+		p3.setId(1);
+		System.out.println("update already");
+		dao.updatePerson(p3, oldId);
+		System.out.println("END");
+	}
+	
+	@Test
+	public void updatePersonDontExistTest() throws SQLException{
+	
+	}
+	
+	/**
+	 * The fonction contains will detect if a person is contained in a an arraylist 
+	 * by comparison of each attribute and not references
+	 * @param a : An arraylist of persons
+	 * @param p : a person
+	 * @return : true if the person is contained in the arraylist, false otherwise
+	 */
+	private boolean contains(ArrayList<Person> a, Person p){
+		for(Person pers : a)
+			if(p.equals(p))
+				return true;
+		return false;
+	}
 }

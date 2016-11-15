@@ -1,6 +1,6 @@
 package testUnitaires;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
+import gestionnaireAnnuaire.Person;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,23 +67,25 @@ public class DaoGroupTest {
 	public void findGroupTest() throws SQLException{
 		assertEquals(g1.getIdGroup(), dao.findGroup(1).getIdGroup());
 	}
+	
+	@Test
+	public void findGroupDontExistTest() throws SQLException{
+		assertEquals(null, dao.findGroup(300));
+	}
 
 	@Test
 	public void findAllGroupTest() throws SQLException{
-		Collection<Group> listGroup = new ArrayList<>();
+		ArrayList<Group> listGroup = new ArrayList<>();
 		listGroup.add(g1); listGroup.add(g2);
 
-		Collection<Group> fap = dao.findAllGroups();
+		Collection<Group> fag = dao.findAllGroups();
 
-		Iterator<Group> iterator = listGroup.iterator();
-		Iterator<Group> iterator2 = fap.iterator();
+		Iterator<Group> iterator = fag.iterator();
 
-		while (iterator.hasNext() && iterator2.hasNext() ){
+		while (iterator.hasNext()){
 
 			Group group = iterator.next();
-			Group  groupFap =  iterator2.next();
-
-			assertEquals(group.getIdGroup(),  groupFap.getIdGroup());
+			assertTrue(contains(listGroup, group));
 		}
 	}
 
@@ -109,7 +112,22 @@ public class DaoGroupTest {
 	@Test
 	public void updateGroupTest() throws SQLException{
 		g3.setNameGroup("M2 ISL 2015/2016");
-		dao.updateGroup(g3);
+		dao.updateGroup(g3, g3.getIdGroup());
+	}
+	
+	@Test (expected = MySQLIntegrityConstraintViolationException.class)
+	public void updateGroupAlreadyExistTest() throws SQLException{
+		int oldId = g3.getIdGroup();
+		dao.saveGroup(g3);
+		g3.setIdGroup(1);
+		dao.updateGroup(g3, oldId);
+	}
+	
+	private boolean contains(ArrayList<Group> a, Group g){
+		for(Group grp : a)
+			if(grp.equals(g))
+				return true;
+		return false;
 	}
 
 }

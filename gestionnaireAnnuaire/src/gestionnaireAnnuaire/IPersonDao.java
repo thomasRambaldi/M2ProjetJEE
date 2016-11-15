@@ -5,13 +5,13 @@ import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public interface PersonDao {
+public interface IPersonDao {
 
 	/* **************** */ 
 	/*		Person		*/
 	/* **************** */
 
-	// récupérer les personnes
+	// rï¿½cupï¿½rer les personnes
 	/**
 	 * Return all people in a group
 	 * @param groupId group who contains people
@@ -50,7 +50,7 @@ public interface PersonDao {
 	 * @param p A new information of Person
 	 * @throws SQLException 
 	 */
-	void updatePerson(Person p) throws MySQLIntegrityConstraintViolationException, SQLException;
+	void updatePerson(Person p, int idPerson) throws MySQLIntegrityConstraintViolationException, SQLException;
 
 	//	   ...
 
