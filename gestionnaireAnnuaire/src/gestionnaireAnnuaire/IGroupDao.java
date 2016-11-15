@@ -11,7 +11,7 @@ public interface IGroupDao {
 	/*		Group		*/
 	/* **************** */
 
-	// récupérer les groupes
+	// rï¿½cupï¿½rer les groupes
 	/**
 	 * Return all group
 	 * @return return all group
@@ -19,7 +19,7 @@ public interface IGroupDao {
 	 */
 	Collection<Group> findAllGroups() throws SQLException;
 
-	//Récupérer un groupe
+	//Rï¿½cupï¿½rer un groupe
 	/**
 	 * Return one group with him id
 	 * @param id The identifiant of the group
@@ -48,5 +48,6 @@ public interface IGroupDao {
 	 * @param g A new information of Group
 	 * @throws SQLException 
 	 */
-	void updateGroup(Group g) throws MySQLIntegrityConstraintViolationException, SQLException;
+	void updateGroup(Group g, int idGrp) throws MySQLIntegrityConstraintViolationException, SQLException;
+
 }

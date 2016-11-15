@@ -11,7 +11,7 @@ public interface IPersonDao {
 	/*		Person		*/
 	/* **************** */
 
-	// récupérer les personnes
+	// rï¿½cupï¿½rer les personnes
 	/**
 	 * Return all people in a group
 	 * @param groupId group who contains people
@@ -50,8 +50,6 @@ public interface IPersonDao {
 	 * @param p A new information of Person
 	 * @throws SQLException 
 	 */
-	void updatePerson(Person p) throws MySQLIntegrityConstraintViolationException, SQLException;
-
-	//	   ...
+	void updatePerson(Person p, int idPerson) throws MySQLIntegrityConstraintViolationException, SQLException;
 
 }

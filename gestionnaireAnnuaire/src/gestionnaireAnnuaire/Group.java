@@ -46,5 +46,9 @@ public class Group {
 	public void setNameGroup(String nameGroup) {
 		this.nameGroup = nameGroup;
 	}
-
+	
+	public boolean equals(Group g){
+		return 	idGroup == g.getIdGroup() && 
+				nameGroup.equals(g.getNameGroup());
+	}
 }

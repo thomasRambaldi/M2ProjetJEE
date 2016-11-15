@@ -123,7 +123,7 @@ public class Person {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
 	 * Set the passord of the person
 	 * @param password of the person
@@ -146,5 +146,27 @@ public class Person {
 	 */
 	public void setNaissance(String naissance) {
 		this.naissance = naissance;
+	}
+
+	public boolean equals(Person p){
+		return idPers == p.getId() && 
+				idGroup == p.getIdGroup() && 
+				firstName.equals(p.getFirstName()) &&
+				lastName.equals(p.getLastName()) && 
+				mail.equals(p.getMail()) &&
+				web.equals(p.getWeb()) &&
+				naissance.equals(p.getNaissance()) &&
+				password.equals(p.getPassword());
+	}
+	
+	public String toString(){
+		return "Id : "+idPers +
+				" - Group : "+idGroup +
+				" - "+ firstName +
+				" - "+ lastName +
+				" - "+ mail + 
+				" - "+ web +
+				" - "+naissance +
+				" - "+password;
 	}
 }

@@ -138,7 +138,7 @@ public class DaoTest extends JdbcTools{
 		p2.setMail("k.kevin@gmail.com");
 		p2.setNaissance("");
 		
-		dao.updatePerson(p2);
+		dao.updatePerson(p2, p2.getId());
 	}
 
 	@Test
@@ -198,6 +198,6 @@ public class DaoTest extends JdbcTools{
 		//TODO : correction bug
 		g1.setNameGroup("M2 ISL 2015/2016");
 		
-		dao.updateGroup(g1);
+		dao.updateGroup(g1, g1.getIdGroup());
 	}
 }

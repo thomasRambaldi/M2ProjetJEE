@@ -36,7 +36,7 @@ public class JdbcToolsTest {
 		jdbcFalse.setUrl(null);
 		jdbcFalse.setUser(null);
 		jdbcFalse.setPassword(null);
-		jdbcFalse.setDriverName(null);
+		jdbcFalse.setDriverName("com.mysql.jdbc.Driver");
 	}
 
 	@After
@@ -93,6 +93,7 @@ public class JdbcToolsTest {
 
 	@Test
 	public void quietCloseSQLExceptionTest() throws SQLException {
+		//TODO Modifier la fonction pour tester le cas d'erreur (si necéssaire)
 		jdbc.quietClose(null);
 	}
 	
@@ -130,5 +131,17 @@ public class JdbcToolsTest {
 		Connection c = jdbc.newConnection();
 		jdbc.executeUpdate("");
 		jdbc.quietClose(c);
+	}
+
+	@Test(expected = SQLException.class)
+	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {
+		jdbcFalse.init();
+		connFalse = jdbcFalse.newConnection();
+	}
+
+
+	@Test(expected = SQLException.class)
+	public void IsConnectedFalseTest() throws ClassNotFoundException, SQLException  {  
+		jdbcFalse.isConnect();
 	}
 }
