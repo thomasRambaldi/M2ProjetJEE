@@ -166,9 +166,17 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String web = p.getWeb();
 		String naissance = p.getNaissance();
 		String password= p.getPassword();
+		
+		if(oneOrMoreFieldsIncorrect(idPers, idGroup, firstName, lastName, password))
+			throw new SQLException();
 
 		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password);
 	}
+
+	private boolean oneOrMoreFieldsIncorrect(int idPers, int idGroup, String firstName, String lastName, String password) {
+		return idPers < 1 || idGroup < 1 || firstName == null || lastName == null || password == null;
+	}
+
 
 	/**
 	 * Delete a person in the data base

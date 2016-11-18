@@ -54,6 +54,7 @@ public class DaoGroupTest {
 
 	@After
 	public void tearDown() throws SQLException{
+		g3.setIdGroup(3);
 		dao.deleteGroup(g1);
 		dao.deleteGroup(g2);
 		dao.deleteGroup(g3);
@@ -94,6 +95,8 @@ public class DaoGroupTest {
 		dao.saveGroup(g3);
 		assertEquals(3, dao.findGroup(3).getIdGroup());
 	}
+	
+	// TODO : Faire le checker de savegroup( comme saveperson) 
 
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
 	public void saveGroupAlreadyExistTest() throws SQLException{
