@@ -1,9 +1,11 @@
-package gestionnaireAnnuaire;
+package fr.gestionnaire.annuaire;
 
 import java.sql.SQLException;
 import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
+import exceptions.DaoException;
 
 public interface IGroupDao {
 
@@ -33,8 +35,9 @@ public interface IGroupDao {
 	 * Add a group in the data base
 	 * @param p A person
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
-	void saveGroup(Group g) throws MySQLIntegrityConstraintViolationException, SQLException;
+	void saveGroup(Group g) throws MySQLIntegrityConstraintViolationException, SQLException, DaoException;
 
 	/**
 	 * Delete a group in the data base
@@ -47,7 +50,8 @@ public interface IGroupDao {
 	 * Update a Group with the new information of a Group in parameter
 	 * @param g A new information of Group
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
-	void updateGroup(Group g, int idGrp) throws MySQLIntegrityConstraintViolationException, SQLException;
+	void updateGroup(Group g, int idGrp) throws MySQLIntegrityConstraintViolationException, SQLException, DaoException;
 
 }

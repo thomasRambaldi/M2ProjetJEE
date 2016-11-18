@@ -1,4 +1,4 @@
-package gestionnaireAnnuaire;
+package fr.gestionnaire.annuaire;
 
 
 import java.sql.DriverManager;

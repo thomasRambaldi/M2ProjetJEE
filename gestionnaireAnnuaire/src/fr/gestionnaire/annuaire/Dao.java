@@ -1,4 +1,4 @@
-package gestionnaireAnnuaire;
+package fr.gestionnaire.annuaire;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,57 +9,29 @@ import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import exceptions.DaoException;
+import fr.gestionnaire.utils.CheckerBirthDay;
+import fr.gestionnaire.utils.CheckerGroupName;
+import fr.gestionnaire.utils.CheckerMail;
+import fr.gestionnaire.utils.CheckerWeb;
+
 
 public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
+
+	CheckerBirthDay checkBirth ;
+	CheckerGroupName checkGroupName;
+	CheckerMail checkMail;
+	CheckerWeb checkWeb;
 
 	/**
 	 * Constructor of the class Dao 
 	 */
 	public Dao(){
+		checkBirth = new CheckerBirthDay();
+		checkGroupName = new CheckerGroupName();
+		checkMail = new CheckerMail();
+		checkWeb = new CheckerWeb();
 	}
-
-
-	//	@Override
-	//	public Person findPerson(long id) {
-	//
-	//		Person p = new Person();
-	//
-	//		String strId = Long.toString( id );
-	//		String query = "SELECT * FROM personne" ;
-	//
-	//		// 1. cr�er une connexion
-	//		try (Connection conn = newConnection()){
-	//
-	//			// 2. pr�parer l'instruction
-	//			Statement st = conn.createStatement();
-	//
-	//			// 3. ex�cuter la requ�te
-	//			ResultSet rs = st.executeQuery(query);
-	//			System.out.println("------->"+rs.getString(0));
-	//			
-	//			System.out.println(query);
-	//			
-	//			// 4. lire le r�sultat
-	//			while (rs.next()) {
-	//
-	//				System.out.println("------->"+rs.getString(0));
-	//				p.setFirstName(rs.getString(1));
-	//				p.setLastName(rs.getString("PrenomPers"));
-	//				p.setMail(rs.getString(4));
-	//				p.setWeb( rs.getString(5) );
-	//				p.setNaissance( rs.getString(6) );
-	//				p.setPassword( rs.getString(7) );
-	//			}
-	//
-	//		} catch (SQLException e) {
-	//			// 5. construire l'exception DAO
-	//			System.out.println("Erreur lors de la requete");
-	//			// 6. renvoyer cette exception
-	//			//			e.printStackTrace();
-	//		}
-	//		return p;
-	//	}
-
 
 	/**
 	 * Return all people in a group
@@ -151,10 +123,17 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	/**
 	 * Add a person in the data base
 	 * @param p A person
+	 * @throws DaoException 
 	 * @throws MySQLIntegrityConstraintViolationException if the primary key already exist in the database
 	 */
 	@Override
-	public void savePerson(Person p) throws SQLException{
+	public void savePerson(Person p) throws SQLException, DaoException{
+
+//		TODO
+//		if( ! checkMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
+//		if( ! checkWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
+//		if( ! checkBirth.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
+
 		String query = "INSERT INTO personne (idPers, idGroup, NomPers, PrenomPers, "
 				+ "MailPers, WebPers, NaissancePers, MdpPers) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -166,7 +145,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String web = p.getWeb();
 		String naissance = p.getNaissance();
 		String password= p.getPassword();
-		
+
 		if(oneOrMoreFieldsIncorrect(idPers, idGroup, firstName, lastName, password))
 			throw new SQLException();
 
@@ -195,9 +174,15 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 * Update a person with the new information of a Person in parameter
 	 * @param p A new information of Person
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
 	@Override
-	public void updatePerson(Person p, int idPerson) throws SQLException {
+	public void updatePerson(Person p, int idPerson) throws SQLException, DaoException {
+
+//		if( ! checkMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
+//		if( ! checkWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
+//		if( ! checkBirth.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
+
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
 				+ "WHERE idPers = " + idPerson;
@@ -269,10 +254,10 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			conn = newConnection();
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			
+
 			if (! rs.next())
 				return null;
-			
+
 			g.setIdGroup(  rs.getInt(1) );
 			g.setNameGroup( rs.getString(2)  );
 		} catch (SQLException e) {
@@ -290,9 +275,14 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 * Add a group in the data base
 	 * @param p A person
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
 	@Override
-	public void saveGroup(Group g) throws SQLException {
+	public void saveGroup(Group g) throws SQLException, DaoException {
+		
+//		TODO
+//		if( ! checkGroupName.validate(g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
+		
 		String query = "INSERT INTO groupe (idGroup, nomGroup) VALUES(?, ?)";
 
 		int idGroup = g.getIdGroup();
@@ -317,9 +307,13 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 * Update a Group with the new information of a Group in parameter
 	 * @param g A new information of Group
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
 	@Override
-	public void updateGroup(Group g, int idGrp) throws SQLException {
+	public void updateGroup(Group g, int idGrp) throws SQLException, DaoException {
+		
+//		if( ! check.validateGroupName(g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
+		
 		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + idGrp;
 
 		int idGroup = g.getIdGroup();

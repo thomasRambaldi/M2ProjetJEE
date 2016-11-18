@@ -1,4 +1,4 @@
-package testUnitaires;
+package fr.test.unitaires.gestionnaire;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import exceptions.DaoException;
-import gestionnaireAnnuaire.Dao;
-import gestionnaireAnnuaire.Person;
+import fr.gestionnaire.annuaire.Dao;
+import fr.gestionnaire.annuaire.Person;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "spring.xml")
@@ -35,7 +35,7 @@ public class DaoPersonTest {
 	private Person p3;
 
 	@Before
-	public void setup() throws SQLException{
+	public void setup() throws SQLException, DaoException{
 		p1 = new Person();
 		p1.setId(1);
 		p1.setIdGroup(1);
@@ -114,13 +114,13 @@ public class DaoPersonTest {
 	}
 
 	@Test
-	public void savePersonTest() throws SQLException{
+	public void savePersonTest() throws SQLException, DaoException{
 		dao.savePerson(p3);
 		assertEquals(3, dao.findPerson(3).getId());
 	}
 	
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
-	public void savePersonAlreadyExistTest() throws SQLException{
+	public void savePersonAlreadyExistTest() throws SQLException, DaoException{
 		Person p = new Person();
 		p.setId(1);
 		p.setIdGroup(2);
@@ -135,7 +135,7 @@ public class DaoPersonTest {
 	}
 	
 	@Test (expected = SQLException.class)
-	public void savePersonCheckerTest() throws SQLException{
+	public void savePersonCheckerTest() throws SQLException, DaoException{
 		Person p = new Person();
 		p.setId(1);
 		p.setIdGroup(2);
@@ -165,14 +165,14 @@ public class DaoPersonTest {
 	}
 
 	@Test
-	public void updatePersonTest() throws SQLException{
+	public void updatePersonTest() throws SQLException, DaoException{
 		p3.setMail("k.kevin@gmail.com");
 		p3.setNaissance("");
 		dao.updatePerson(p3, p3.getId());
 	}
 	
 	@Test
-	public void updatePersonDontExist() throws SQLException{
+	public void updatePersonDontExist() throws SQLException, DaoException{
 		Person p = new Person();
 		p.setId(200);
 		p.setIdGroup(2);
@@ -187,7 +187,7 @@ public class DaoPersonTest {
 	}
 
 	@Test (expected = MySQLIntegrityConstraintViolationException.class)
-	public void updatePersonAlreadyExistTest() throws SQLException{
+	public void updatePersonAlreadyExistTest() throws SQLException, DaoException{
 		int oldId = p3.getId();
 		dao.savePerson(p3);
 		p3.setId(1);

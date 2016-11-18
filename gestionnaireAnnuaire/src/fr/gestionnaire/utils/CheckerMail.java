@@ -1,19 +1,17 @@
-package utils;
+package fr.gestionnaire.utils;
 
 import java.util.regex.*;
 
-public class Checker {
+public class CheckerMail implements IChecker {
 
 	private Pattern pattern;
 	private Matcher matcher;
 
 	private static final String EMAIL_PATTERN =
 		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		+ "[A-Za-z0-9-_]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
-	private static final String NOM_GROUP_PATTERN = "M|L ";
-	
-	public Checker() {
+	public CheckerMail() {
 		pattern = Pattern.compile(EMAIL_PATTERN);
 	}
 
@@ -24,7 +22,6 @@ public class Checker {
 	 * @return true valid string, false invalid string
 	 */
 	public boolean validate(final String string) {
-
 		matcher = pattern.matcher(string);
 		return matcher.matches();
 
