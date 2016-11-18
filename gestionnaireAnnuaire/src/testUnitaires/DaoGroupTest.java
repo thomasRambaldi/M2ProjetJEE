@@ -1,6 +1,7 @@
 package testUnitaires;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
-import gestionnaireAnnuaire.Person;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -89,7 +89,7 @@ public class DaoGroupTest {
 			assertTrue(contains(listGroup, group));
 		}
 	}
-
+	
 	@Test
 	public void saveGroupTest() throws SQLException{
 		dao.saveGroup(g3);
@@ -99,17 +99,25 @@ public class DaoGroupTest {
 	// TODO : Faire le checker de savegroup( comme saveperson) 
 
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
-	public void saveGroupViolationTest() throws SQLException{
+	public void saveGroupAlreadyExistTest() throws SQLException{
 		Group g = new Group();
 		g.setIdGroup(1);
 		g.setNameGroup("M2 GL 2015/2016");
 		dao.saveGroup(g);
 	}
 
-	
 	@Test
 	public void deleteGroupTest() throws SQLException{
 		dao.deleteGroup(g3);
+	}
+	
+	@Test
+	public void deleteGroupDontExistTest() throws SQLException{
+		Group g = new Group();
+		g.setIdGroup(200);
+		g.setNameGroup("M2 FSI 2015/2016");
+		
+		dao.deleteGroup(g);
 	}
 
 	@Test
@@ -132,5 +140,4 @@ public class DaoGroupTest {
 				return true;
 		return false;
 	}
-
 }

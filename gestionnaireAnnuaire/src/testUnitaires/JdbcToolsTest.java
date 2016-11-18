@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,18 +66,24 @@ public class JdbcToolsTest {
 	}
 
 	@Test
-	public void InitTest() throws ClassNotFoundException  {  
+	public void initTest() throws ClassNotFoundException  {  
 		jdbc.init();
 	}
 
 	@Test
-	public void NewConnectionTest() throws SQLException, ClassNotFoundException  {
+	public void newConnectionTest() throws SQLException, ClassNotFoundException  {
 		jdbc.init();
 		conn = jdbc.newConnection();
 	}
+	
+	@Test(expected = SQLException.class)
+	public void newConnectionFalseTest() throws SQLException, ClassNotFoundException  {
+		//jdbcFalse.init();
+		connFalse = jdbcFalse.newConnection();
+	}
 
 	@Test
-	public void QuietCloseTest() throws SQLException {
+	public void quietCloseTest() throws SQLException {
 		String url = "jdbc:mysql://localhost:3306/projetjee?autoReconnect=true&useSSL=false";
 		String user = "root";
 		String password = "";
@@ -88,14 +92,19 @@ public class JdbcToolsTest {
 	}
 
 	@Test
-	public void QuietCloseSQLExceptionTest() throws SQLException {
+	public void quietCloseSQLExceptionTest() throws SQLException {
 		//TODO Modifier la fonction pour tester le cas d'erreur (si necéssaire)
 		jdbc.quietClose(null);
 	}
-
+	
 	@Test
-	public void IsConnectedTest() throws ClassNotFoundException, SQLException  {  
+	public void isConnectedTest() throws ClassNotFoundException, SQLException  {  
 		assertTrue( jdbc.isConnect() );
+	}
+	
+	@Test(expected = SQLException.class)
+	public void isConnectedFalseTest() throws ClassNotFoundException, SQLException  {  
+		jdbcFalse.isConnect();
 	}
 
 	@Test
@@ -123,7 +132,6 @@ public class JdbcToolsTest {
 		jdbc.executeUpdate("");
 		jdbc.quietClose(c);
 	}
-
 
 	@Test(expected = SQLException.class)
 	public void ConnectFalseTest() throws SQLException, ClassNotFoundException  {

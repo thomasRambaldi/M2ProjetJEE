@@ -128,6 +128,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			// create new connection and statement
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
+
 			if(! rs.next())
 				return null;
 			p.setId( Integer.parseInt( rs.getString(1) ) );
@@ -138,6 +139,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			p.setWeb( rs.getString(6) );
 			p.setNaissance( rs.getString(7) );
 			p.setPassword( rs.getString(8) );
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
@@ -169,7 +171,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			throw new SQLException();
 
 		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password);
-
 	}
 
 	private boolean oneOrMoreFieldsIncorrect(int idPers, int idGroup, String firstName, String lastName, String password) {
@@ -268,8 +269,10 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			conn = newConnection();
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
+			
 			if (! rs.next())
 				return null;
+			
 			g.setIdGroup(  rs.getInt(1) );
 			g.setNameGroup( rs.getString(2)  );
 		} catch (SQLException e) {
