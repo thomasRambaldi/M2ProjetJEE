@@ -7,7 +7,7 @@ package gestionnaireAnnuaire;
  */
 public class Person {
 
-	private int idPers, idGroup;
+	private int idPers=-1, idGroup=-1;
 	private String firstName = null;
 	private String lastName= null ;
 	private String  mail = null;

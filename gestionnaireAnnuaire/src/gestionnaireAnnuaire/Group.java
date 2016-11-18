@@ -7,7 +7,7 @@ package gestionnaireAnnuaire;
  */
 public class Group {
 	
-	private int idGroup;
+	private int idGroup=-1;
 	private String nameGroup;
 
 	/**

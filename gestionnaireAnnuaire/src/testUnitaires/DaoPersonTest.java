@@ -71,6 +71,7 @@ public class DaoPersonTest {
 
 	@After
 	public void tearDown() throws SQLException{
+		p3.setId(3);
 		dao.deletePerson(p1);
 		dao.deletePerson(p2);
 		dao.deletePerson(p3);
@@ -131,6 +132,16 @@ public class DaoPersonTest {
 
 		dao.savePerson(p);
 	}
+	
+	@Test (expected = SQLException.class)
+	public void savePersonCheckerTest() throws SQLException{
+		Person p = new Person();
+		p.setId(1);
+		p.setIdGroup(2);
+		p.setFirstName("Campanella");
+		p.setPassword("coucou");
+		dao.savePerson(p);
+	}
 
 	@Test
 	public void deletePersonTest() throws SQLException{
@@ -154,9 +165,7 @@ public class DaoPersonTest {
 		int oldId = p3.getId();
 		dao.savePerson(p3);
 		p3.setId(1);
-		System.out.println("update already");
 		dao.updatePerson(p3, oldId);
-		System.out.println("END");
 	}
 	
 	@Test
@@ -173,7 +182,7 @@ public class DaoPersonTest {
 	 */
 	private boolean contains(ArrayList<Person> a, Person p){
 		for(Person pers : a)
-			if(p.equals(p))
+			if(p.equals(pers))
 				return true;
 		return false;
 	}
