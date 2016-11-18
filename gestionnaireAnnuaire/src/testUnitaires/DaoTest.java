@@ -1,6 +1,6 @@
 package testUnitaires;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import gestionnaireAnnuaire.Dao;
 import gestionnaireAnnuaire.Group;
 import gestionnaireAnnuaire.JdbcTools;
 import gestionnaireAnnuaire.Person;
+import utils.Checker;
 
 
 public class DaoTest extends JdbcTools{
@@ -26,7 +27,7 @@ public class DaoTest extends JdbcTools{
 
 	private Group g1;
 	private Group g2;
-
+	
 	@Before
 	public void setup() throws SQLException{
 
