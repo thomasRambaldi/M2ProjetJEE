@@ -107,13 +107,12 @@ public class DaoGroupTest {
 		dao.saveGroup(g);
 	}
 
-	//	TODO Decommenter dans Dao 
-	//	@Test(expected = DaoException.class)
-	//	public void saveGroupWithErrorInGroupNameTest() throws SQLException, DaoException{
-	//		Group g = new Group();
-	//		g.setNameGroup("M3 GL 2015/2016");
-	//		dao.saveGroup(g);
-	//	}
+	@Test(expected = DaoException.class)
+	public void saveGroupWithErrorInGroupNameTest() throws SQLException, DaoException{
+		Group g = new Group();
+		g.setNameGroup("M3 GL 2015/2016");
+		dao.saveGroup(g);
+	}
 
 	@Test
 	public void deleteGroupTest() throws SQLException{
@@ -143,14 +142,12 @@ public class DaoGroupTest {
 		dao.updateGroup(g3, oldId);
 	}
 
-	//TODO Decommenter pour tester le checker
-//	@Test (expected = DaoException.class)
-//	public void updateGroupWithErrorInGroupNameTest() throws SQLException, DaoException{
-//		int oldId = g3.getIdGroup();
-//		dao.saveGroup(g3);
-//		g3.setNameGroup("M3 ISL 2015/2016");;
-//		dao.updateGroup(g3, oldId);
-//	}
+	@Test (expected = DaoException.class)
+	public void updateGroupWithErrorInGroupNameTest() throws SQLException, DaoException{
+		dao.saveGroup(g3);
+		g3.setNameGroup("M3 ISL 2015/2016");;
+		dao.updateGroup(g3, g3.getIdGroup());
+	}
 
 	private boolean contains(ArrayList<Group> a, Group g){
 		for(Group grp : a)

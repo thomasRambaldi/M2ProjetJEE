@@ -7,7 +7,7 @@ public class CheckerWeb implements IChecker {
 	private Pattern pattern;
 	private Matcher matcher;
 	
-	private static final String WEB_PATTERN  = "^http://[a-zA-Z.-]*.[a-zA-Z]{2,3}$";
+	private static final String WEB_PATTERN  = "^http://[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$";
 	
 	public CheckerWeb() {
 		pattern = Pattern.compile(WEB_PATTERN );
