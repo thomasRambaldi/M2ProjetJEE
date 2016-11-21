@@ -1,0 +1,29 @@
+package fr.gestionnaire.utils;
+
+import java.util.regex.*;
+
+public class CheckerMail implements IChecker {
+
+	private Pattern pattern;
+	private Matcher matcher;
+
+	private static final String EMAIL_PATTERN =
+		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		+ "[A-Za-z0-9-_]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+
+	public CheckerMail() {
+		pattern = Pattern.compile(EMAIL_PATTERN);
+	}
+
+	/**
+	 * Validate string with regular expression
+	 *
+	 * @param string for validation
+	 * @return true valid string, false invalid string
+	 */
+	public boolean validate(final String string) {
+		matcher = pattern.matcher(string);
+		return matcher.matches();
+
+	}
+}

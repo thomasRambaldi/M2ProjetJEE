@@ -1,11 +1,11 @@
-package testUnitaires;
+package fr.test.unitaires.gestionnaire;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import gestionnaireAnnuaire.Person;
+import fr.gestionnaire.annuaire.Person;
 
 public class PersonTest {
 

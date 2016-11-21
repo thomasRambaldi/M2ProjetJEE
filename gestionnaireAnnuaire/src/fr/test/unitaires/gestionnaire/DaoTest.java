@@ -1,6 +1,7 @@
-package testUnitaires;
+package fr.test.unitaires.gestionnaire;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,12 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exceptions.DaoException;
-import gestionnaireAnnuaire.Dao;
-import gestionnaireAnnuaire.Group;
-import gestionnaireAnnuaire.JdbcTools;
-import gestionnaireAnnuaire.Person;
+import fr.gestionnaire.annuaire.Dao;
+import fr.gestionnaire.annuaire.Group;
+import fr.gestionnaire.annuaire.JdbcTools;
+import fr.gestionnaire.annuaire.Person;
+import fr.gestionnaire.utils.CheckerWeb;
 
-
+@Deprecated
 public class DaoTest extends JdbcTools{
 
 	private Dao dao;
@@ -26,7 +28,13 @@ public class DaoTest extends JdbcTools{
 
 	private Group g1;
 	private Group g2;
-
+	
+	@Test
+	public void test(){
+		CheckerWeb c = new CheckerWeb();
+		assertTrue(c.validate("http://thomas.rambaldi.etmu.perso.luminy.univ-amu.fr"));
+	}
+	
 	@Before
 	public void setup() throws SQLException{
 
@@ -71,6 +79,8 @@ public class DaoTest extends JdbcTools{
 		//		TODO : write the code
 	}
 	
+	
+	
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
 		assertEquals(p1.getId(), dao.findPerson(1).getId());
@@ -97,7 +107,7 @@ public class DaoTest extends JdbcTools{
 	}
 
 	@Test
-	public void savePersonTest() throws SQLException{
+	public void savePersonTest() throws SQLException, DaoException{
 		//		TODO : correction bug
 		Person p = new Person();
 		p.setId(3);
@@ -133,7 +143,7 @@ public class DaoTest extends JdbcTools{
 	}
 
 	@Test
-	public void updatePersonTest() throws SQLException{
+	public void updatePersonTest() throws SQLException, DaoException{
 		//TODO : correction bug
 		p2.setMail("k.kevin@gmail.com");
 		p2.setNaissance("");
@@ -167,7 +177,7 @@ public class DaoTest extends JdbcTools{
 	}
 
 	@Test
-	public void saveGroupTest() throws SQLException{
+	public void saveGroupTest() throws SQLException, DaoException{
 		//TODO : correction bug
 		Group g =new Group();
 
@@ -194,7 +204,7 @@ public class DaoTest extends JdbcTools{
 	}
 
 	@Test
-	public void updateGroupTest() throws SQLException{
+	public void updateGroupTest() throws SQLException, DaoException{
 		//TODO : correction bug
 		g1.setNameGroup("M2 ISL 2015/2016");
 		

@@ -1,5 +1,5 @@
-Tester les cas d'erreur !!
-Faire des regex pour email / web / naissance / nom groupe
+﻿(fait ?)Tester les cas d'erreur !!
+(fait) Faire des regex pour email / web / naissance / nom groupe
 L'application doit présenter une liste de groupes, une liste de personnes de chaque groupe et une vue détaillée de chaque personne (sauf adresse électronique et date de naissance). Une fonction de recherche doit être offerte.
 L'application contient-elle du code mort ?
 

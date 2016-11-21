@@ -1,9 +1,11 @@
-package gestionnaireAnnuaire;
+package fr.gestionnaire.annuaire;
 
 import java.sql.SQLException;
 import java.util.Collection;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
+import exceptions.DaoException;
 
 public interface IPersonDao {
 
@@ -35,8 +37,9 @@ public interface IPersonDao {
 	 * @param p A person
 	 * @return 
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
-	void savePerson(Person p) throws MySQLIntegrityConstraintViolationException, SQLException;
+	void savePerson(Person p) throws MySQLIntegrityConstraintViolationException, SQLException, DaoException;
 
 	/**
 	 * Delete a person in the data base
@@ -49,7 +52,8 @@ public interface IPersonDao {
 	 * Update a person with the new information of a Person in parameter
 	 * @param p A new information of Person
 	 * @throws SQLException 
+	 * @throws DaoException 
 	 */
-	void updatePerson(Person p, int idPerson) throws MySQLIntegrityConstraintViolationException, SQLException;
+	void updatePerson(Person p, int idPerson) throws MySQLIntegrityConstraintViolationException, SQLException, DaoException;
 
 }
