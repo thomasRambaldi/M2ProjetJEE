@@ -44,15 +44,10 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 		Collection<Person> listPerson= new ArrayList<>();
 
-		String strId = Long.toString( groupId );
 		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + strId;
+				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId;
 
-		Connection conn = null;
-		try {
-
-			// create new connection and statement
-			conn = newConnection();
+		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -67,16 +62,12 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 				p.setNaissance( rs.getString(7) );
 				p.setPassword( rs.getString(8) );
 
-
 				listPerson.add(p);
 			}
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
-		} finally {
-			// close result, statement and connection
-			if (conn != null)
-				conn.close();
 		}
 		return listPerson;
 	}
@@ -90,10 +81,9 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public Person findPerson(long id) throws SQLException {
 
-		Person p = new Person();;
-		String strId = Long.toString( id );
+		Person p = new Person();
 		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne WHERE idPers = " + strId ;
+				+ " NaissancePers, MdpPers FROM personne WHERE idPers = " + id ;
 
 		//Connection conn = null;
 		try (Connection conn = newConnection()){
@@ -111,6 +101,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			p.setWeb( rs.getString(6) );
 			p.setNaissance( rs.getString(7) );
 			p.setPassword( rs.getString(8) );
+			conn.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -164,10 +155,9 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public void deletePerson(Person p) throws SQLException {
-
-		String query = "DELETE FROM personne WHERE idPers = " + p.getId();
-
-		executeUpdate(query);
+		
+		String query = "DELETE FROM personne WHERE idPers = ?";
+		executeUpdate(query, p.getId());
 	}
 
 	/**
@@ -186,7 +176,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
-				+ "WHERE idPers = " + idPerson;
+				+ "WHERE idPers = ?";
 
 		int idPers = p.getId();
 		int idGroup = p.getIdGroup();
@@ -197,7 +187,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String naissance = p.getNaissance();
 		String password= p.getPassword();
 
-		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password);
+		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password, idPerson);
 	}
 
 	/**
@@ -211,10 +201,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 		String query = "SELECT idGroup, NomGroup FROM groupe";
 
-		Connection conn = null;
-		try {
-			// create new connection and statement
-			conn = newConnection();
+		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -225,14 +212,11 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 				listGroup.add(g);
 			}
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
-		} finally {
-			// close result, statement and connection
-			if (conn != null)
-				conn.close();
-		}
+		} 
 		return listGroup;
 	}
 
@@ -249,10 +233,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String strId = Long.toString( id );
 		String query =  "SELECT idGroup, NomGroup FROM groupe WHERE idGroup = " + strId ;
 
-		Connection conn = null;
-		try {
-			// create new connection and statement
-			conn = newConnection();
+		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
@@ -261,14 +242,11 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 			g.setIdGroup(  rs.getInt(1) );
 			g.setNameGroup( rs.getString(2)  );
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
-		} finally {
-			// close result, statement and connection
-			if (conn != null)
-				conn.close();
-		}
+		} 
 		return g;
 	}
 

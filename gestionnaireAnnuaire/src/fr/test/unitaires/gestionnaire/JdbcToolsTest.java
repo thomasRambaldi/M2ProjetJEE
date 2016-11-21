@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import fr.gestionnaire.annuaire.JdbcTools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "spring.xml")
+@ContextConfiguration(locations = "classpath:fr/test/unitaires/gestionnaire/spring.xml")
 public class JdbcToolsTest {
 
 	@Autowired

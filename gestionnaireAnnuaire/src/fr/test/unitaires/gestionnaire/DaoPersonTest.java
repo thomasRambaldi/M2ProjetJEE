@@ -23,7 +23,7 @@ import fr.gestionnaire.annuaire.Dao;
 import fr.gestionnaire.annuaire.Person;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "spring.xml")
+@ContextConfiguration(locations = "classpath:fr/test/unitaires/gestionnaire/spring.xml")
 public class DaoPersonTest {
 //TODO	private JdbcTemplate jdbcTemplate;
 

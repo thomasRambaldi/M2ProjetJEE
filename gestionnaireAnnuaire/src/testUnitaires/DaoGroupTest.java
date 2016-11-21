@@ -18,8 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import exceptions.DaoException;
+import fr.gestionnaire.annuaire.Dao;
 import fr.gestionnaire.annuaire.Group;
-import gestionnaireAnnuaire.Dao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,7 +36,7 @@ public class DaoGroupTest {
 	private Group g3;
 
 	@Before
-	public void setup() throws SQLException{
+	public void setup() throws SQLException, DaoException{
 		g1 = new Group();
 		g1.setIdGroup(1);
 		g1.setNameGroup("M2 FSIL 2015/2016");
@@ -93,7 +94,7 @@ public class DaoGroupTest {
 	}
 	
 	@Test
-	public void saveGroupTest() throws SQLException{
+	public void saveGroupTest() throws SQLException, DaoException{
 		dao.saveGroup(g3);
 		assertEquals(3, dao.findGroup(3).getIdGroup());
 	}
@@ -101,7 +102,7 @@ public class DaoGroupTest {
 	// TODO : Faire le checker de savegroup( comme saveperson) 
 
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
-	public void saveGroupAlreadyExistTest() throws SQLException{
+	public void saveGroupAlreadyExistTest() throws SQLException, DaoException{
 		Group g = new Group();
 		g.setIdGroup(1);
 		g.setNameGroup("M2 GL 2015/2016");
@@ -123,13 +124,13 @@ public class DaoGroupTest {
 	}
 
 	@Test
-	public void updateGroupTest() throws SQLException{
+	public void updateGroupTest() throws SQLException, DaoException{
 		g3.setNameGroup("M2 ISL 2015/2016");
 		dao.updateGroup(g3, g3.getIdGroup());
 	}
 	
 	@Test (expected = MySQLIntegrityConstraintViolationException.class)
-	public void updateGroupAlreadyExistTest() throws SQLException{
+	public void updateGroupAlreadyExistTest() throws SQLException, DaoException{
 		int oldId = g3.getIdGroup();
 		dao.saveGroup(g3);
 		g3.setIdGroup(1);

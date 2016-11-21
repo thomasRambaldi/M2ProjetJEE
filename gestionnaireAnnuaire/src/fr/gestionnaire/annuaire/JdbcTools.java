@@ -139,20 +139,9 @@ public class JdbcTools {
 	public int executeUpdate(String query, Object ... parameters)  throws SQLException  { 
 
 		try (Connection conn = newConnection()){
-			// préparer l'instruction
 			PreparedStatement st = conn.prepareStatement(query);
-
-			for ( int i=0; i< parameters.length ; i++){
-				if(parameters[i] instanceof String)
-					st.setString(i+1, (String) parameters[i]);
-				else if(parameters[i] instanceof Integer)
-					st.setInt(i+1, (Integer) parameters[i]);
-				else if(parameters[i] instanceof java.math.BigDecimal)
-					st.setBigDecimal(i+1, (java.math.BigDecimal) parameters[i]);
-			}
+			prepareQuery(st, parameters);
 			int nb=0;
-			// exécuter l'instruction
-//			System.out.println(st);
 			st.execute();
 			ResultSet rs = st.getResultSet();
 			
@@ -163,17 +152,25 @@ public class JdbcTools {
 
 			while(rs.next()){
 				nb++;
-//				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5));
 			}	
 			conn.close();
 			return nb;
 		} catch(MySQLIntegrityConstraintViolationException e){
-//			e.printStackTrace();
 			throw new MySQLIntegrityConstraintViolationException();
 		}
 		catch (SQLException e) {
-//			e.printStackTrace();
 			throw new SQLException();
+		}
+	}
+	
+	private void prepareQuery(PreparedStatement st, Object ... parameters) throws SQLException{
+		for ( int i=0; i< parameters.length ; i++){
+			if(parameters[i] instanceof String)
+				st.setString(i+1, (String) parameters[i]);
+			else if(parameters[i] instanceof Integer)
+				st.setInt(i+1, (Integer) parameters[i]);
+			else if(parameters[i] instanceof java.math.BigDecimal)
+				st.setBigDecimal(i+1, (java.math.BigDecimal) parameters[i]);
 		}
 	}
 
