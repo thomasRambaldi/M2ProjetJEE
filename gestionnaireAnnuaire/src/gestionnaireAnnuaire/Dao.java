@@ -118,7 +118,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public Person findPerson(long id) throws SQLException {
 
-		Person p = new Person();;
+		Person p = new Person();
 		String strId = Long.toString( id );
 		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne WHERE idPers = " + strId ;
@@ -185,10 +185,8 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public void deletePerson(Person p) throws SQLException {
-
-		String query = "DELETE FROM personne WHERE idPers = " + p.getId();
-
-		executeUpdate(query);
+		String query = "DELETE FROM personne WHERE idPers = ?";
+		executeUpdate(query, p.getId());
 	}
 
 	/**
@@ -200,7 +198,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public void updatePerson(Person p, int idPerson) throws SQLException {
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
-				+ "WHERE idPers = " + idPerson;
+				+ "WHERE idPers = ?";
 
 		int idPers = p.getId();
 		int idGroup = p.getIdGroup();
@@ -211,7 +209,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String naissance = p.getNaissance();
 		String password= p.getPassword();
 
-		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password);
+		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password, idPerson);
 	}
 
 	/**

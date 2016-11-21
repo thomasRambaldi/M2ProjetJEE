@@ -50,6 +50,8 @@ public class DaoGroupTest {
 	
 		dao.saveGroup(g1);
 		dao.saveGroup(g2);
+		
+		System.out.println(dao.getUrl());
 	}
 
 	@After
