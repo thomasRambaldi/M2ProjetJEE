@@ -3,14 +3,16 @@ package fr.gestionnaire.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CheckerBirthDay {
+public class CheckerPwd {
+	
 	private static Pattern pattern;
 	private static Matcher matcher;
-	
-	private static final String BIRTHDAY_PATTERN  = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$";
-	
-	public CheckerBirthDay() {
-		pattern = Pattern.compile(BIRTHDAY_PATTERN );
+	private static String pwd;
+
+	private static final String PWD_PATTERN ="^[a-zA-Z0-9-_!?]+$";
+
+	public CheckerPwd() {
+		pattern = Pattern.compile(PWD_PATTERN);
 	}
 
 	/**
@@ -20,8 +22,10 @@ public class CheckerBirthDay {
 	 * @return true valid string, false invalid string
 	 */
 	public static boolean validate(final String string) {
+		
+		if( pwd.length() < 5 ) return false;
+		
 		matcher = pattern.matcher(string);
 		return matcher.matches();
-
 	}
 }
