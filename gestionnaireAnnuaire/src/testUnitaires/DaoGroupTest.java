@@ -24,7 +24,7 @@ import fr.gestionnaire.annuaire.Group;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "spring.xml")
+@ContextConfiguration(locations = "classpath:fr/test/unitaires/gestionnaire/spring.xml")
 public class DaoGroupTest {
 // TODO	private JdbcTemplate jdbcTemplate;
 	

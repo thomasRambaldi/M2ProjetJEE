@@ -109,6 +109,48 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		} 
 		return p;
 	}
+	
+	/**
+	 * Return one person with him id
+	 * @param mail the mail of the person
+	 * @return return the person with this id
+	 * @throws SQLException if a database access error occurs
+	 */
+	public Person findPerson(String mail) throws SQLException {
+
+		Person p = new Person();
+		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
+				+ " NaissancePers, MdpPers FROM personne WHERE MailPers = " +"'" +mail+"'" ;
+		try {
+			init();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//Connection conn = null;
+		try (Connection conn = newConnection()){
+			// create new connection and statement
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			if(! rs.next())
+				return null;
+			p.setId( Integer.parseInt( rs.getString(1) ) );
+			p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
+			p.setFirstName( rs.getString(3) );
+			p.setLastName( rs.getString(4) );
+			p.setMail( rs.getString(5) );
+			p.setWeb( rs.getString(6) );
+			p.setNaissance( rs.getString(7) );
+			p.setPassword( rs.getString(8) );
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} 
+		return p;
+	}
 
 
 	/**
