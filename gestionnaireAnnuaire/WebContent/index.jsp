@@ -4,25 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Accueil</title>
+<title>Index</title>
 </head>
 <body>
 
-
-	<!-- 
-	<h1>Example - Spring Application</h1>
-	<p>This is my test.</p>
- 	-->
-
-	<!-- 
-		<%@ include file="/WEB-INF/jsp/include.jsp"%>
- 	
+	<%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 	<%-- rediriger le contrôleur hello --%>
-	<c:redirect url="/hello.htm" />
-	
-	-->
-
+	<c:redirect url="/login.htm" />
 
 </body>
 </html>
