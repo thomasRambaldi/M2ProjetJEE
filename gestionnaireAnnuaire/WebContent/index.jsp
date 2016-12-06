@@ -11,7 +11,7 @@
 	<%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 	<%-- rediriger le contrôleur hello --%>
-	<c:redirect url="/login.htm" />
+	<c:redirect url="/login" />
 
 </body>
 </html>

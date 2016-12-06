@@ -343,5 +343,19 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 		executeUpdate(query, idGroup, nomGroup);
 	}
+	
+	/**
+	 * 
+	 * @param login
+	 * @param password
+	 * @return the person logged with all his informations or null if the login don't exist or the password is not correct for the login
+	 * @throws SQLException
+	 */
+	public Person loginPerson(String login, String password) throws SQLException{
+		Person p = findPerson(login);
+		if(p == null || ! p.getPassword().equals(password))
+			return null;
+		return p;
+	}
 
 }
