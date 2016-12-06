@@ -75,5 +75,36 @@ public class LoginController {
 //        logger.info(p + "POST POST " + this);
         return new ModelAndView("user", "personData", personData);
     }
+    
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView sayHelloUser() {
+    	System.out.println("SALUT");
+        logger.info("Running " + this);
+        return new ModelAndView("user", "now", null);
+    }
+    
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ModelAndView loginUser(@ModelAttribute("userLogin") ArrayList<String> p, BindingResult result){
+    	Person personData=null;
+    	Dao dao = new Dao();
+		dao.setUrl("jdbc:mysql://localhost:3306/projetjee?useSSL=false");
+		dao.setUser("root");
+		dao.setPassword("");
+		dao.setDriverName("com.mysql.jdbc.Driver");
+		if(this.dao==null)
+			System.out.println("NULL");
+    	
+    	try { personData = dao.loginPerson(p.get(0), p.get(1)); } catch (Exception e) {e.printStackTrace();}
+
+		if( personData == null ){
+			/*maSession.setAttribute("error", "Email ou mot de passe invalide");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;*/
+			return new ModelAndView("login", "now", null);
+		}
+
+//        logger.info(p + "POST POST " + this);
+        return new ModelAndView("user", "personData", personData);
+    }
 
 }

@@ -9,17 +9,20 @@
 <body>
 
 
+	<form method="POST" commandName="connexion">
 	<table style="border: solid 1px black">
 		<tr>
-			<td>${personData.id}</td>
-			<td>${personData.firstName}</td>
-			<td>${personData.lastName}</td>
-			<td>${personData.mail}</td>
-			<td>${personData.web}</td>
-			<td>${personData.naissance}</td>
-			<td>${personData.password}</td>
+			<td><input value=${personData.id} /></td>
+			<td><input value=${personData.firstName} /></td>
+			<td><input value=${personData.lastName} /></td>
+			<td><input value=${personData.mail}></input></td>
+			<td><input value=${personData.web} /></td>
+			<td><input value=${personData.naissance} /></td>
+			<td><input value=${personData.password} /></td>
 		</tr>
+		<tr><input type="submit" /></tr>
 	</table>
+	</form>
 	<a href='login'>Authentification</a>
 </body>
 </html> 
