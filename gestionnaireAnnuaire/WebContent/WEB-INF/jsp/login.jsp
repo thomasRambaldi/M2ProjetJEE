@@ -12,12 +12,15 @@
 <body>
 
 	<form action="login" method="post">
-		<label><b>Login</b></label> <input type="text"
-			placeholder="Entrez votre login" name="login"> <label><b>Password</b></label>
+		<label><b>Login</b></label> 
+		<input type="text" placeholder="Entrez votre login" name="login"> 
+		
+		<label><b>Password</b></label>
 		<input type="password" placeholder="Entrez votre mot de passe" name="pwd">
 
 		<button type="submit">Login</button>
 	</form>
+
 
 </body>
 </html>

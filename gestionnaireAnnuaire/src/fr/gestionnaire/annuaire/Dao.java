@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.stereotype.Service;
+
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import exceptions.DaoException;
@@ -15,7 +17,7 @@ import fr.gestionnaire.utils.CheckerGroupName;
 import fr.gestionnaire.utils.CheckerMail;
 import fr.gestionnaire.utils.CheckerWeb;
 
-
+@Service("PersonManager")
 public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 	CheckerBirthDay checkBirth ;
