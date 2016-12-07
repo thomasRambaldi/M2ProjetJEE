@@ -47,4 +47,34 @@ public class LoginManager {
 		return false;
 	}
 	
+	
+	public Person infoPersonWithPers(Person p){
+		Person personDao;
+		try {
+			personDao = dao.findPerson(p.getMail());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return personDao;
+	}
+	
+	public Person infoPersonWithId(Integer idPers){
+		Person personDao;
+		try {
+			personDao = dao.findPerson(idPers);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return personDao;
+	}
+	
+//    public void save(Person p) {
+//        if (p.getMail() == null) {
+//            p.setNumber(maxId++);
+//        }
+//        dao.savePerson(p);
+//    }
+	
 }

@@ -13,7 +13,7 @@ public class PersonTest {
 
 	@Before
 	public void init(){
-		p.setId(1);
+		p.setIdPers(1);
 		p.setFirstName("Rambaldi");
 		p.setLastName("Thomas");
 		p.setMail("t.rambaldi13@gmail.com");
@@ -24,7 +24,7 @@ public class PersonTest {
 
 	@Test
 	public void getIdTest() {
-		assertEquals(1, p.getId());
+		assertEquals(1, p.getIdPers());
 	}
 
 	@Test

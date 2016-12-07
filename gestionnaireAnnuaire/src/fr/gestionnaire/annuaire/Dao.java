@@ -55,7 +55,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			while (rs.next()) {
 				Person p =new Person();
 
-				p.setId( rs.getInt(1) );
+				p.setIdPers( rs.getInt(1) );
 				p.setIdGroup(  rs.getInt(2) );
 				p.setFirstName( rs.getString(3) );
 				p.setLastName( rs.getString(4) );
@@ -95,7 +95,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 			if(! rs.next())
 				return null;
-			p.setId( Integer.parseInt( rs.getString(1) ) );
+			p.setIdPers( Integer.parseInt( rs.getString(1) ) );
 			p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
 			p.setFirstName( rs.getString(3) );
 			p.setLastName( rs.getString(4) );
@@ -137,7 +137,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 			if(! rs.next())
 				return null;
-			p.setId( Integer.parseInt( rs.getString(1) ) );
+			p.setIdPers( Integer.parseInt( rs.getString(1) ) );
 			p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
 			p.setFirstName( rs.getString(3) );
 			p.setLastName( rs.getString(4) );
@@ -172,7 +172,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String query = "INSERT INTO personne (idPers, idGroup, NomPers, PrenomPers, "
 				+ "MailPers, WebPers, NaissancePers, MdpPers) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
 
-		int idPers = p.getId();
+		int idPers = p.getIdPers();
 		int idGroup = p.getIdGroup();
 		String firstName = p.getFirstName();
 		String lastName = p.getLastName();
@@ -201,7 +201,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public void deletePerson(Person p) throws SQLException {
 		
 		String query = "DELETE FROM personne WHERE idPers = ?";
-		executeUpdate(query, p.getId());
+		executeUpdate(query, p.getIdPers());
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
 				+ "WHERE idPers = ?";
 
-		int idPers = p.getId();
+		int idPers = p.getIdPers();
 		int idGroup = p.getIdGroup();
 		String firstName = p.getFirstName();
 		String lastName = p.getLastName();

@@ -37,7 +37,7 @@ public class DaoPersonTest {
 	@Before
 	public void setup() throws SQLException, DaoException{
 		p1 = new Person();
-		p1.setId(1);
+		p1.setIdPers(1);
 		p1.setIdGroup(1);
 		p1.setFirstName("Rambaldi");
 		p1.setLastName("Thomas");
@@ -47,7 +47,7 @@ public class DaoPersonTest {
 		p1.setPassword("PassWord");
 
 		p2 = new Person();
-		p2.setId(2);
+		p2.setIdPers(2);
 		p2.setIdGroup(1);
 		p2.setFirstName("Lebreton");
 		p2.setLastName("lebtreton");
@@ -57,7 +57,7 @@ public class DaoPersonTest {
 		p2.setPassword("azerty");
 
 		p3 = new Person();
-		p3.setId(3);
+		p3.setIdPers(3);
 		p3.setIdGroup(2);
 		p3.setFirstName("Magron");
 		p3.setLastName("Benjamin");
@@ -72,7 +72,7 @@ public class DaoPersonTest {
 
 	@After
 	public void tearDown() throws SQLException{
-		p3.setId(3);
+		p3.setIdPers(3);
 		dao.deletePerson(p1);
 		dao.deletePerson(p2);
 		dao.deletePerson(p3);
@@ -105,7 +105,7 @@ public class DaoPersonTest {
 
 	@Test
 	public void findPersonTest() throws DaoException, SQLException  {
-		assertEquals(p1.getId(), dao.findPerson(1).getId());
+		assertEquals(p1.getIdPers(), dao.findPerson(1).getIdPers());
 	}
 	
 	@Test 
@@ -116,13 +116,13 @@ public class DaoPersonTest {
 	@Test
 	public void savePersonTest() throws SQLException, DaoException{
 		dao.savePerson(p3);
-		assertEquals(3, dao.findPerson(3).getId());
+		assertEquals(3, dao.findPerson(3).getIdPers());
 	}
 	
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
 	public void savePersonAlreadyExistTest() throws SQLException, DaoException{
 		Person p = new Person();
-		p.setId(1);
+		p.setIdPers(1);
 		p.setIdGroup(2);
 		p.setFirstName("Magron");
 		p.setLastName("Benjamin");
@@ -137,7 +137,7 @@ public class DaoPersonTest {
 	@Test (expected = DaoException.class)
 	public void savePersonWithErrorMailTest() throws SQLException, DaoException{
 		Person p = new Person();
-		p.setId(1);
+		p.setIdPers(1);
 		p.setIdGroup(2);
 		p.setFirstName("Campanella");
 		p.setMail("test@Mail");
@@ -148,7 +148,7 @@ public class DaoPersonTest {
 	@Test (expected = DaoException.class)
 	public void savePersonWithErrorWebTest() throws SQLException, DaoException{
 		Person p = new Person();
-		p.setId(1);
+		p.setIdPers(1);
 		p.setIdGroup(2);
 		p.setFirstName("Campanella");
 		p.setLastName("Florian");
@@ -162,7 +162,7 @@ public class DaoPersonTest {
 	@Test (expected = DaoException.class)
 	public void savePersonWithErrorBirthTest() throws SQLException, DaoException{
 		Person p = new Person();
-		p.setId(1);
+		p.setIdPers(1);
 		p.setIdGroup(2);
 		p.setFirstName("Campanella");
 		p.setLastName("Florian");
@@ -181,7 +181,7 @@ public class DaoPersonTest {
 	@Test
 	public void deletePersonDontExistTest() throws SQLException{
 		Person p = new Person();
-		p.setId(200);
+		p.setIdPers(200);
 		p.setIdGroup(2);
 		p.setFirstName("Campanella");
 		p.setLastName("Florian");
@@ -196,13 +196,13 @@ public class DaoPersonTest {
 	@Test
 	public void updatePersonTest() throws SQLException, DaoException{
 		p3.setMail("k.kevin@gmail.com");
-		dao.updatePerson(p3, p3.getId());
+		dao.updatePerson(p3, p3.getIdPers());
 	}
 	
 	@Test
 	public void updatePersonDontExist() throws SQLException, DaoException{
 		Person p = new Person();
-		p.setId(200);
+		p.setIdPers(200);
 		p.setIdGroup(2);
 		p.setFirstName("Campanella");
 		p.setLastName("Florian");
@@ -211,14 +211,14 @@ public class DaoPersonTest {
 		p.setNaissance("12/01/1993");
 		p.setPassword("test");
 		
-		dao.updatePerson(p, p.getId());
+		dao.updatePerson(p, p.getIdPers());
 	}
 
 	@Test (expected = MySQLIntegrityConstraintViolationException.class)
 	public void updatePersonAlreadyExistTest() throws SQLException, DaoException{
-		int oldId = p3.getId();
+		int oldId = p3.getIdPers();
 		dao.savePerson(p3);
-		p3.setId(1);
+		p3.setIdPers(1);
 		dao.updatePerson(p3, oldId);
 	}
 	
@@ -226,21 +226,21 @@ public class DaoPersonTest {
 	public void updatePersonWithErrorInMailTest() throws SQLException, DaoException{
 		dao.savePerson(p3);
 		p3.setMail("alias_13500@");
-		dao.updatePerson(p3, p3.getId());
+		dao.updatePerson(p3, p3.getIdPers());
 	}
 	
 	@Test (expected = DaoException.class)
 	public void updatePersonWithErrorInWebTest() throws SQLException, DaoException{
 		dao.savePerson(p3);
 		p3.setWeb("googler");
-		dao.updatePerson(p3, p3.getId());
+		dao.updatePerson(p3, p3.getIdPers());
 	}
 	
 	@Test (expected = DaoException.class)
 	public void updatePersonWithErrorInBirthTest() throws SQLException, DaoException{
 		dao.savePerson(p3);
 		p3.setNaissance("28 mars");
-		dao.updatePerson(p3, p3.getId());
+		dao.updatePerson(p3, p3.getIdPers());
 	}
 	
 	/**

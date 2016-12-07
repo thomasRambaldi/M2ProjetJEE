@@ -7,7 +7,8 @@ package fr.gestionnaire.annuaire;
  */
 public class Person {
 
-	private int idPers=-1, idGroup=-1;
+	private int idPers=-1;
+	private int idGroup=-1;
 	private String firstName = null;
 	private String lastName= null ;
 	private String  mail = null;
@@ -20,21 +21,23 @@ public class Person {
 	 */
 	public Person(){}
 
-	/**
-	 * Return the id of the person
-	 * @return the id of the person
-	 */
-	public int getId() {
-		return idPers;
-	}
 
 	/**
 	 * Set the id of the person
 	 * @param id of the person
 	 */
-	public void setId(int id) {
-		this.idPers = id;
+	public void setIdPers(int idPers) {
+		this.idPers = idPers;
 	}
+
+	/**
+	 * Return the id of the person
+	 * @return the id of the person
+	 */
+	public int getIdPers() {
+		return idPers;
+	}
+
 
 	/**
 	 * Return the id of the group
@@ -149,7 +152,7 @@ public class Person {
 	}
 
 	public boolean equals(Person p){
-		return idPers == p.getId() && 
+		return idPers == p.getIdPers() && 
 				idGroup == p.getIdGroup() && 
 				firstName.equals(p.getFirstName()) &&
 				lastName.equals(p.getLastName()) && 
