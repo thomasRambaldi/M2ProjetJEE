@@ -11,10 +11,6 @@ public class CheckerPwd {
 
 	private static final String PWD_PATTERN ="^[a-zA-Z0-9-_!?]+$";
 
-	public CheckerPwd() {
-		pattern = Pattern.compile(PWD_PATTERN);
-	}
-
 	/**
 	 * Validate string with regular expression
 	 *
@@ -22,6 +18,7 @@ public class CheckerPwd {
 	 * @return true valid string, false invalid string
 	 */
 	public static boolean validate(final String string) {
+		pattern = Pattern.compile(PWD_PATTERN);
 		
 		if( pwd.length() < 5 ) return false;
 		

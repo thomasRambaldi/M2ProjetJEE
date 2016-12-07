@@ -20,7 +20,7 @@ import fr.gestionnaire.utils.CheckerWeb;
 @Service("PersonManager")
 public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
-	CheckerBirthDay checkBirth ;
+	CheckerBirthDay CheckerBirthDay ;
 	CheckerGroupName checkGroupName;
 	CheckerMail checkMail;
 	CheckerWeb checkWeb;
@@ -29,7 +29,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 * Constructor of the class Dao 
 	 */
 	public Dao(){
-		checkBirth = new CheckerBirthDay();
+		CheckerBirthDay = new CheckerBirthDay();
 		checkGroupName = new CheckerGroupName();
 		checkMail = new CheckerMail();
 		checkWeb = new CheckerWeb();
@@ -167,7 +167,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 //		TODO
 		if( ! checkMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
 		if( ! checkWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
-		if( ! checkBirth.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
+		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
 		String query = "INSERT INTO personne (idPers, idGroup, NomPers, PrenomPers, "
 				+ "MailPers, WebPers, NaissancePers, MdpPers) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -214,9 +214,9 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public void updatePerson(Person p, int idPerson) throws SQLException, DaoException {
 
 //		TODO
-		if( ! checkMail.validate(p.getMail())  ) throw new DaoException("E-mail is not compliant");
-		if( ! checkWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
-		if( ! checkBirth.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
+		if( ! CheckerMail.validate(p.getMail())  ) throw new DaoException("E-mail is not compliant");
+		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
+		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "

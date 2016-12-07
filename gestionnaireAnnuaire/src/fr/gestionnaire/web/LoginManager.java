@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Dao;
 import fr.gestionnaire.annuaire.Person;
 
@@ -26,25 +27,19 @@ public class LoginManager {
 			return false;
 		}
 		
-		if( personDao == null ) return false;
-		
-		if( personDao.getMail().equals( p.getMail()) )
-			return true;
-		return false;
+		return personDao != null;
 	}
 	
 	public boolean checkPassword( Person p ){
 		Person personDao;
 		
 		try {
-			personDao = dao.findPerson(p.getMail());
+			personDao = dao.loginPerson(p.getMail(), p.getPassword());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}		
-		if( personDao.getPassword().equals( p.getPassword()) )
-			return true;
-		return false;
+		}
+		return personDao != null;
 	}
 	
 	
@@ -69,12 +64,9 @@ public class LoginManager {
 		}
 		return personDao;
 	}
-	
-//    public void save(Person p) throws SQLException, DaoException {
-//        if (p.getMail() == null) {
-//            p.setNumber(maxId++);
-//        }
-//        dao.savePerson(p);
-//    }
+    
+    public void updatePerson(Person p) throws SQLException, DaoException {
+    	dao.updatePerson(p, p.getIdPers());
+    }
 	
 }

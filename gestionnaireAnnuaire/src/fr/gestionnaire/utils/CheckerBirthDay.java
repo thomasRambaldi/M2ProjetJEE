@@ -8,10 +8,6 @@ public class CheckerBirthDay {
 	private static Matcher matcher;
 	
 	private static final String BIRTHDAY_PATTERN  = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$";
-	
-	public CheckerBirthDay() {
-		pattern = Pattern.compile(BIRTHDAY_PATTERN );
-	}
 
 	/**
 	 * Validate string with regular expression
@@ -20,6 +16,7 @@ public class CheckerBirthDay {
 	 * @return true valid string, false invalid string
 	 */
 	public static boolean validate(final String string) {
+		pattern = Pattern.compile(BIRTHDAY_PATTERN );
 		matcher = pattern.matcher(string);
 		return matcher.matches();
 

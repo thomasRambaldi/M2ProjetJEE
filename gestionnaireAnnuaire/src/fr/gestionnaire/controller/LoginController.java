@@ -2,6 +2,8 @@ package fr.gestionnaire.controller;
 
 
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.LoginManager;
 import fr.gestionnaire.web.PersonValidator;
@@ -42,7 +45,7 @@ public class LoginController {
     	if( loginManager.checkLogin(p) && loginManager.checkPassword(p) ){
     		Person pers = loginManager.infoPersonWithPers(p);
     		HttpSession maSession = request.getSession();
-    		maSession.setAttribute("personne", pers);
+    		maSession.setAttribute("personLogged", pers);
     		return "redirect:user";
     	}
     	return "login";
@@ -74,17 +77,26 @@ public class LoginController {
 //	    logger.info("edit person = " + p);
 //	    return p;
 //	}
-	
-	
-//	@RequestMapping(value = "/user", method = RequestMethod.POST)
-//	public String saveProduct(@ModelAttribute Person p, BindingResult result) {
-//	    if (result.hasErrors()) {
-//	        return "productForm";
-//	    }
-//	    loginManager.save(p);
-//	    return "productsList";
-//	}
 
+	
+	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public String updatePerson(@ModelAttribute Person p, BindingResult result, HttpServletRequest request) {
+	    System.out.println("UPDATE");
+		if (result.hasErrors()) {
+	        return "user";
+	    }
+	    try {
+			loginManager.updatePerson(p);
+		} catch (SQLException | DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:user";
+		}
+	    HttpSession maSession = request.getSession();
+		maSession.setAttribute("personLogged", p);
+	    return "redirect:user";
+	}
 	
     
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
