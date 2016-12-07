@@ -3,6 +3,8 @@ package fr.gestionnaire.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.gestionnaire.annuaire.Person;
+
 @Deprecated
 public class Checker {
 	private Pattern patternBP;
@@ -33,6 +35,16 @@ public class Checker {
 		patternEP = Pattern.compile(EMAIL_PATTERN);
 		patternWP = Pattern.compile(WEB_PATTERN );
 	}
+	
+	public static boolean validatePerson(Person p){
+		CheckerBirthDay birthday = new CheckerBirthDay();
+		CheckerMail mail = new CheckerMail();
+		CheckerWeb web = new CheckerWeb();
+		return birthday.validate(p.getNaissance())
+				&& mail.validate(p.getMail())
+				&& web.validate(p.getWeb());
+	}
+	
 	
 	/**
 	 * Validate string with regular expression

@@ -2,7 +2,10 @@ package fr.gestionnaire.controller;
 
 
 
-import java.util.ArrayList;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,9 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.LoginManager;
 
@@ -34,12 +37,15 @@ public class LoginController {
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute Person p, BindingResult result){
+    public String login(@ModelAttribute Person p, BindingResult result, HttpServletRequest request){
     	if( loginManager.checkLogin(p) && loginManager.checkPassword(p) ){
-    		Person person = loginManager.infoPersonWithPers(p);
-    		return new ModelAndView("user", "person", person);
+    		System.out.println("YES");
+    		Person pers = loginManager.infoPersonWithPers(p);
+    		HttpSession maSession = request.getSession();
+    		maSession.setAttribute("personLogged", pers);
+    		return "redirect:user";
     	}
-    	return new ModelAndView("login");
+    	return "login";
     }
     
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -48,35 +54,45 @@ public class LoginController {
 	    return "user";
 	}
 	
-	@ModelAttribute
-	public Person editPerson(
-	        @RequestParam(value = "id", required = false) Integer idPers) {
-	    if (idPers != null) {
-	        logger.info("find product " + idPers);
-	        return loginManager.infoPersonWithId(idPers);
-	    }
-	    Person p = new Person();
-	    p.setIdPers(0);
-	    p.setIdGroup(0);
-	    p.setFirstName("");
-	    p.setLastName("");
-	    p.setMail("");
-	    p.setWeb("");
-	    p.setNaissance("");
-	    p.setPassword("");
-	    
-	    logger.info("edit person = " + p);
-	    return p;
-	}
-	
-//	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-//	public String savePerson(@ModelAttribute Person p, BindingResult result) {
-//	    if (result.hasErrors()) {
-//	        return "user";
+//	@ModelAttribute
+//	public Person editPerson(
+//	        @RequestParam(value = "id", required = false) Integer idPers) {
+//	    if (idPers != null) {
+//	        logger.info("find product " + idPers);
+//	        return loginManager.infoPersonWithId(idPers);
 //	    }
-//	    loginManager.save(p);
-//	    return "redirect:user";
+//	    Person p = new Person();
+//	    p.setIdPers(0);
+//	    p.setIdGroup(0);
+//	    p.setFirstName("");
+//	    p.setLastName("");
+//	    p.setMail("");
+//	    p.setWeb("");
+//	    p.setNaissance("");
+//	    p.setPassword("");
+//	    
+//	    logger.info("edit person = " + p);
+//	    return p;
 //	}
+	
+	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public String updatePerson(@ModelAttribute Person p, BindingResult result, HttpServletRequest request) {
+	    System.out.println("UPDATE");
+		if (result.hasErrors()) {
+	        return "user";
+	    }
+	    try {
+			loginManager.updatePerson(p);
+		} catch (SQLException | DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:user";
+		}
+	    HttpSession maSession = request.getSession();
+		maSession.setAttribute("personLogged", p);
+	    return "redirect:user";
+	}
 	
     
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)

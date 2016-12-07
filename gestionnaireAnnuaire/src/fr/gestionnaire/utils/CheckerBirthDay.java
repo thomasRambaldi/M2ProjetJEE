@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CheckerBirthDay {
-	private static Pattern pattern;
+	private Pattern pattern;
 	private static Matcher matcher;
 	
 	private static final String BIRTHDAY_PATTERN  = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$";
@@ -19,7 +19,7 @@ public class CheckerBirthDay {
 	 * @param string for validation
 	 * @return true valid string, false invalid string
 	 */
-	public static boolean validate(final String string) {
+	public boolean validate(final String string) {
 		matcher = pattern.matcher(string);
 		return matcher.matches();
 
