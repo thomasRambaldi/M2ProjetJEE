@@ -2,7 +2,9 @@ package fr.gestionnaire.controller;
 
 
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,11 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.LoginManager;
+import fr.gestionnaire.web.PersonValidator;
 
 @Controller()
 @RequestMapping("/connexion")
@@ -25,58 +26,65 @@ public class LoginController {
 	@Autowired
 	private LoginManager loginManager;
 	
+	@Autowired
+	PersonValidator validator;
+	
 	protected final Log logger = LogFactory.getLog(getClass());
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String sayHello(@ModelAttribute Person p, BindingResult result) {
+    public String login(@ModelAttribute Person p, BindingResult result) {
         logger.info("Running " + this);
         return "login";
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute Person p, BindingResult result){
+    public String login(@ModelAttribute Person p, BindingResult result, HttpServletRequest request){
     	if( loginManager.checkLogin(p) && loginManager.checkPassword(p) ){
-    		Person person = loginManager.infoPersonWithPers(p);
-    		return new ModelAndView("user", "person", person);
+    		Person pers = loginManager.infoPersonWithPers(p);
+    		HttpSession maSession = request.getSession();
+    		maSession.setAttribute("personne", pers);
+    		return "redirect:user";
     	}
-    	return new ModelAndView("login");
+    	return "login";
     }
     
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String editProduct(@ModelAttribute Person p) {
-		logger.info("Running " + this);
+	public String editProduct(@ModelAttribute Person p, HttpServletResponse response) {
+		
 	    return "user";
 	}
 	
-	@ModelAttribute
-	public Person editPerson(
-	        @RequestParam(value = "id", required = false) Integer idPers) {
-	    if (idPers != null) {
-	        logger.info("find product " + idPers);
-	        return loginManager.infoPersonWithId(idPers);
-	    }
-	    Person p = new Person();
-	    p.setIdPers(0);
-	    p.setIdGroup(0);
-	    p.setFirstName("");
-	    p.setLastName("");
-	    p.setMail("");
-	    p.setWeb("");
-	    p.setNaissance("");
-	    p.setPassword("");
-	    
-	    logger.info("edit person = " + p);
-	    return p;
-	}
+//	@ModelAttribute
+//	public Person editPerson(
+//	        @RequestParam(value = "id", required = false) Integer idPers) {
+//	    if (idPers != null) {
+//	        logger.info("find product " + idPers);
+//	        return loginManager.infoPersonWithId(idPers);
+//	    }
+//	    Person p = new Person();
+//	    p.setIdPers(0);
+//	    p.setIdGroup(0);
+//	    p.setFirstName("");
+//	    p.setLastName("");
+//	    p.setMail("");
+//	    p.setWeb("");
+//	    p.setNaissance("");
+//	    p.setPassword("");
+//	    
+//	    logger.info("edit person = " + p);
+//	    return p;
+//	}
 	
-//	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-//	public String savePerson(@ModelAttribute Person p, BindingResult result) {
+	
+//	@RequestMapping(value = "/user", method = RequestMethod.POST)
+//	public String saveProduct(@ModelAttribute Person p, BindingResult result) {
 //	    if (result.hasErrors()) {
-//	        return "user";
+//	        return "productForm";
 //	    }
 //	    loginManager.save(p);
-//	    return "redirect:user";
+//	    return "productsList";
 //	}
+
 	
     
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)

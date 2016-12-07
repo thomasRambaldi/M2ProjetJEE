@@ -70,7 +70,7 @@ public class LoginManager {
 		return personDao;
 	}
 	
-//    public void save(Person p) {
+//    public void save(Person p) throws SQLException, DaoException {
 //        if (p.getMail() == null) {
 //            p.setNumber(maxId++);
 //        }
