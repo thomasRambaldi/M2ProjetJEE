@@ -12,6 +12,7 @@
 
 <body>
 	<h1>Liste des groupes</h1>
+	YEAH
 	<table border='1'>
 		<c:forEach items="${groups}" var="group">
 			<tr>

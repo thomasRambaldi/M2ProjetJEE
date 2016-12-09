@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Dao;
 import fr.gestionnaire.annuaire.Person;
 
@@ -65,8 +64,5 @@ public class LoginManager {
 		return personDao;
 	}
     
-    public void updatePerson(Person p) throws SQLException, DaoException {
-    	dao.updatePerson(p, p.getIdPers());
-    }
 	
 }

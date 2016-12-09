@@ -7,39 +7,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Liste des personnes présentent dans l'annuaire</title>
+<title>Liste des personnes</title>
 </head>
 
 <body>
-	<h1>Liste des personnes</h1>
-	<table border='1'>
-		<c:forEach items="${persons}" var="pers">
-			<tr>
-				<td>
-					<a href="${pers}?id=${pers.idPers}"> 
-					<c:out value="${pers.idGroup}" /></a>
-				</td>
-				<td>
-					<c:out value="${pers.firstName}" />
-				</td>
-				<td>
-					<c:out value="${pers.lastName}" />
-				</td>
-								<td>
-					<c:out value="${pers.mail}" />
-				</td>
-								<td>
-					<c:out value="${pers.web}" />
-				</td>
-								<td>
-					<c:out value="${pers.naissance}" />
-				</td>
-			</tr>
+	<h1>Liste des personnes présentent dans l'annuaires</h1>
+		Salut
+		<c:forEach items="${allPersons}" var="persList">
+		coucou
+			<ul>
+			<li>${persList.firstName}</li>
+		</ul>
 		</c:forEach>
-	</table>
 	
 	<p>
-		<a href="${pers}">Ajouter une nouvelle personne</a>
+		<a href="editPerson">Ajouter une nouvelle personne</a>
 	</p>
 	
 </body>

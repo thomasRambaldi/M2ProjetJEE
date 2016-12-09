@@ -2,7 +2,6 @@ package fr.gestionnaire.controller;
 
 
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.LoginManager;
+import fr.gestionnaire.web.PersonManager;
 import fr.gestionnaire.web.PersonValidator;
 
 @Controller()
@@ -29,6 +29,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginManager loginManager;
+	
+	@Autowired
+	private PersonManager personManager;
 	
 	@Autowired
 	PersonValidator validator;
@@ -58,26 +61,21 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
-	public String editUserInformation(@ModelAttribute Person p, HttpServletRequest request, HttpServletResponse response) {
-		HttpSession maSession = request.getSession();
-		
-		return "editUser";
+	public String editUserInformations(@ModelAttribute Person p, HttpServletResponse response) {
+	    return "editUser";
 	}
-
 	
 	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	public String updatePerson(@ModelAttribute Person p, BindingResult result, HttpServletRequest request) {
-	    System.out.println("UPDATE");
 		if (result.hasErrors()) {
 	        return "user";
 	    }
 	    try {
-			loginManager.updatePerson(p);
+	    	personManager.updatePerson(p);
 		} catch (SQLException | DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "redirect:user";
+			return "redirect:editUser";
 		}
 	    HttpSession maSession = request.getSession();
 		maSession.setAttribute("personLogged", p);

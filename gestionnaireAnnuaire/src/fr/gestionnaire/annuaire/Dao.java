@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.springframework.stereotype.Service;
-
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import exceptions.DaoException;
@@ -17,23 +15,46 @@ import fr.gestionnaire.utils.CheckerGroupName;
 import fr.gestionnaire.utils.CheckerMail;
 import fr.gestionnaire.utils.CheckerWeb;
 
-@Service("PersonManager")
 public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
-
-	CheckerBirthDay CheckerBirthDay ;
-	CheckerGroupName checkGroupName;
-	CheckerMail checkMail;
-	CheckerWeb checkWeb;
 
 	/**
 	 * Constructor of the class Dao 
 	 */
-	public Dao(){
-		CheckerBirthDay = new CheckerBirthDay();
-		checkGroupName = new CheckerGroupName();
-		checkMail = new CheckerMail();
-		checkWeb = new CheckerWeb();
+	public Dao(){ }
+	
+
+	public Collection<Person> findAllPersons() throws SQLException {
+
+		Collection<Person> listPerson= new ArrayList<>();
+
+		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
+				+ " NaissancePers, MdpPers FROM personne";
+
+		try(Connection conn = newConnection()) {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				Person p = new Person();
+
+				p.setIdPers( rs.getInt(1) );
+				p.setIdGroup(  rs.getInt(2) );
+				p.setFirstName( rs.getString(3) );
+				p.setLastName( rs.getString(4) );
+				p.setMail( rs.getString(5) );
+				p.setWeb( rs.getString(6) );
+				p.setNaissance( rs.getString(7) );
+				p.setPassword( rs.getString(8) );
+
+				listPerson.add(p);
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return listPerson;
 	}
+
 
 	/**
 	 * Return all people in a group
@@ -165,8 +186,8 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public void savePerson(Person p) throws SQLException, DaoException{
 
 //		TODO
-		if( ! checkMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
-		if( ! checkWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
+		if( ! CheckerMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
+		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
 		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
 		String query = "INSERT INTO personne (idPers, idGroup, NomPers, PrenomPers, "
@@ -303,7 +324,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public void saveGroup(Group g) throws SQLException, DaoException {
 		
-		if( ! checkGroupName.validate(g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
+		if( ! CheckerGroupName.validate(g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
 		
 		String query = "INSERT INTO groupe (idGroup, nomGroup) VALUES(?, ?)";
 
@@ -334,7 +355,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public void updateGroup(Group g, int idGrp) throws SQLException, DaoException {
 		
-		if( ! checkGroupName.validate( g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
+		if( ! CheckerGroupName.validate( g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
 		
 		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + idGrp;
 
