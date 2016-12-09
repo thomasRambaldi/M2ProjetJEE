@@ -54,9 +54,10 @@
 			</tr>
 
 			<tr>
-			<td><a href="${personLogged}">Editer votre profile</a></td>
-			<td><a href="${personLogged}">Liste des personnes</a></td>
+			<td><a href="editUser">Editer votre profile</a></td>
+			<td><a href="personList">Liste des personnes</a></td>
 			<td><a href="${personLogged}">Liste des groupes</a></td>
+			<td><a href="log_out">Deconnexion</a></td>
 			<!-- 
 				<td colspan="3"><input type="submit" /></td>
  			-->

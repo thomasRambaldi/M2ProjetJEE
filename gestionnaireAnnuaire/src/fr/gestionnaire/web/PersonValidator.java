@@ -20,20 +20,27 @@ public class PersonValidator implements Validator{
     public void validate(Object target, Errors errors) {
     	Person person = (Person) target;
 
-    	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-                 "person.idPers", "Field name is required.");
-    	 
-    	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-                 "person.idGroup", "Field name is required.");
+    	if(person.getIdPers()<0)
+    		errors.rejectValue("idPers", "person.idPers","Mauvais idPers");
     	
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-                "person.firstName", "Field name is required.");
+    	if(person.getIdGroup()<0)
+    		errors.rejectValue("idGroup", "person.idGroup","Mauvais idGroup");
+    	
+    	
+//    	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "idPers",
+//                 "person.idPers", "Vous ne pouvez pas avoir un id vide.");
+//    	 
+//    	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "idGroup",
+//                 "person.idGroup", "Vous ne pouvez pas avoir un id de groupe vide.");
+    	
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName",
+                "person.firstName", "Vous ne pouvez pas avoir un prénom vide.");
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description",
-        		"person.lastName", "Field description is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName",
+        		"person.lastName", "Vous ne pouvez pas avoir un nom vide.");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description",
-                "person.mail", "Field description is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mail",
+                "person.mail", "Votre mail ne peut pas être vide.");
         
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type",
 //                "product.web", "Field type is required.");
@@ -41,8 +48,8 @@ public class PersonValidator implements Validator{
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type",
 //                "product.naissance", "Field type is required.");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type",
-                "person.password", "Field type is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
+                "person.password", "Vous ne pouvez pas avoir un mot de passe vide.");
 
 //        if (!(person .getPrice() > 0.0)) {
 //            errors.rejectValue("price", "product.price.too.low",

@@ -46,8 +46,47 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 		Collection<Person> listPerson= new ArrayList<>();
 
-		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
+		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId;
+
+		try(Connection conn = newConnection()) {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				Person p =new Person();
+
+				p.setIdPers( rs.getInt(1) );
+				p.setIdGroup(  rs.getInt(2) );
+				p.setFirstName( rs.getString(3) );
+				p.setLastName( rs.getString(4) );
+				p.setMail( rs.getString(5) );
+				p.setWeb( rs.getString(6) );
+				p.setNaissance( rs.getString(7) );
+				p.setPassword( rs.getString(8) );
+
+				listPerson.add(p);
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return listPerson;
+	}
+	
+	/**
+	 * Return all people in a group
+	 * @param groupId group who contains people
+	 * @return return all people in a group
+	 * @throws SQLException if a database access error occurs
+	 */
+	
+	public Collection<Person> findAllPersons() throws SQLException {
+
+		Collection<Person> listPerson= new ArrayList<Person>();
+
+		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
+				+ " NaissancePers, MdpPers FROM personne";
 
 		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
@@ -84,7 +123,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Person findPerson(long id) throws SQLException {
 
 		Person p = new Person();
-		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
+		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne WHERE idPers = " + id ;
 
 		//Connection conn = null;
@@ -121,7 +160,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Person findPerson(String mail) throws SQLException {
 
 		Person p = new Person();
-		String query = "SELECT idPers, idGroup, NomPers, PrenomPers, MailPers, WebPers,"
+		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne WHERE MailPers = " +"'" +mail+"'" ;
 		try {
 			init();
@@ -169,7 +208,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		if( ! checkWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
 		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
-		String query = "INSERT INTO personne (idPers, idGroup, NomPers, PrenomPers, "
+		String query = "INSERT INTO personne (idPers, idGroup, PrenomPers, NomPers, "
 				+ "MailPers, WebPers, NaissancePers, MdpPers) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		int idPers = p.getIdPers();
@@ -214,11 +253,11 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public void updatePerson(Person p, int idPerson) throws SQLException, DaoException {
 
 //		TODO
-		if( ! CheckerMail.validate(p.getMail())  ) throw new DaoException("E-mail is not compliant");
-		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
+//		if( ! CheckerMail.validate(p.getMail())  ) throw new DaoException("E-mail is not compliant");
+//		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
 		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
-		String query = "UPDATE personne SET idPers = ?, idGroup = ?, NomPers = ?, PrenomPers = ? ,"
+		String query = "UPDATE personne SET idPers = ?, idGroup = ?, PrenomPers = ?, NomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
 				+ "WHERE idPers = ?";
 

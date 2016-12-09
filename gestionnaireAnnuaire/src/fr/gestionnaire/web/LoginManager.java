@@ -1,6 +1,7 @@
 package fr.gestionnaire.web;
 
 import java.sql.SQLException;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,17 @@ public class LoginManager {
 			return null;
 		}
 		return personDao;
+	}
+	
+	public Collection<Person> getAllPersons(){
+		Collection<Person> p = null;
+		try {
+			p = dao.findAllPersons();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return p;
 	}
     
     public void updatePerson(Person p) throws SQLException, DaoException {
