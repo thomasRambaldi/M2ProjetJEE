@@ -22,7 +22,7 @@
 
 				<td><small class="errors help-block"><form:errors
 							path="idPers" cssClass="error" /></small></td>
-			</tr> --%>
+			</tr>  --%>
 			<tr>
 				<td>Groupe :</td>
 				<td><form:input path="idGroup" value="${personLogged.idGroup}" /></td>

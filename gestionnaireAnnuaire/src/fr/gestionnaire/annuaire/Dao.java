@@ -269,7 +269,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String web = p.getWeb();
 		String naissance = p.getNaissance();
 		String password= p.getPassword();
-
 		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password, idPerson);
 	}
 

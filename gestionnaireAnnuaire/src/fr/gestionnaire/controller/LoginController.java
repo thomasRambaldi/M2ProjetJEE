@@ -89,8 +89,9 @@ public class LoginController {
 	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	public String updatePerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
-//	    System.out.println("UPDATE");
 //	    validator.validate(p, result);
+	    Person personSession = (Person) request.getSession().getAttribute("personLogged");
+	    p.setIdPers(personSession.getIdPers());
 	    if (result.hasErrors()) {
 //	    	request.getSession().setAttribute("personValidator", validator);
 	        return "editUser";
@@ -100,6 +101,7 @@ public class LoginController {
 		} catch (SQLException | DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("error");
 			return "editUser";
 		}
 	    HttpSession maSession = request.getSession();
