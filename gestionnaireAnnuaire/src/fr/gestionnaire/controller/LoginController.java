@@ -2,6 +2,7 @@ package fr.gestionnaire.controller;
 
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,31 +53,16 @@ public class LoginController {
     }
     
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String editProduct(@ModelAttribute Person p, HttpServletResponse response) {
-		
+	public String displayUserInformation(@ModelAttribute Person p, HttpServletResponse response) {
 	    return "user";
 	}
 	
-//	@ModelAttribute
-//	public Person editPerson(
-//	        @RequestParam(value = "id", required = false) Integer idPers) {
-//	    if (idPers != null) {
-//	        logger.info("find product " + idPers);
-//	        return loginManager.infoPersonWithId(idPers);
-//	    }
-//	    Person p = new Person();
-//	    p.setIdPers(0);
-//	    p.setIdGroup(0);
-//	    p.setFirstName("");
-//	    p.setLastName("");
-//	    p.setMail("");
-//	    p.setWeb("");
-//	    p.setNaissance("");
-//	    p.setPassword("");
-//	    
-//	    logger.info("edit person = " + p);
-//	    return p;
-//	}
+	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
+	public String editUserInformation(@ModelAttribute Person p, HttpServletRequest request, HttpServletResponse response) {
+		HttpSession maSession = request.getSession();
+		
+		return "editUser";
+	}
 
 	
 	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
@@ -97,6 +83,9 @@ public class LoginController {
 		maSession.setAttribute("personLogged", p);
 	    return "redirect:user";
 	}
+	
+	
+	
 	
     
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -141,7 +130,7 @@ public class LoginController {
 //        return "personLogged";
 //    }
     
-//    http://localhost:8080/gestionnaireAnnuaire/actions/connexion/list?id=5
+
     
     
 }

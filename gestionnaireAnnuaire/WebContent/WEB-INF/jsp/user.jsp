@@ -12,52 +12,55 @@
 </head>
 <body>
 
-
-
+	<h1>Vos information</h1>
 	<form:form method="POST" commandName="person">
 		<table>
 			<tr>
 				<td>Numero : </td>
-				<td><form:input path="idPers" value="${personLogged.idPers}"/></td>
+				<td>${personLogged.idPers}</td>
 			</tr>
 			<tr>
 				<td>Groupe :</td>
-				<td><form:input path="idGroup" value="${personLogged.idGroup}"/></td>
+				<td>${personLogged.idGroup}</td>
 			</tr>
 			<tr>
 				<td>Nom :</td>
-				<td><form:input path="firstName" value="${personLogged.firstName}"/></td>
+				<td>${personLogged.firstName}</td>
 			</tr>
 
 			<tr>
 				<td>Prénom :</td>
-				<td><form:input path="lastName" value="${personLogged.lastName}"/></td>
+				<td>${personLogged.lastName}</td>
 			</tr>
 
 			<tr>
 				<td>Email :</td>
-				<td><form:input path="mail" value="${personLogged.mail}"/></td>
+				<td>${personLogged.mail}</td>
 			</tr>
 
 			<tr>
 				<td>Site web :</td>
-				<td><form:input path="web" value="${personLogged.web}"/></td>
+				<td>${personLogged.web}</td>
 			</tr>
 
 			<tr>
 				<td>Naissance :</td>
-				<td><form:input path="naissance" value="${personLogged.naissance}"/></td>
+				<td>${personLogged.naissance}</td>
 			</tr>
 
 			<tr>
 				<td>Password :</td>
-				<td><form:input path="password" value="${personLogged.password}"/></td>
+				<td>${personLogged.password}</td>
 			</tr>
 
 			<tr>
+			<td><a href="${personLogged}">Editer votre profile</a></td>
+			<td><a href="${personLogged}">Liste des personnes</a></td>
+			<td><a href="${personLogged}">Liste des groupes</a></td>
+			<!-- 
 				<td colspan="3"><input type="submit" /></td>
+ 			-->
 			</tr>
-
 		</table>
 	</form:form>
 </body>
