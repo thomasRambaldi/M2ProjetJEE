@@ -1,5 +1,9 @@
 package fr.gestionnaire.annuaire;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * JavaBean of the Person
  * @author Thomas
@@ -7,14 +11,32 @@ package fr.gestionnaire.annuaire;
  */
 public class Person {
 
-	private int idPers=-1;
-	private int idGroup=-1;
-	private String firstName = null;
-	private String lastName= null ;
-	private String  mail = null;
-	private String web = null;
-	private String  naissance = null;
-	private String password = null ;
+	private int idPers;
+	private int idGroup;
+	
+	@NotNull
+	@Size(min=1, message = "Le prénom ne peut pas être vide")
+	private String firstName;
+	
+	@NotNull
+	@Size(min=1, message = "Le nom ne peut pas être vide")
+	private String lastName;
+	
+	@NotNull
+	@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-_]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$", message="Adresse mail invalide : exemple@exemple.com")
+	private String  mail;
+	
+	@NotNull
+	@Pattern(regexp="[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$", message="Site web invalide : exemple.com")
+	private String web;
+	
+	@NotNull
+	@Pattern(regexp="^[0-9]{2}/[0-9]{2}/[0-9]{4}$", message="Syntaxe de la date invalide : dd/mm/yyyy")
+	private String  naissance;
+	
+	@NotNull
+	@Size(min=1, message = "Le mot de passe ne peut pas être vide")
+	private String password;
 
 	/**
 	 * Constuctor of the person

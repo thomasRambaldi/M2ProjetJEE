@@ -3,10 +3,12 @@ package fr.gestionnaire.controller;
 
 
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Person;
@@ -33,8 +36,6 @@ public class LoginController {
 	@Autowired
 	private PersonManager personManager;
 	
-	@Autowired
-	PersonValidator validator;
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -56,35 +57,56 @@ public class LoginController {
     }
     
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String displayUserInformation(@ModelAttribute Person p, HttpServletResponse response) {
-	    return "user";
+	public String displayUserInformation(@ModelAttribute Person p, HttpServletRequest request) {
+//		logger.info("Running " + this);
+		if(request.getSession().getAttribute("personLogged") == null)
+			return "redirect:login";
+		return "user";
 	}
 	
 	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
-	public String editUserInformations(@ModelAttribute Person p, HttpServletResponse response) {
-	    return "editUser";
+	public String editUserInformation(@ModelAttribute Person p, HttpServletRequest request, HttpServletResponse response) {
+		if(request.getSession().getAttribute("personLogged") == null)
+			return "redirect:login";
+		return "editUser";
+	}
+	
+	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
+	public String logOutUser(HttpServletRequest request) {
+		request.getSession().setAttribute("personLogged", null);
+		return "redirect:login";
+	}
+	
+	@RequestMapping(value = "/personList", method = RequestMethod.GET)
+	public ModelAndView listPersons(HttpServletRequest request) {
+//		Collection<Person> cp = loginManager.getAllPersons();
+//		System.out.println(cp);
+//		request.getSession().setAttribute("personsList", loginManager.getAllPersons());
+		return new ModelAndView("lister", "personsList", loginManager.getAllPersons());
+//		return "lister";
 	}
 	
 	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
-	public String updatePerson(@ModelAttribute Person p, BindingResult result, HttpServletRequest request) {
-		if (result.hasErrors()) {
-	        return "user";
+	public String updatePerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
+//	    validator.validate(p, result);
+	    Person personSession = (Person) request.getSession().getAttribute("personLogged");
+	    p.setIdPers(personSession.getIdPers());
+	    if (result.hasErrors()) {
+//	    	request.getSession().setAttribute("personValidator", validator);
+	        return "editUser";
 	    }
 	    try {
 	    	personManager.updatePerson(p);
 		} catch (SQLException | DaoException e) {
 			e.printStackTrace();
-			return "redirect:editUser";
+			System.out.println("error");
+			return "editUser";
 		}
 	    HttpSession maSession = request.getSession();
 		maSession.setAttribute("personLogged", p);
-	    return "redirect:user";
+	    return "editUser";
 	}
-	
-	
-	
-	
     
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
 //    public ModelAndView sayHelloUser() {

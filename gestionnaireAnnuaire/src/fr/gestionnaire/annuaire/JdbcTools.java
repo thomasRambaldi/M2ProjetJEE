@@ -159,6 +159,7 @@ public class JdbcTools {
 			throw new MySQLIntegrityConstraintViolationException();
 		}
 		catch (SQLException e) {
+			e.printStackTrace();
 			throw new SQLException();
 		}
 	}

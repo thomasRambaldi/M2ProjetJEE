@@ -32,5 +32,8 @@
 		<property name="password" value="" />
 		<property name="driverName" value="com.mysql.jdbc.Driver" />
 	</bean>
+	
+	<!-- support JSR303 annotation -->
+    <mvc:annotation-driven enable-matrix-variables="true" />
 
 </beans>
