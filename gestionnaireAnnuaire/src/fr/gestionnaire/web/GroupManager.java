@@ -20,7 +20,6 @@ public class GroupManager {
 	public Collection<Group> findAllGroup(){
     	Collection<Group> listGroup;
     	try {
-    		System.out.println("In the try");
 			listGroup= dao.findAllGroups();
 		} catch (SQLException e) {
 			e.printStackTrace();

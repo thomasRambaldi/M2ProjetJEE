@@ -1,5 +1,7 @@
 package fr.gestionnaire.controller;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,22 @@ public class PersonController {
 
 	@Autowired
 	PersonManager personManager;
+	
+	@RequestMapping(value = "/showPerson", method = RequestMethod.GET)
+	public String displayInfoPers(@ModelAttribute Person p, HttpServletRequest request,
+			@RequestParam(value = "id") Integer id){
+		
+		Person pers = personManager.findPerson(id);
+		request.getSession().setAttribute("infoPerson", pers);
+		return "infoPerson";
+	}
 
-	@RequestMapping(value = "/show_person", method = RequestMethod.GET)
-    public String login(@ModelAttribute Person p, HttpServletRequest request,
+	@RequestMapping(value = "/showPersInGroup", method = RequestMethod.GET)
+    public String dysplayPersInGroup(@ModelAttribute Person p, HttpServletRequest request,
     		@RequestParam(value = "id") Integer id){
     	
-    	Person pers = personManager.findPerson(id);
-    	System.out.println("coucou");
-    	request.getSession().setAttribute("infoPerson", pers);
-    	return "infoPerson";
+    	Collection<Person> listPers = personManager.findAllPersonInGroup(id);
+    	request.getSession().setAttribute("persInGroup", listPers);
+    	return "infoGroup";
     }
 }

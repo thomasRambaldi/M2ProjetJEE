@@ -37,14 +37,25 @@ public class PersonManager {
     	Person person;
     	try {
     		person = dao.findPerson(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-    	System.out.println("PersonManager id =" + id);
-    	System.out.println("PersonManager info = " + person);
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     	return person;
     }
+    
+    public Collection<Person> findAllPersonInGroup(int id){
+    	Collection<Person> listPerson;
+    	try {
+    		listPerson = dao.findAllPersons(id);
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		return null;
+    	}
+    	return listPerson;
+    }
+    
+    
     
     
 }

@@ -19,7 +19,7 @@
 		<ul style="list-style-type: square">
 			<c:forEach items="${personsList}" var="personInList">
 				<li><a
-					href="/gestionnaireAnnuaire/actions/person/show_person?id=${personInList.idPers}">
+					href="/gestionnaireAnnuaire/actions/person/showPerson?id=${personInList.idPers}">
 						${personInList.lastName} ${personInList.firstName} </a></li>
 			</c:forEach>
 		</ul>

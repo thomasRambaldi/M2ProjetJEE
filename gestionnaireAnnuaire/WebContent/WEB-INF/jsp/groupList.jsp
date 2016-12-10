@@ -10,8 +10,6 @@
 <title>Liste des groupes</title>
 </head>
 
-
-
 <body>
 	<h1>Liste des groupes</h1>
 
@@ -19,13 +17,13 @@
 		<ul style="list-style-type: square">
 			<c:forEach items="${groupsList}" var="groupInList">
 				<li><a
-					href="/Annuaire/actions/person/show_person?id=${groupInList.idGroup}">
+					href="/gestionnaireAnnuaire/actions/person/showPersInGroup?id=${groupInList.idGroup}">
 						${groupInList.nameGroup}</a></li>
 			</c:forEach>
 		</ul>
 	</div>
 	<p>
-		<a href="editPerson">Ajouter une nouvelle personne</a>
+		<a href="editPerson">Ajouter un nouveau groupe</a>
 	</p>
 
 </body>

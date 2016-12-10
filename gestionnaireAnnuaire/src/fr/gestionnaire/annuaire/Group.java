@@ -55,6 +55,6 @@ public class Group {
 	@Override
 	public String toString() {
 		return "Id : " + idGroup +
-				"- GroupName : " + idGroup;
+				"- GroupName : " + nameGroup;
 	}
 }
