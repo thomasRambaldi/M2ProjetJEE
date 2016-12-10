@@ -13,6 +13,7 @@
 <body>
 
 	<h1>Vos information</h1>
+
 	<form:form method="POST" commandName="person">
 		<table>
 			<tr>
@@ -40,7 +41,7 @@
 
 			<tr>
 				<td>Site web :</td>
-				<td>${personLogged.web}</td>
+				<td><a href="${personLogged.web}">${personLogged.web}</a></td>
 			</tr>
 
 			<tr>
@@ -55,8 +56,8 @@
 
 			<tr>
 			<td><a href="editUser">Editer votre profile</a></td>
-			<td><a href="personList">Liste des personnes</a></td>
-			<td><a href="${personLogged}">Liste des groupes</a></td>
+			<td><a href="/gestionnaireAnnuaire/actions/lists/personList">Liste des personnes</a></td>
+			<td><a href="/gestionnaireAnnuaire/actions/lists/groupList">Liste des groupes</a></td>
 			<td><a href="log_out">Deconnexion</a></td>
 			<!-- 
 				<td colspan="3"><input type="submit" /></td>

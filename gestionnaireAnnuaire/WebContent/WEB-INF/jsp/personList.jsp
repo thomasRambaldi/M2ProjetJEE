@@ -14,13 +14,13 @@
 
 <body>
 	<h1>Liste des personnes</h1>
-	
+
 	<div class="container">
 		<ul style="list-style-type: square">
 			<c:forEach items="${personsList}" var="personInList">
 				<li><a
-					href="/Annuaire/actions/person/show_person?id=${personInList.idPers}">${personInList.lastName}
-						${personInList.firstName} </a></li>
+					href="/gestionnaireAnnuaire/actions/person/show_person?id=${personInList.idPers}">
+						${personInList.lastName} ${personInList.firstName} </a></li>
 			</c:forEach>
 		</ul>
 	</div>

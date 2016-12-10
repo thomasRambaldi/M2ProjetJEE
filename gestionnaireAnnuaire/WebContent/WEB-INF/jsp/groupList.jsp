@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
@@ -7,41 +7,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Liste des personnes présentent dans l'annuaire</title>
+<title>Liste des groupes</title>
 </head>
+
+
 
 <body>
 	<h1>Liste des groupes</h1>
-	YEAH
-	<table border='1'>
-		<c:forEach items="${groups}" var="group">
-			<tr>
-				<td>
-					<a href="${group}?id=${group.idPers}"> 
-					<c:out value="${group.idGroup}" /></a>
-				</td>
-				<td>
-					<c:out value="${group.firstName}" />
-				</td>
-				<td>
-					<c:out value="${group.lastName}" />
-				</td>
-								<td>
-					<c:out value="${group.mail}" />
-				</td>
-								<td>
-					<c:out value="${group.web}" />
-				</td>
-								<td>
-					<c:out value="${group.naissance}" />
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	
+
+	<div class="container">
+		<ul style="list-style-type: square">
+			<c:forEach items="${groupsList}" var="groupInList">
+				<li><a
+					href="/Annuaire/actions/person/show_person?id=${groupInList.idGroup}">
+						${groupInList.nameGroup}</a></li>
+			</c:forEach>
+		</ul>
+	</div>
 	<p>
-		<a href="${group}">Ajouter un nouveau groupe</a>
+		<a href="editPerson">Ajouter une nouvelle personne</a>
 	</p>
-	
+
 </body>
-</html>

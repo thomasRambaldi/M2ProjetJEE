@@ -35,47 +35,36 @@ public class DisplayListController  {
     @RequestMapping(value = "/personList", method = RequestMethod.GET)
     public String displayPersons(@ModelAttribute Person p, HttpServletRequest request) {
     	Collection<Person> listPerson = personManager.findAllPerson();
-    	System.out.println("---------------------");
-    	System.out.println(listPerson);
-    	System.out.println("---------------------");
     	HttpSession maSession = request.getSession();
-    	maSession.setAttribute("allPersons", listPerson);
+    	maSession.setAttribute("personsList", listPerson);
     	return "personList";
     }
     
-    @RequestMapping(value = "/personList", method = RequestMethod.POST)
-    public String displayAllPersons(@ModelAttribute Person p, HttpServletRequest request) {
-    	Collection<Person> listPerson = personManager.findAllPerson();
-    	System.out.println("---------------------");
-    	System.out.println(listPerson);
-    	System.out.println("---------------------");
-System.out.println(p.getFirstName());
-    	HttpSession maSession = request.getSession();
-    	maSession.setAttribute("persons", listPerson);
-		return "personList";
-    }
+//    @RequestMapping(value = "/personList", method = RequestMethod.POST)
+//    public String displayAllPersons(@ModelAttribute Person p, HttpServletRequest request) {
+//    	Collection<Person> listPerson = personManager.findAllPerson();
+//    	HttpSession maSession = request.getSession();
+//    	maSession.setAttribute("persons", listPerson);
+//		return "personList";
+//    }
     
     
     @RequestMapping(value = "/groupList", method = RequestMethod.GET)
     public String displayGroups(@ModelAttribute Group g, HttpServletRequest request) {
     	Collection<Group> listGroup = groupManager.findAllGroup();
-    	System.out.println("---------------------");
-    	System.out.println(listGroup);
-    	System.out.println("---------------------");
-    	
     	HttpSession maSession = request.getSession();
-    	maSession.setAttribute("groups", listGroup);
+    	maSession.setAttribute("groupsList", listGroup);
     	return "groupList";
     }
     
-    @RequestMapping(value = "/groupList", method = RequestMethod.POST)
-    public String displayAllGroups(@ModelAttribute Group g, BindingResult result,  HttpServletRequest request) {
+//    @RequestMapping(value = "/groupList", method = RequestMethod.POST)
+//    public String displayAllGroups(@ModelAttribute Group g, BindingResult result,  HttpServletRequest request) {
 //    	Collection<Person> listPerson = personManager.findAllPerson();
 //    	System.out.println("COUCOUECOIJOKEJKLCJEZKL");
 //    	HttpSession maSession = request.getSession();
 //		maSession.setAttribute("listPersons", listPerson);
-    	return "redirect:/lists/groupList";
-    }
+//    	return "redirect:/lists/groupList";
+//    }
     
     
     

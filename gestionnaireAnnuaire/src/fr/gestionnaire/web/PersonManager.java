@@ -25,14 +25,26 @@ public class PersonManager {
     public Collection<Person> findAllPerson(){
     	Collection<Person> listPerson;
     	try {
-			listPerson = dao.findAllPersons();
+    		listPerson = dao.findAllPersons();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		return null;
+    	}
+    	return listPerson;
+    }
+    
+    public Person findPerson(int id){
+    	Person person;
+    	try {
+    		person = dao.findPerson(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-    	System.out.println("********************");
-    	System.out.println(listPerson);
-    	System.out.println("********************");
-    	return listPerson;
+    	System.out.println("PersonManager id =" + id);
+    	System.out.println("PersonManager info = " + person);
+    	return person;
     }
+    
+    
 }

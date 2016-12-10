@@ -267,7 +267,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public Collection<Group> findAllGroups() throws SQLException {
-		Collection<Group> listGroup= new ArrayList<>();
+		Collection<Group> listGroup= new ArrayList<Group>();
 
 		String query = "SELECT idGroup, NomGroup FROM groupe";
 
@@ -279,7 +279,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
 				g.setIdGroup( rs.getInt(1) );
 				g.setNameGroup( rs.getString(2) );
-
 				listGroup.add(g);
 			}
 			conn.close();

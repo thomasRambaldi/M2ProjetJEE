@@ -51,4 +51,10 @@ public class Group {
 		return 	idGroup == g.getIdGroup() && 
 				nameGroup.equals(g.getNameGroup());
 	}
+
+	@Override
+	public String toString() {
+		return "Id : " + idGroup +
+				"- GroupName : " + idGroup;
+	}
 }

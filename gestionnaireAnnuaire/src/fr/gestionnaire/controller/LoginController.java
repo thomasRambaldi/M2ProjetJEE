@@ -76,16 +76,7 @@ public class LoginController {
 		request.getSession().setAttribute("personLogged", null);
 		return "redirect:login";
 	}
-	
-	@RequestMapping(value = "/personList", method = RequestMethod.GET)
-	public ModelAndView listPersons(HttpServletRequest request) {
-//		Collection<Person> cp = loginManager.getAllPersons();
-//		System.out.println(cp);
-//		request.getSession().setAttribute("personsList", loginManager.getAllPersons());
-		return new ModelAndView("lister", "personsList", loginManager.getAllPersons());
-//		return "lister";
-	}
-	
+
 	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	public String updatePerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
@@ -100,7 +91,6 @@ public class LoginController {
 	    	personManager.updatePerson(p);
 		} catch (SQLException | DaoException e) {
 			e.printStackTrace();
-			System.out.println("error");
 			return "editUser";
 		}
 	    HttpSession maSession = request.getSession();
