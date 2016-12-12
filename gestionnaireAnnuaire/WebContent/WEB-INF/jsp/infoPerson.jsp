@@ -49,10 +49,6 @@
 				<td>${infoPerson.naissance}</td>
 			</tr>
 
-			<tr>
-				<td>Password :</td>
-				<td>${infoPerson.password}</td>
-			</tr>
 
 		</table>
 	</form:form>

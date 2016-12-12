@@ -26,11 +26,11 @@ public class Person {
 	@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-_]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$", message="Adresse mail invalide : exemple@exemple.com")
 	private String  mail;
 	
-	@NotNull
-	@Pattern(regexp="[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$", message="Site web invalide : exemple.com")
+	//@NotNull
+	@Pattern(regexp="^[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$", message="Site web invalide : exemple.com")
 	private String web;
 	
-	@NotNull
+	//@NotNull
 	@Pattern(regexp="^[0-9]{2}/[0-9]{2}/[0-9]{4}$", message="Syntaxe de la date invalide : dd/mm/yyyy")
 	private String  naissance;
 	

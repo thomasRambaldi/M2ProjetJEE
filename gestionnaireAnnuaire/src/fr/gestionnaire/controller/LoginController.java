@@ -3,7 +3,6 @@ package fr.gestionnaire.controller;
 
 
 import java.sql.SQLException;
-import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,13 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.LoginManager;
 import fr.gestionnaire.web.PersonManager;
-import fr.gestionnaire.web.PersonValidator;
 
 @Controller()
 @RequestMapping("/connexion")
@@ -58,7 +55,6 @@ public class LoginController {
     
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String displayUserInformation(@ModelAttribute Person p, HttpServletRequest request) {
-//		logger.info("Running " + this);
 		if(request.getSession().getAttribute("personLogged") == null)
 			return "redirect:login";
 		return "user";
@@ -95,9 +91,9 @@ public class LoginController {
 		}
 	    HttpSession maSession = request.getSession();
 		maSession.setAttribute("personLogged", p);
-	    return "editUser";
+	    return "user";
 	}
-    
+	
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
 //    public ModelAndView sayHelloUser() {
 //    	System.out.println("SALUT");

@@ -18,7 +18,11 @@
 			<c:forEach items="${groupsList}" var="groupInList">
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPersInGroup?id=${groupInList.idGroup}">
-						${groupInList.nameGroup}</a></li>
+						${groupInList.nameGroup}</a>
+					<a
+					href="/gestionnaireAnnuaire/actions/lists/deleteGroup?id=${groupInList.idGroup}">
+						Supprimer</a></li>
+
 			</c:forEach>
 		</ul>
 	</div>

@@ -23,7 +23,10 @@
 				<td><form:password path="password" /></td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" /></td>
+				<td colspan="3"><input type="submit" value="Sign in"/></td>
+				<td colspan="3"> 
+					<a href="/gestionnaireAnnuaire/actions/person/signUp" >Sign up</a>
+				</td>
 			</tr>
 		</table>
 	</form:form>

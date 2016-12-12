@@ -20,7 +20,10 @@
 			<c:forEach items="${personsList}" var="personInList">
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPerson?id=${personInList.idPers}">
-						${personInList.lastName} ${personInList.firstName} </a></li>
+						${personInList.lastName} ${personInList.firstName} </a> 
+					<a
+					href="/gestionnaireAnnuaire/actions/lists/deletePerson?id=${personInList.idPers}">
+						Supprimer</a></li>
 			</c:forEach>
 		</ul>
 	</div>

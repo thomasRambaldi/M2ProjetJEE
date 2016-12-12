@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<h1>Vos information</h1>
+	<h1>Vos informations</h1>
 
 	<form:form method="POST" commandName="person">
 		<table>

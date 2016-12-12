@@ -192,9 +192,9 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public void savePerson(Person p) throws SQLException, DaoException{
 
 //		TODO
-		if( ! CheckerMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
-		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
-		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
+//		if( ! CheckerMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
+//		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
+//		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
 		String query = "INSERT INTO personne (idPers, idGroup, PrenomPers, NomPers, "
 				+ "MailPers, WebPers, NaissancePers, MdpPers) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -226,7 +226,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public void deletePerson(Person p) throws SQLException {
-		
 		String query = "DELETE FROM personne WHERE idPers = ?";
 		executeUpdate(query, p.getIdPers());
 	}
@@ -239,11 +238,10 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public void updatePerson(Person p, int idPerson) throws SQLException, DaoException {
-
 //		TODO
 //		if( ! CheckerMail.validate(p.getMail())  ) throw new DaoException("E-mail is not compliant");
 //		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
-		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
+//		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, PrenomPers = ?, NomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
@@ -328,7 +326,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public void saveGroup(Group g) throws SQLException, DaoException {
 		
-		if( ! CheckerGroupName.validate(g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
+//		if( ! CheckerGroupName.validate(g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
 		
 		String query = "INSERT INTO groupe (idGroup, nomGroup) VALUES(?, ?)";
 
@@ -359,7 +357,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public void updateGroup(Group g, int idGrp) throws SQLException, DaoException {
 		
-		if( ! CheckerGroupName.validate( g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
+//		if( ! CheckerGroupName.validate( g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
 		
 		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + idGrp;
 

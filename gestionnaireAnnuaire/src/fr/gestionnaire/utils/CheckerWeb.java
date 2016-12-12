@@ -7,7 +7,7 @@ public class CheckerWeb {
 	private static Pattern pattern;
 	private static Matcher matcher;
 	
-	private static final String WEB_PATTERN  = "^http://[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$";
+	private static final String WEB_PATTERN  = "^[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$";
 	
 
 	/**
@@ -20,6 +20,5 @@ public class CheckerWeb {
 		pattern = Pattern.compile(WEB_PATTERN );
 		matcher = pattern.matcher(string);
 		return matcher.matches();
-
 	}
 }

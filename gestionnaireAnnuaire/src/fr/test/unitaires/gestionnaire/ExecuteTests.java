@@ -15,11 +15,11 @@ import fr.test.unitaires.utils.CheckerWebTest;
 	//DaoTest.class,
 	GroupTest.class,
 	JdbcToolsTest.class,
-	PersonTest.class,
-	CheckerBirthDayTest.class,
-	CheckerGroupNameTest.class,
-	CheckerMailTest.class,
-	CheckerWebTest.class,
+	PersonTest.class
+//	CheckerBirthDayTest.class,
+//	CheckerGroupNameTest.class,
+//	CheckerMailTest.class,
+//	CheckerWebTest.class,
 //	CheckerTest.class
 
 })

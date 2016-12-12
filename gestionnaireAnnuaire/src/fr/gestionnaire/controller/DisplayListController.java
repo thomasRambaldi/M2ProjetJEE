@@ -9,10 +9,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.gestionnaire.annuaire.Group;
 import fr.gestionnaire.annuaire.Person;
@@ -40,13 +40,15 @@ public class DisplayListController  {
     	return "personList";
     }
     
-//    @RequestMapping(value = "/personList", method = RequestMethod.POST)
-//    public String displayAllPersons(@ModelAttribute Person p, HttpServletRequest request) {
-//    	Collection<Person> listPerson = personManager.findAllPerson();
-//    	HttpSession maSession = request.getSession();
-//    	maSession.setAttribute("persons", listPerson);
-//		return "personList";
-//    }
+    @RequestMapping(value = "/deletePerson", method = RequestMethod.GET)
+    public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
+    		@RequestParam(value = "id") Integer id) {
+    	System.out.println("DeleteGroup in DisplayListController");
+    	p.setIdPers(id);;
+		personManager.deletePerson(p);;
+    	return "redirect:personList";
+    }
+    
     
     
     @RequestMapping(value = "/groupList", method = RequestMethod.GET)
@@ -66,8 +68,14 @@ public class DisplayListController  {
 //    	return "redirect:/lists/groupList";
 //    }
     
-    
-    
+    @RequestMapping(value = "/deleteGroup", method = RequestMethod.GET)
+    public String deleteGroup(@ModelAttribute Group g, HttpServletRequest request,
+    		@RequestParam(value = "id") Integer id) {
+    	System.out.println("DeleteGroup in DisplayListController");
+    	g.setIdGroup(id);
+		groupManager.deleteGroup(g);
+    	return "redirect:groupList";
+    }
     
     
     
