@@ -95,6 +95,11 @@ public class LoginController {
 	    return "user";
 	}
 	
+	@RequestMapping(value = "/bonjour", method = RequestMethod.GET)
+	public String bonjour(HttpServletRequest request) {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+		return "redirect:login";
+	}
 	
     @RequestMapping(value = "/deleteAccount", method = RequestMethod.GET)
     public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
