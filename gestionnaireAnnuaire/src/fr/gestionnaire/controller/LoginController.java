@@ -95,6 +95,15 @@ public class LoginController {
 	    return "user";
 	}
 	
+	
+    @RequestMapping(value = "/deleteAccount", method = RequestMethod.GET)
+    public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
+    		@RequestParam(value = "id") Integer id) {
+    	p.setIdPers(id);
+		personManager.deletePerson(p);
+    	return "redirect:login";
+    }
+    
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
 	public String signUpPersonGet(Person p, HttpServletRequest request) {
 	    return "inscription";
