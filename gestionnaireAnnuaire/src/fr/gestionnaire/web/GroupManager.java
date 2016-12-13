@@ -42,7 +42,6 @@ public class GroupManager {
 		try {
 			dao.saveGroup(g);
 		} catch (SQLException | DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -48,8 +48,6 @@ public class DisplayListController  {
     	return "redirect:personList";
     }
     
-    
-    
     @RequestMapping(value = "/groupList", method = RequestMethod.GET)
     public String displayGroups(@ModelAttribute Group g, HttpServletRequest request) {
     	Collection<Group> listGroup = groupManager.findAllGroup();
@@ -57,15 +55,6 @@ public class DisplayListController  {
     	maSession.setAttribute("groupsList", listGroup);
     	return "groupList";
     }
-    
-//    @RequestMapping(value = "/groupList", method = RequestMethod.POST)
-//    public String displayAllGroups(@ModelAttribute Group g, BindingResult result,  HttpServletRequest request) {
-//    	Collection<Person> listPerson = personManager.findAllPerson();
-//    	System.out.println("COUCOUECOIJOKEJKLCJEZKL");
-//    	HttpSession maSession = request.getSession();
-//		maSession.setAttribute("listPersons", listPerson);
-//    	return "redirect:/lists/groupList";
-//    }
     
     @RequestMapping(value = "/deleteGroup", method = RequestMethod.GET)
     public String deleteGroup(@ModelAttribute Group g, HttpServletRequest request,

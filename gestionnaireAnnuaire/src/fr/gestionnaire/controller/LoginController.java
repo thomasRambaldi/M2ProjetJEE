@@ -39,7 +39,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute Person p, BindingResult result) {
-        logger.info("Running " + this);
+        logger.info("Running as projet ---------------------- " + this);
         return "login";
     }
     
@@ -95,11 +95,6 @@ public class LoginController {
 	    return "user";
 	}
 	
-	@RequestMapping(value = "/bonjour", method = RequestMethod.GET)
-	public String bonjour(HttpServletRequest request) {
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-		return "redirect:login";
-	}
 	
     @RequestMapping(value = "/deleteAccount", method = RequestMethod.GET)
     public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
@@ -168,4 +163,5 @@ public class LoginController {
 
     
     
+>>>>>>> branch 'master' of https://github.com/thomasRambaldi/M2ProjetJEE.git
 }
