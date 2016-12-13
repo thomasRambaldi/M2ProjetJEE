@@ -82,7 +82,7 @@
 					<!-- 
 					 <a href="login" >Confirmer</a>
 					 -->
-					 <input type="submit" value="Sign in"/>
+					 <input type="submit" value="Sign up"/>
 				</td>
 			</tr>
 

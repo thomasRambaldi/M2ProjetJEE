@@ -52,11 +52,11 @@ public class PersonController {
 	public String signUpUserConfirme(@ModelAttribute Person p, BindingResult result,
 			HttpServletRequest request) {
 
-//		if (result.hasErrors()) {
-//			return "signUp";
-//		}
-//		personManager.savePerson(p);
-		return "login";
+		if (result.hasErrors()) {
+			return "signUp";
+		}
+		personManager.savePerson(p);
+		return "redirect:/actions/connexion/login";
 	}
 
 }

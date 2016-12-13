@@ -114,6 +114,7 @@ public class JdbcTools {
 	 * @throws SQLException
 	 */
 	public Connection newConnection() throws SQLException {
+		
 		Connection conn = DriverManager.getConnection(url, user, password);
 		return conn;
 	}

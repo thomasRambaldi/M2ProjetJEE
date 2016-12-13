@@ -94,6 +94,20 @@ public class LoginController {
 	    return "user";
 	}
 	
+	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
+	public String signUpPersonGet(Person p, HttpServletRequest request) {
+	    return "inscription";
+	}
+	
+	@RequestMapping(value = "/inscription", method = RequestMethod.POST)
+	public String signUpPerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
+	    if (result.hasErrors()) {
+	        return "inscription";
+	    }
+	    personManager.savePerson(p);
+	    return "redirect:login";
+	}
+	
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
 //    public ModelAndView sayHelloUser() {
 //    	System.out.println("SALUT");

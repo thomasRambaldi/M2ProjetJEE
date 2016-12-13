@@ -27,7 +27,7 @@ public class Person {
 	private String  mail;
 	
 	//@NotNull
-	@Pattern(regexp="^[a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3}$", message="Site web invalide : exemple.com")
+	@Pattern(regexp="^([a-zA-Z0-9.-][a-zA-Z0-9.-]*.[a-zA-Z]{2,3})?$", message="Site web invalide : exemple.com")
 	private String web;
 	
 	//@NotNull
