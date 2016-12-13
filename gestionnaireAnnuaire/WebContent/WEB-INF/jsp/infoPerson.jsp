@@ -34,21 +34,24 @@
 				<td>${infoPerson.lastName}</td>
 			</tr>
 
-			<tr>
-				<td>Email :</td>
-				<td>${infoPerson.mail}</td>
-			</tr>
+			<c:if test="${connected != null}">
+				<tr>
+					<td>Email :</td>
+					<td>${infoPerson.mail}</td>
+				</tr>
+			</c:if>
 
 			<tr>
 				<td>Site web :</td>
 				<td><a href="${infoPerson.web}">${infoPerson.web}</a></td>
 			</tr>
 
-			<tr>
-				<td>Naissance :</td>
-				<td>${infoPerson.naissance}</td>
-			</tr>
-
+			<c:if test="${connected != null}">
+				<tr>
+					<td>Naissance :</td>
+					<td>${infoPerson.naissance}</td>
+				</tr>
+			</c:if>
 
 		</table>
 	</form:form>

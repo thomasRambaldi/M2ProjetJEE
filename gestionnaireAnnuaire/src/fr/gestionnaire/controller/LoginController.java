@@ -39,7 +39,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute Person p, BindingResult result) {
-        logger.info("Running as projet ---------------------- " + this);
+        logger.info("Running as projet " + this);
         return "login";
     }
     
@@ -49,6 +49,7 @@ public class LoginController {
     		Person pers = loginManager.infoPersonWithPers(p);
     		HttpSession maSession = request.getSession();
     		maSession.setAttribute("personLogged", pers);
+    		maSession.setAttribute("connected", true);
     		return "redirect:user";
     	}
     	return "login";
@@ -71,6 +72,7 @@ public class LoginController {
 	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
 	public String logOutUser(HttpServletRequest request) {
 		request.getSession().setAttribute("personLogged", null);
+		request.getSession().setAttribute("connected", null);
 		return "redirect:login";
 	}
 

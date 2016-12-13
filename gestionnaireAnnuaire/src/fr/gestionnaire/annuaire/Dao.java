@@ -26,8 +26,8 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}}
-
+		}
+	}
 
 	/**
 	 * Return all people in a group
