@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.gestionnaire.annuaire.Group;
-import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.GroupManager;
 
 @Controller()
@@ -32,6 +31,6 @@ public class GroupController {
 	        return "ajoutGroupe";
 	    }
 	    groupManager.saveGroup(g);
-	    return "redirect:actions/lists/groupList";
+	    return "redirect:/actions/lists/groupList";
 	}
 }

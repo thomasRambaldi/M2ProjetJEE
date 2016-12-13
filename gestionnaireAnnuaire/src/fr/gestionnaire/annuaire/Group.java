@@ -1,5 +1,8 @@
 package fr.gestionnaire.annuaire;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * JavaBean of the group
  * @author Thomas
@@ -8,6 +11,9 @@ package fr.gestionnaire.annuaire;
 public class Group {
 	
 	private int idGroup=-1;
+	
+	@NotNull
+	@Size(min=5, message = "Le nom du groupe est vide ou mal forme. Exemple M2 ISL. 2016/2017")
 	private String nameGroup;
 
 	/**
