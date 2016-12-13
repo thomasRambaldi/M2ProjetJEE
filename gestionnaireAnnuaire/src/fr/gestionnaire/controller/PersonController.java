@@ -41,22 +41,6 @@ public class PersonController {
 	}
 
 
-	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public String signUpUser(@ModelAttribute Person p, BindingResult result) {
-		return "signUp";
-	}
 
-
-	//TODO : Probleme lorsque l'on clique sur le bouton submit (No suitable driver found)
-	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public String signUpUserConfirme(@ModelAttribute Person p, BindingResult result,
-			HttpServletRequest request) {
-
-//		if (result.hasErrors()) {
-//			return "signUp";
-//		}
-//		personManager.savePerson(p);
-		return "login";
-	}
 
 }

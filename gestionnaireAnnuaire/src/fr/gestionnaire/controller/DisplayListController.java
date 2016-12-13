@@ -43,7 +43,6 @@ public class DisplayListController  {
     @RequestMapping(value = "/deletePerson", method = RequestMethod.GET)
     public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
     		@RequestParam(value = "id") Integer id) {
-    	System.out.println("DeleteGroup in DisplayListController");
     	p.setIdPers(id);;
 		personManager.deletePerson(p);;
     	return "redirect:personList";

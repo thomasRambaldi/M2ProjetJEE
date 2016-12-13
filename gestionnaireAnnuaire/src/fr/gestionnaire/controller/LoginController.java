@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Person;
@@ -93,6 +94,35 @@ public class LoginController {
 		maSession.setAttribute("personLogged", p);
 	    return "user";
 	}
+	
+	
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
+	public String signUpUser(@ModelAttribute Person p, BindingResult result) {
+		return "signUp";
+	}
+
+
+	//TODO : Probleme lorsque l'on clique sur le bouton submit (No suitable driver found)
+	//VOIR ICI LE LIEN EST MAL FORMER APRES L INSCRIPTION
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
+	public String signUpUserConfirme(@ModelAttribute Person p, BindingResult result,
+			HttpServletRequest request) {
+
+//		if (result.hasErrors()) {
+//			return "signUp";
+//		}
+		personManager.savePerson(p);
+		return "redirect:/actions/connexion/login";
+	}
+	
+    @RequestMapping(value = "/deleteAccount", method = RequestMethod.GET)
+    public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
+    		@RequestParam(value = "id") Integer id) {
+    	p.setIdPers(id);
+		personManager.deletePerson(p);
+    	return "redirect:login";
+    }
+    
 	
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
 //    public ModelAndView sayHelloUser() {

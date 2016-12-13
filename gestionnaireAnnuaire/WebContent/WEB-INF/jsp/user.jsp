@@ -59,9 +59,12 @@
 			<td><a href="/gestionnaireAnnuaire/actions/lists/personList">Liste des personnes</a></td>
 			<td><a href="/gestionnaireAnnuaire/actions/lists/groupList">Liste des groupes</a></td>
 			<td><a href="log_out">Deconnexion</a></td>
-			<!-- 
-				<td colspan="3"><input type="submit" /></td>
- 			-->
+			</tr>
+			<tr>
+				<td>
+					<a href="/gestionnaireAnnuaire/actions/connexion/deleteAccount?id=${personLogged.idPers}">
+						Supprimer votre compte</a>
+				</td>
 			</tr>
 		</table>
 	</form:form>
