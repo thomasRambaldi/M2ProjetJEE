@@ -70,10 +70,6 @@ public class PersonManager {
 		try {
 			dao.savePerson(p);
 		} catch (SQLException e) {
-			System.out.println("first try");
-			e.printStackTrace();
-		} catch (DaoException e) {
-			System.out.println("second try");
 			e.printStackTrace();
 		}
 	}

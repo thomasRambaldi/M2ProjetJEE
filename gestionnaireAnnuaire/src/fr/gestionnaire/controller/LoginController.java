@@ -95,34 +95,19 @@ public class LoginController {
 	    return "user";
 	}
 	
-	
-	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public String signUpUser(@ModelAttribute Person p, BindingResult result) {
-		return "signUp";
-	}
-
-
-	//TODO : Probleme lorsque l'on clique sur le bouton submit (No suitable driver found)
-	//VOIR ICI LE LIEN EST MAL FORMER APRES L INSCRIPTION
-	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public String signUpUserConfirme(@ModelAttribute Person p, BindingResult result,
-			HttpServletRequest request) {
-
-//		if (result.hasErrors()) {
-//			return "signUp";
-//		}
-		personManager.savePerson(p);
-		return "redirect:/actions/connexion/login";
+	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
+	public String signUpPersonGet(Person p, HttpServletRequest request) {
+	    return "inscription";
 	}
 	
-    @RequestMapping(value = "/deleteAccount", method = RequestMethod.GET)
-    public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
-    		@RequestParam(value = "id") Integer id) {
-    	p.setIdPers(id);
-		personManager.deletePerson(p);
-    	return "redirect:login";
-    }
-    
+	@RequestMapping(value = "/inscription", method = RequestMethod.POST)
+	public String signUpPerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
+	    if (result.hasErrors()) {
+	        return "inscription";
+	    }
+	    personManager.savePerson(p);
+	    return "redirect:login";
+	}
 	
 //    @RequestMapping(value = "/user", method = RequestMethod.GET)
 //    public ModelAndView sayHelloUser() {

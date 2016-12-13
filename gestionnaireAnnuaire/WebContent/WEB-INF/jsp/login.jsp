@@ -25,7 +25,7 @@
 			<tr>
 				<td colspan="3"><input type="submit" value="Sign in"/></td>
 				<td colspan="3"> 
-					<a href="/gestionnaireAnnuaire/actions/connexion/signUp" >Sign up</a>
+					<a href="inscription" >Sign up</a>
 				</td>
 			</tr>
 		</table>
