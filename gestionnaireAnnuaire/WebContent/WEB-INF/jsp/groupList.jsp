@@ -27,7 +27,7 @@
 		</ul>
 	</div>
 	<p>
-		<a href="editPerson">Ajouter un nouveau groupe</a>
+		<a href="/gestionnaireAnnuaire/actions/group/addGroup">Ajouter un nouveau groupe</a>
 	</p>
 
 </body>

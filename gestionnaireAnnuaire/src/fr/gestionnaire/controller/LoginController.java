@@ -39,7 +39,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute Person p, BindingResult result) {
-        logger.info("Running " + this);
+        logger.info("Running as projet ---------------------- " + this);
         return "login";
     }
     
