@@ -20,9 +20,10 @@
 				<td>Numero :</td>
 				<td>${infoPerson.idPers}</td>
 			</tr>
+			
 			<tr>
 				<td>Groupe :</td>
-				<td>${infoPerson.idGroup}</td>
+				<td>${groupName.nameGroup}</td>
 			</tr>
 			<tr>
 				<td>Nom :</td>

@@ -12,6 +12,9 @@ import javax.validation.constraints.Size;
 public class Person {
 
 	private int idPers;
+	
+	@NotNull
+	@Pattern(regexp="^[0-9]{1,2})$", message="Entrez le numéro du groupe auquel vous appartenez. Exemple groupe n°1 = M2 ISL 2015/2016")
 	private int idGroup;
 	
 	@NotNull
@@ -31,7 +34,7 @@ public class Person {
 	private String web;
 	
 	//@NotNull
-	@Pattern(regexp="^[0-9]{2}/[0-9]{2}/[0-9]{4}$", message="Syntaxe de la date invalide : dd/mm/yyyy")
+	@Pattern(regexp="^([0-9]{2}/[0-9]{2}/[0-9]{4})?$", message="Syntaxe de la date invalide : dd/mm/yyyy")
 	private String  naissance;
 	
 	@NotNull

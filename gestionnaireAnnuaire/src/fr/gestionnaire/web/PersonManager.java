@@ -83,5 +83,16 @@ public class PersonManager {
 		}
 		return group;
 	}
+	
+	public Group findGroupNameFromPerson(long id) {
+		Group group;
+		try {
+			group = dao.findGroupNameFromPerson(id) ;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return group;
+	}
 
 }

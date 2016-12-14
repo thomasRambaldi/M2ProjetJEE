@@ -22,6 +22,7 @@
 				<td>Numero : </td>
 				<td>${personLogged.idPers}</td>
 			</tr>
+			
 			<tr>
 				<td>Groupe :</td>
 				<td>${groupName.nameGroup}</td>
@@ -46,6 +47,7 @@
 				<td>Site web :</td>
 				<td><a href="${personLogged.web}">${personLogged.web}</a></td>
 			</tr>
+
 
 			<tr>
 				<td>Naissance :</td>
