@@ -19,15 +19,21 @@
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPersInGroup?id=${groupInList.idGroup}">
 						${groupInList.nameGroup}</a>
-					<a
-					href="/gestionnaireAnnuaire/actions/lists/deleteGroup?id=${groupInList.idGroup}">
-						Supprimer</a></li>
+					<c:if test="${connected != null}">
+						<a
+						href="/gestionnaireAnnuaire/actions/lists/deleteGroup?id=${groupInList.idGroup}">
+							Supprimer</a>
+					</c:if>
+				</li>
 
 			</c:forEach>
 		</ul>
 	</div>
-	<p>
-		<a href="/gestionnaireAnnuaire/actions/group/addGroup">Ajouter un nouveau groupe</a>
-	</p>
+	
+	<c:if test="${connected != null}">
+		<p>
+			<a href="/gestionnaireAnnuaire/actions/group/addGroup">Ajouter un nouveau groupe</a>
+		</p>
+	</c:if>
 
 </body>

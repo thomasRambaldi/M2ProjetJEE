@@ -3,16 +3,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Vos informations</title>
+
 </head>
 <body>
 
 	<h1>Vos informations</h1>
+
 
 	<form:form method="POST" commandName="person">
 		<table>
@@ -22,8 +24,9 @@
 			</tr>
 			<tr>
 				<td>Groupe :</td>
-				<td>${personLogged.idGroup}</td>
+				<td>${groupName.nameGroup}</td>
 			</tr>
+			
 			<tr>
 				<td>Nom :</td>
 				<td>${personLogged.firstName}</td>

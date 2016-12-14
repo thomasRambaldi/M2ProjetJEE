@@ -22,6 +22,13 @@ public interface IPersonDao {
 	 */
 	Collection<Person> findAllPersons(long groupId) throws SQLException;
 
+	/**
+	 * Return all people present in the data base
+	 * @return all people present in the data base
+	 * @throws SQLException
+	 */
+	Collection<Person> findAllPersons() throws SQLException ;
+	
 	// lire une personne
 	/**
 	 * Return one person with him id
@@ -31,6 +38,7 @@ public interface IPersonDao {
 	 */
 	Person findPerson(long id) throws SQLException;
 
+	
 	// modification ou ajout d'une nouvelle personne
 	/**
 	 * Add a person in the data base
@@ -56,4 +64,6 @@ public interface IPersonDao {
 	 */
 	void updatePerson(Person p, int idPerson) throws MySQLIntegrityConstraintViolationException, SQLException, DaoException;
 
+	
+	Group findGroupNameFromPerson(String email)  throws SQLException;
 }

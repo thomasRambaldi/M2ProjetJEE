@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Dao;
+import fr.gestionnaire.annuaire.Group;
 import fr.gestionnaire.annuaire.Person;
 
 @Service
@@ -64,14 +65,23 @@ public class PersonManager {
 		}
 	}
 
-
-	// TODO : a implementer dans la partir controller
 	public void savePerson(Person p){
 		try {
 			dao.savePerson(p);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Group findGroupNameFromPerson(String email) {
+		Group group;
+		try {
+			group = dao.findGroupNameFromPerson(email) ;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return group;
 	}
 
 }
