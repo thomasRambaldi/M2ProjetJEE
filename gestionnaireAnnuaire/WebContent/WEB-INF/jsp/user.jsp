@@ -62,7 +62,7 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="/gestionnaireAnnuaire/actions/connexion/deleteAccount?id=${personLogged.idPers}">
+					<a href="deleteAccount?id=${personLogged.idPers}">
 						Supprimer votre compte</a>
 				</td>
 			</tr>

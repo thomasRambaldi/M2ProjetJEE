@@ -101,6 +101,7 @@ public class LoginController {
     		@RequestParam(value = "id") Integer id) {
     	p.setIdPers(id);
 		personManager.deletePerson(p);
+		logOutUser(request);
     	return "redirect:login";
     }
     
@@ -110,7 +111,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/inscription", method = RequestMethod.POST)
-	public String signUpPerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
+	public String signUpPerson(@ModelAttribute @Valid Person p, BindingResult result, 
+			HttpServletRequest request) {
 	    if (result.hasErrors()) {
 	        return "inscription";
 	    }
@@ -160,8 +162,4 @@ public class LoginController {
 //        return "personLogged";
 //    }
     
-
-    
-    
->>>>>>> branch 'master' of https://github.com/thomasRambaldi/M2ProjetJEE.git
 }
