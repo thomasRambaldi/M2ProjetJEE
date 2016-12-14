@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.gestionnaire.annuaire.Group;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.PersonManager;
 
@@ -26,7 +27,9 @@ public class PersonController {
 			@RequestParam(value = "id") Integer id){
 
 		Person pers = personManager.findPerson(id);
+		Group group = personManager.findGroupNameFromPerson(id);
 		request.getSession().setAttribute("infoPerson", pers);
+		request.getSession().setAttribute("groupName", group);
 		return "infoPerson";
 	}
 

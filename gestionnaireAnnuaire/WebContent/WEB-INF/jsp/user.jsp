@@ -10,6 +10,7 @@
 				<td>Numero : </td>
 				<td>${personLogged.idPers}</td>
 			</tr>
+			
 			<tr>
 				<td>Groupe :</td>
 				<td>${groupName.nameGroup}</td>
@@ -34,6 +35,7 @@
 				<td>Site web :</td>
 				<td><a target="_blank" href="http://www.${personLogged.web}">${personLogged.web}</a></td>
 			</tr>
+
 
 			<tr>
 				<td>Naissance :</td>
