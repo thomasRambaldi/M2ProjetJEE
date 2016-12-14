@@ -10,10 +10,6 @@ import java.util.Collection;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import exceptions.DaoException;
-import fr.gestionnaire.utils.CheckerBirthDay;
-import fr.gestionnaire.utils.CheckerGroupName;
-import fr.gestionnaire.utils.CheckerMail;
-import fr.gestionnaire.utils.CheckerWeb;
 
 public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 
@@ -387,4 +383,29 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		return p;
 	}
 
+	
+	public Group findGroupNameFromPerson(String email) throws SQLException{
+
+		Group g = new Group();
+		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g INNER JOIN  personne p  ON g.idGroup = p.idGroup "
+				+ "WHERE mailPers = " +"'" + email +"'" ;
+
+		//Connection conn = null;
+		try (Connection conn = newConnection()){
+			// create new connection and statement
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			if(! rs.next())
+				return null;
+			g.setIdGroup( ( Integer.parseInt( rs.getString(1) ) ));
+			g.setNameGroup( rs.getString(2) );
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} 
+		return g;
+	}
 }

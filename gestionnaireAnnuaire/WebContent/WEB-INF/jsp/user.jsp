@@ -9,10 +9,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Vos informations</title>
+
 </head>
 <body>
 
 	<h1>Vos informations</h1>
+
 
 	<form:form method="POST" commandName="person">
 		<table>
@@ -22,8 +24,9 @@
 			</tr>
 			<tr>
 				<td>Groupe :</td>
-				<td>${personLogged.idGroup}</td>
+				<td>${groupName.nameGroup}</td>
 			</tr>
+			
 			<tr>
 				<td>Nom :</td>
 				<td>${personLogged.firstName}</td>

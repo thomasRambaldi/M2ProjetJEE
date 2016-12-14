@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import exceptions.DaoException;
+import fr.gestionnaire.annuaire.Group;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.LoginManager;
 import fr.gestionnaire.web.PersonManager;
@@ -44,11 +45,13 @@ public class LoginController {
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute Person p, BindingResult result, HttpServletRequest request){
+    public String login(@ModelAttribute Person p, Group g,  BindingResult result, HttpServletRequest request){
     	if( loginManager.checkLogin(p) && loginManager.checkPassword(p) ){
     		Person pers = loginManager.infoPersonWithPers(p);
+    		Group groupInfo = personManager.findGroupNameFromPerson(p.getMail());
     		HttpSession maSession = request.getSession();
     		maSession.setAttribute("personLogged", pers);
+    		maSession.setAttribute("groupName", groupInfo);
     		maSession.setAttribute("connected", true);
     		return "redirect:user";
     	}
