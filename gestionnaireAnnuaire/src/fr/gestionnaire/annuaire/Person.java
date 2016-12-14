@@ -13,8 +13,8 @@ public class Person {
 
 	private int idPers;
 	
-	@NotNull
-	@Pattern(regexp="^[0-9]{1,2})$", message="Entrez le numéro du groupe auquel vous appartenez. Exemple groupe n°1 = M2 ISL 2015/2016")
+//	@NotNull
+//	@Pattern(regexp="^[0-9]{1,2})$", message="Entrez le numéro du groupe auquel vous appartenez. Exemple groupe n°1 = M2 ISL 2015/2016")
 	private int idGroup;
 	
 	@NotNull
