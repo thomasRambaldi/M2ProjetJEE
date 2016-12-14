@@ -1,17 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Vos informations</title>
-
-</head>
-<body>
+<%-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> --%>
+<%@ include file="header.jsp"%>
 
 	<h1>Vos informations</h1>
 
@@ -34,7 +22,7 @@
 			</tr>
 
 			<tr>
-				<td>PrÃ©nom :</td>
+				<td>Prénom :</td>
 				<td>${personLogged.lastName}</td>
 			</tr>
 
@@ -45,7 +33,7 @@
 
 			<tr>
 				<td>Site web :</td>
-				<td><a href="${personLogged.web}">${personLogged.web}</a></td>
+				<td><a target="_blank" href="http://www.${personLogged.web}">${personLogged.web}</a></td>
 			</tr>
 
 
@@ -60,14 +48,14 @@
 			</tr>
 
 			<tr>
-			<td><a href="editUser">Editer votre profile</a></td>
-			<td><a href="/gestionnaireAnnuaire/actions/lists/personList">Liste des personnes</a></td>
-			<td><a href="/gestionnaireAnnuaire/actions/lists/groupList">Liste des groupes</a></td>
-			<td><a href="log_out">Deconnexion</a></td>
+			<td><a href="editUser" class="btn btn-default">Editer votre profile</a></td>
+			<td><a href="/gestionnaireAnnuaire/actions/lists/personList" class="btn btn-info" >Liste des personnes</a></td>
+			<td><a href="/gestionnaireAnnuaire/actions/lists/groupList" class="btn btn-info">Liste des groupes</a></td>
+			<td><a href="log_out" class="btn btn-warning">Deconnexion</a></td>
 			</tr>
 			<tr>
 				<td>
-					<a href="deleteAccount?id=${personLogged.idPers}">
+					<a href="deleteAccount?id=${personLogged.idPers}" class="btn btn-danger">
 						Supprimer votre compte</a>
 				</td>
 			</tr>
