@@ -327,7 +327,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	public Group findGroup(String name) throws SQLException{
 		Group g = new Group();
-		String query =  "SELECT idGroup, NomGroup FROM groupe WHERE nomGroup = " + name ;
+		String query =  "SELECT idGroup, NomGroup FROM groupe WHERE nomGroup = " + "'"+ name + "'" ;
 
 		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();
