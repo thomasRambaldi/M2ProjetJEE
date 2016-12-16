@@ -29,6 +29,14 @@ public interface IGroupDao {
 	 * @throws SQLException 
 	 */
 	Group findGroup(long id) throws SQLException;
+	
+	/**
+	 * Return one group with him id
+	 * @param id The identifiant of the group
+	 * @return return the group with this id
+	 * @throws SQLException 
+	 */
+	Group findGroup(String name) throws SQLException;
 
 	// modification ou ajout d'une nouvelle personne
 	/**

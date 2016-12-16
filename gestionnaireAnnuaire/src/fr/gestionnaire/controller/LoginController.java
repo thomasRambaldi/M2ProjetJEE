@@ -72,34 +72,33 @@ public class LoginController {
 		return "editUser";
 	}
 	
-	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
-	public String logOutUser(HttpServletRequest request) {
-		request.getSession().setAttribute("personLogged", null);
-		request.getSession().setAttribute("connected", null);
-		return "redirect:login";
-	}
-
-	//TODO: Faire que si il ya une exception (Dao ou Sql) empecher de faire l'update 
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	public String updatePerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
-//	    validator.validate(p, result);
 	    Person personSession = (Person) request.getSession().getAttribute("personLogged");
 	    p.setIdPers(personSession.getIdPers());
+//	    Group groupInfo;
 	    if (result.hasErrors()) {
-//	    	request.getSession().setAttribute("personValidator", validator);
 	        return "editUser";
 	    }
 	    try {
+//	    	groupInfo = personManager.findGroupNameFromPerson(p.getMail());
 	    	personManager.updatePerson(p);
 		} catch (SQLException | DaoException e) {
 			e.printStackTrace();
 			return "editUser";
 		}
 	    HttpSession maSession = request.getSession();
-		maSession.setAttribute("personLogged", p);
+	    maSession.setAttribute("personLogged", p);
+//		maSession.setAttribute("groupName", groupInfo);
 	    return "user";
 	}
 	
+	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
+	public String logOutUser(HttpServletRequest request) {
+		request.getSession().setAttribute("personLogged", null);
+		request.getSession().setAttribute("connected", null);
+		return "redirect:login";
+	}
 	
     @RequestMapping(value = "/deleteAccount", method = RequestMethod.GET)
     public String deletePerson(@ModelAttribute Person p, HttpServletRequest request,
@@ -125,46 +124,4 @@ public class LoginController {
 	    return "redirect:login";
 	}
 	
-//    @RequestMapping(value = "/user", method = RequestMethod.GET)
-//    public ModelAndView sayHelloUser() {
-//    	System.out.println("SALUT");
-//        logger.info("Running " + this);
-//        return new ModelAndView("user", "now", null);
-//    }
-    
-//    @ModelAttribute(name="userLogin")
-//    public ArrayList<String> newLogin(
-//            @RequestParam(value = "login", required = false) String login,
-//            @RequestParam(value = "pwd", required = false) String pwd) {
-//        if (login != null) {
-//            logger.info("find product " + login +" - "+pwd);
-//            ArrayList<String> p = new ArrayList<>();
-//            p.add(login);
-//            p.add(pwd);
-//            return p;
-//        }
-//        return null;
-//    }
-    
-//    @RequestMapping(value = "/user", method = RequestMethod.POST)
-//    public ModelAndView loginUser(@ModelAttribute Person p, BindingResult result){
-//        logger.info(p + "POST POST " + this);
-//        return new ModelAndView("user");
-//    }
-
-//    @ModelAttribute("person")
-//    Person person() throws SQLException {
-//        logger.info("information profile");
-//        Person p = new Person();
-//        System.out.println("LoginController ---> " + p );
-//        p = personDao.findPerson(500);
-//        return p;
-//    }
-//
-//    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    public String listProducts2()	 {
-//        logger.info("Liste info");
-//        return "personLogged";
-//    }
-    
 }
