@@ -414,7 +414,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Group findGroupNameFromPerson(String email) throws SQLException{
 		
 		Group g = new Group();
-		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g INNER JOIN  personne p  ON g.idGroup = p.idGroup "
+		String query = "SELECT g.nomGroup FROM groupe g WHERE g.idGroup = INNER JOIN  personne p  ON g.idGroup = p.idGroup "
 				+ "WHERE mailPers = " +"'" + email +"'" ;
 		
 		//Connection conn = null;
@@ -439,8 +439,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Group findGroupNameFromPerson(long id) throws SQLException{
 
 		Group g = new Group();
-		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g INNER JOIN  personne p  ON g.idGroup = p.idGroup "
-				+ "WHERE idPers	 = " + id  ;
+		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g WHERE g.idGroup = " + id  ;
 
 		//Connection conn = null;
 		try (Connection conn = newConnection()){

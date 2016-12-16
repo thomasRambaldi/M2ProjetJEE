@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Group;
 import fr.gestionnaire.annuaire.Person;
+import fr.gestionnaire.web.GroupManager;
 import fr.gestionnaire.web.LoginManager;
 import fr.gestionnaire.web.PersonManager;
 
@@ -34,6 +35,9 @@ public class LoginController {
 	
 	@Autowired
 	private PersonManager personManager;
+	
+	@Autowired
+	private GroupManager groupManager;
 	
 	
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -48,7 +52,7 @@ public class LoginController {
     public String login(@ModelAttribute Person p, Group g,  BindingResult result, HttpServletRequest request){
     	if( loginManager.checkLogin(p) && loginManager.checkPassword(p) ){
     		Person pers = loginManager.infoPersonWithPers(p);
-    		Group groupInfo = personManager.findGroupNameFromPerson(p.getMail());
+    		Group groupInfo = personManager.findGroupNameFromPerson(pers.getIdGroup());
     		HttpSession maSession = request.getSession();
     		maSession.setAttribute("personLogged", pers);
     		maSession.setAttribute("groupName", groupInfo);
@@ -59,7 +63,7 @@ public class LoginController {
     }
     
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String displayUserInformation(@ModelAttribute Person p, HttpServletRequest request) {
+	public String displayUserInformation(@ModelAttribute Person p,  @ModelAttribute Group g, HttpServletRequest request) {
 		if(request.getSession().getAttribute("personLogged") == null)
 			return "redirect:login";
 		return "user";
@@ -73,24 +77,23 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
-	public String updatePerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
+	public String updatePerson(@ModelAttribute @Valid Person p, @ModelAttribute Group g, BindingResult result, HttpServletRequest request) {
 	    Person personSession = (Person) request.getSession().getAttribute("personLogged");
 	    p.setIdPers(personSession.getIdPers());
-//	    Group groupInfo;
+	    Group groupInfo;
 	    if (result.hasErrors()) {
 	        return "editUser";
 	    }
 	    try {
-//	    	groupInfo = personManager.findGroupNameFromPerson(p.getMail());
-	    	personManager.updatePerson(p);
+	    	personManager.updatePerson((Person) request.getSession().getAttribute("personLogged"));
 		} catch (SQLException | DaoException e) {
 			e.printStackTrace();
 			return "editUser";
 		}
+	    groupInfo = personManager.findGroupNameFromPerson(p.getIdGroup());
 	    HttpSession maSession = request.getSession();
 	    maSession.setAttribute("personLogged", p);
-//		maSession.setAttribute("groupName", groupInfo);
-	    return "user";
+	    maSession.setAttribute("groupName", groupInfo);	    return "user";
 	}
 	
 	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
