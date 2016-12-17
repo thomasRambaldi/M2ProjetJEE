@@ -318,6 +318,33 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		} 
 		return g;
 	}
+	
+	/**
+	 * Return one group with him id
+	 * @param id The identifiant of the group
+	 * @return return the group with this id
+	 * @throws SQLException 
+	 */
+	public Group findGroup(String name) throws SQLException{
+		Group g = new Group();
+		String query =  "SELECT idGroup, NomGroup FROM groupe WHERE nomGroup = " + "'"+ name + "'" ;
+
+		try (Connection conn = newConnection()){
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			if (! rs.next())
+				return null;
+
+			g.setIdGroup(  rs.getInt(1) );
+			g.setNameGroup( rs.getString(2)  );
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} 
+		return g;
+	}
 
 	/**
 	 * Add a group in the data base
@@ -387,7 +414,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Group findGroupNameFromPerson(String email) throws SQLException{
 		
 		Group g = new Group();
-		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g INNER JOIN  personne p  ON g.idGroup = p.idGroup "
+		String query = "SELECT g.nomGroup FROM groupe g WHERE g.idGroup = INNER JOIN  personne p  ON g.idGroup = p.idGroup "
 				+ "WHERE mailPers = " +"'" + email +"'" ;
 		
 		//Connection conn = null;
@@ -412,8 +439,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Group findGroupNameFromPerson(long id) throws SQLException{
 
 		Group g = new Group();
-		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g INNER JOIN  personne p  ON g.idGroup = p.idGroup "
-				+ "WHERE idPers	 = " + id  ;
+		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g WHERE g.idGroup = " + id  ;
 
 		//Connection conn = null;
 		try (Connection conn = newConnection()){

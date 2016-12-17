@@ -28,6 +28,18 @@ public class GroupManager {
 		}
 		return listGroup;
 	}
+	
+	public Group findGroup(String name){
+		Group group;
+		try {
+			group= dao.findGroup(name);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return group;
+	}
+
 
 	public void deleteGroup(Group g){
 		try {

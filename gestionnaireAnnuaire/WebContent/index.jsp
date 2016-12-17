@@ -12,12 +12,13 @@
 </head>
 <body>
 
-<h1>Bonjour et bienvenue dans le gestionnaire d'annuaire</h1>
-	
+	<h1>Bonjour et bienvenue dans le gestionnaire d'annuaire</h1>
+
 	<%-- rediriger le contrôleur hello --%>
-		<c:redirect url="/actions/connexion/login" />
+<%-- 	<c:redirect url="/actions/connexion/login" /> --%>
 
-
+	<p>Bienvenue sur la page d'annuaire</p>
+	<a href="/gestionnaireAnnuaire/actions/connexion/login" >Accédez au site</a>
 	<!--
 	<a href="">Liste des personnes</a>
 	

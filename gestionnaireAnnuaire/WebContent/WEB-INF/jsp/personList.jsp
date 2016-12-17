@@ -7,20 +7,20 @@
 			<c:forEach items="${personsList}" var="personInList">
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPerson?id=${personInList.idPers}">
-						${personInList.lastName} ${personInList.firstName} </a> 
-					<c:if test="${connected != null}">
+						${personInList.lastName} ${personInList.firstName} </a> <c:if
+						test="${connected != null}">
 						<a
 							href="/gestionnaireAnnuaire/actions/lists/deletePerson?id=${personInList.idPers}">
 							Supprimer</a>
-					</c:if>
-				</li>
+					</c:if></li>
 			</c:forEach>
 		</ul>
 	</div>
+
 	<c:if test="${connected != null}">
-	<p>
-		<a href="editPerson">Ajouter une nouvelle personne</a>
-	</p>
+		<p>
+			<a href="redirect:/gestionnaire/actions/person/editPerson">Ajouter une nouvelle personne</a>
+		</p>
 	</c:if>
 
 </body>

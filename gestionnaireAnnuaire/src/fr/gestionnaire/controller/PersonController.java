@@ -42,4 +42,5 @@ public class PersonController {
 		return "infoGroup";
 	}
 
+	//TODO : faire l'ajout de personne dans la page listePersons
 }
