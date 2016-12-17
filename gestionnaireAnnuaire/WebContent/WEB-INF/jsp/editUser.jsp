@@ -148,7 +148,7 @@
 				
 			</div>
 		</div>
-		<input type="submit" class="btn btn-warning" />
+		<input type="submit" class="btn btn-warning" value="Enregistrer les modifications"/>
 	</fieldset>
 </form:form>
 

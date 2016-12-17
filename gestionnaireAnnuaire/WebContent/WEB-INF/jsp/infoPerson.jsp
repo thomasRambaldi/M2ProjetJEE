@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="header.jsp"%>
-	<h1>Les informations de la personne selectionner</h1>
+	<h1>Les informations de ${infoPerson.firstName} ${infoPerson.lastName}</h1>
 
 	<form:form method="POST" commandName="person">
 		<table>
@@ -14,12 +14,12 @@
 				<td>${groupName.nameGroup}</td>
 			</tr>
 			<tr>
-				<td>Nom :</td>
+				<td>Prénom :</td>
 				<td>${infoPerson.firstName}</td>
 			</tr>
 
 			<tr>
-				<td>Prénom :</td>
+				<td>Nom :</td>
 				<td>${infoPerson.lastName}</td>
 			</tr>
 
