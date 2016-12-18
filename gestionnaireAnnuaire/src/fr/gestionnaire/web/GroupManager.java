@@ -1,6 +1,7 @@
 package fr.gestionnaire.web;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,12 @@ public class GroupManager {
 			return null;
 		}
 		return group;
+	}
+	
+	public ArrayList<Group> searchGroup(String search){
+		ArrayList<Group> groups;
+		groups= dao.searchGroup(search);
+		return groups;
 	}
 
 

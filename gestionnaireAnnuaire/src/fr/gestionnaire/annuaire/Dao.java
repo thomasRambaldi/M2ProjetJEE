@@ -494,14 +494,31 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
+			
+			if(! rs.next()){
+				return null;
+			}
+			else{
+				Person p =new Person();
 
+				p.setIdPers( Integer.parseInt( rs.getString(1) ) );
+				p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
+				p.setLastName( rs.getString(3) );
+				p.setFirstName( rs.getString(4) );
+				p.setMail( rs.getString(5) );
+				p.setWeb( rs.getString(6) );
+				p.setNaissance( rs.getString(7) );
+				p.setPassword( rs.getString(8) );
+				persons.add(p);
+			}
+			
 			while (rs.next()) {
 				Person p =new Person();
 
 				p.setIdPers( Integer.parseInt( rs.getString(1) ) );
 				p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
-				p.setFirstName( rs.getString(3) );
-				p.setLastName( rs.getString(4) );
+				p.setLastName( rs.getString(3) );
+				p.setFirstName( rs.getString(4) );
 				p.setMail( rs.getString(5) );
 				p.setWeb( rs.getString(6) );
 				p.setNaissance( rs.getString(7) );
@@ -515,6 +532,36 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		} 
 		return persons;
 	}
+	
+	public ArrayList<Group> searchGroup(String search){
+		ArrayList<Group> groups = new ArrayList<Group>();
+		String query =  "SELECT * FROM groupe WHERE nomGroup  LIKE " + "'%"+ search + "%'";
+
+		try (Connection conn = newConnection()){
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if(! rs.next())
+				return null;
+			else{
+				Group g =new Group();
+				g.setIdGroup( Integer.parseInt( rs.getString(1) ) );
+				g.setNameGroup( rs.getString(2) );
+				groups.add(g);
+			}
+			while (rs.next()) {
+				Group g =new Group();
+
+				g.setIdGroup( Integer.parseInt( rs.getString(1) ) );
+				g.setNameGroup( rs.getString(2) );
+				groups.add(g);
+			}
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return groups;
+	}
 
 	public void addRandomizedPersons(int numberOfPersons, ArrayList<Integer> idsGroups) {
 	    String[] firstNames = {"Pierre", "Paul", "Jacques", "Henry", "Gregoire", "Nicolas", "Benjamin", "Florian", "Elimelekh", "Joseph"};
@@ -523,10 +570,10 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	    String [] naissances ={"10/11/1894","12/03/1922","02/04/1956","19/12/1982"};
 	    String password="test";
 	    for(int i=0;i<numberOfPersons;i++){
-	    	int randfirstName = (int)(Math.random() * firstNames.length-1);
-	    	int randlastName = (int)(Math.random() * lastNames.length-1);
-		    int randIdGroup = (int)(Math.random() * idsGroups.size()-1);
-		    int randNaissance = (int)(Math.random() * naissances.length-1);
+	    	int randfirstName = (int)(Math.random() * firstNames.length);
+	    	int randlastName = (int)(Math.random() * lastNames.length);
+		    int randIdGroup = (int)(Math.random() * idsGroups.size());
+		    int randNaissance = (int)(Math.random() * naissances.length);
 	    	Person p = new Person();
 	    	p.setFirstName(firstNames[randfirstName]);
 	    	p.setLastName(lastNames[randlastName]);
@@ -554,5 +601,34 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 				e.printStackTrace();
 			}
 	    }
+	}
+
+	public void addRandomizedGroup(int numberOfGroups) {
+		String [] namesGroups = {"M2 - Imagerie section ", "M2 - Réseaux secteur "};
+		for(int i=0;i<numberOfGroups;i++){
+			int randGroup = (int)(Math.random() * namesGroups.length);
+			Group g = new Group();
+	    	g.setIdGroup(i+10);
+	    	g.setNameGroup(namesGroups[randGroup]+g.getIdGroup());
+			try {
+				saveGroup(g);
+			} catch (SQLException | DaoException e) {
+				e.printStackTrace();
+			}
+	    }
+		
+	}
+	
+	public void deleteRandomizedGroup(int numberOfGroups) {
+		for(int i=0;i<numberOfGroups;i++){
+			Group g = new Group();
+	    	g.setIdGroup(i+10);
+			try {
+				deleteGroup(g);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+		
 	}
 }

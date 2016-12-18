@@ -105,19 +105,21 @@ public class LoginController {
 	    return "user";
 	}
 
-	@RequestMapping(value = "/testAddPersons", method = RequestMethod.GET)
+	@RequestMapping(value = "/testAddPersonsAndGroups", method = RequestMethod.GET)
 	public String addPersons(HttpServletRequest request){
 		ArrayList<Integer> groupsId = new ArrayList<Integer>();
+		personManager.addGroupsTests(300);
 		Collection<Group> allGroups = groupManager.findAllGroup();
 		for(Group g: allGroups)
 			groupsId.add(g.getIdGroup());
-		personManager.addPersonsTests(10000,groupsId);
+		personManager.addPersonsTests(3000,groupsId);
 		return "redirect:login";
 	}
 	
-	@RequestMapping(value = "/deleteTestPersons", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteTestPersonsAndGroups", method = RequestMethod.GET)
 	public String deleteTestPersons(HttpServletRequest request){
-		personManager.deleteTestPersons(10000);
+		personManager.deleteTestPersons(3000);
+		personManager.deleteGroupsTests(300);
 		return "redirect:login";
 	}
 
@@ -158,7 +160,10 @@ public class LoginController {
 	
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public String searchPerson(HttpServletRequest request ,@RequestParam(value = "personSearcher", required = false) String search){
-		request.getSession().setAttribute("resultSearchPerson", personManager.searchPerson(search));
+		HttpSession session = request.getSession();
+		session.setAttribute("resultSearchPerson", personManager.searchPerson(search));
+		session.setAttribute("resultSearchGroup", groupManager.searchGroup(search));
+		
 		return "resultSearch";
 	}
 

@@ -7,7 +7,7 @@
 			<c:forEach items="${personsList}" var="personInList">
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPerson?id=${personInList.idPers}">
-						${personInList.lastName} ${personInList.firstName} </a> <c:if
+						${personInList.firstName} ${personInList.lastName} </a> <c:if
 						test="${personLogged != null}">
 						<a
 							href="/gestionnaireAnnuaire/actions/lists/deletePerson?id=${personInList.idPers}">

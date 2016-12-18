@@ -105,6 +105,16 @@ public class PersonManager {
 		return dao.searchPerson(search);
 	}
 
+	public void addGroupsTests(int numberOfGroups) {
+		dao.addRandomizedGroup(numberOfGroups);
+		
+	}
+	
+	public void deleteGroupsTests(int numberOfGroups) {
+		dao.deleteRandomizedGroup(numberOfGroups);
+		
+	}
+	
 	public void addPersonsTests(int numberOfPersons, ArrayList<Integer> idsGroups) {
 		dao.addRandomizedPersons(numberOfPersons,idsGroups);
 		

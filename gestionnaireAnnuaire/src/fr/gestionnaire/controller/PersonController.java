@@ -36,8 +36,9 @@ public class PersonController {
 	@RequestMapping(value = "/showPersInGroup", method = RequestMethod.GET)
 	public String displayPersInGroup(@ModelAttribute Person p, HttpServletRequest request,
 			@RequestParam(value = "id") Integer id){
-
+		Group g = personManager.findGroup(id);
 		Collection<Person> listPers = personManager.findAllPersonInGroup(id);
+		request.getSession().setAttribute("groupCurrentlyViewed", g);
 		request.getSession().setAttribute("persInGroup", listPers);
 		return "infoGroup";
 	}
