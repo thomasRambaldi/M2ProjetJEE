@@ -1,25 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 
-<%@ include file="/WEB-INF/jsp/include.jsp"%>
+<h1>Accueil</h1>
 
-
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Index</title>
-</head>
-<body>
-
-	<h1>Bonjour et bienvenue dans le gestionnaire d'annuaire</h1>
-
-	<%-- rediriger le contrôleur hello --%>
+<%-- rediriger le contrôleur hello --%>
 <%-- 	<c:redirect url="/actions/connexion/login" /> --%>
 
-	<p>Bienvenue sur la page d'annuaire</p>
-	<a href="/gestionnaireAnnuaire/actions/connexion/login" >Accédez au site</a>
-	<!--
+<p>Bienvenue sur la page d'accueil du gestionnaire d'annuaire des
+	étudiants de master informatique de l'université d'Aix-Marseille</p>
+<p>Vous pouvez effectuer les actions suivantes :</p>
+<ul class="table table-striped table-hover ">
+	<li>S'inscrire au site</li>
+	<li>Visualiser les personnes inscrites dans l'annuaire</li>
+	<li>Visualiser les groupes disponibles dans l'annuaire</li>
+	<li>Acceder à plus d'informations sur les personnes inscrites au
+		site en vous connectant</li>
+</ul>
+<a href="/gestionnaireAnnuaire/actions/connexion/inscription">Vous pouvez vous inscrire ici</a>
+<!--
 	<a href="">Liste des personnes</a>
 	
 	<a href="">Liste des groupes</a>

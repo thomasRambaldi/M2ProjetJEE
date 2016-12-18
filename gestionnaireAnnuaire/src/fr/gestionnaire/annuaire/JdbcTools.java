@@ -143,6 +143,7 @@ public class JdbcTools {
 			PreparedStatement st = conn.prepareStatement(query);
 			prepareQuery(st, parameters);
 			int nb=0;
+			System.out.println(query + " " + parameters);
 			st.execute();
 			ResultSet rs = st.getResultSet();
 			

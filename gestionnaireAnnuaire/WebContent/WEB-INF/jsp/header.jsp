@@ -6,7 +6,7 @@
 <html lang="fr">
 <head>
 <meta name="description"
-	content="Gestionnaire d'annuaire">
+	content="Gestionnaire d'annuaire des masters informatique de l'université d'aix-marseille">
 <meta name="author" content="Kévin Lebreton / Thomas Rambaldi">
 
 <title>Gestionnaire Annuaire</title>
@@ -47,22 +47,7 @@
 
 
 
-<ul class="nav nav-tabs">
-  <li class=""><a href="/gestionnaireAnnuaire"  class="btn btn-default">Home</a></li>
-  <li class=""><a href="/gestionnaireAnnuaire/actions/connexion/user" class="btn btn-default">Profile</a></li>
-  <li class=""><a href="/gestionnaireAnnuaire/actions/lists/personList" class="btn btn-default" >Liste des personnes</a></li>
-  <li class=""><a href="/gestionnaireAnnuaire/actions/lists/groupList" class="btn btn-default">Liste des groupes</a></li>
-  <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-      Mon compte <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-      <li><a href="/gestionnaireAnnuaire/actions/connexion/editUser" class="btn btn-default">Editer votre profile</a></li>
-      <li class="divider"></li>
-      <li><a href="log_out" class="btn btn-warning">Deconnexion</a></li>
-    </ul>
-  </li>
-</ul>
+
 
 <!-- <div id="myTabContent" class="tab-content"> -->
 <!--   <div class="tab-pane fade active in" id="home"> -->
@@ -83,3 +68,4 @@
 
 </head>
 <body>
+<%@ include file="navbar.jsp"%>

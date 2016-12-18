@@ -154,5 +154,11 @@ public class LoginController {
 		personManager.savePerson(p);
 		return "redirect:login";
 	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public String searchPerson(HttpServletRequest request ,@RequestParam(value = "personSearcher", required = false) String search){
+		request.getSession().setAttribute("resultSearchPerson", personManager.searchPerson(search));
+		return "resultSearch";
+	}
 
 }

@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="header.jsp"%>
 
-	<form:form method="POST" commandName="person">
+	<form:form method="POST" commandName="person" >
 		<table>
 			<tr>
 				<td>Email :</td>

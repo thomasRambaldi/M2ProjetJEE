@@ -147,7 +147,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="inputPassword" class="col-lg-2 control-label">Password</label>
+			<label for="inputPassword" class="col-lg-2 control-label">Mot de passe</label>
 			<div class="col-lg-2">
 <!-- 				<input type="password" class="form-control" id="inputPassword" placeholder="Password"> -->
 				<form:password path="password" value="${personLogged.password}"  class="form-control"/>
@@ -155,7 +155,7 @@
 				
 			</div>
 		</div>
-		<input type="submit" class="btn btn-warning" />
+		<input type="submit" class="btn btn-warning" value="S'inscrire"/>
 	</fieldset>
 </form:form>
 </body>

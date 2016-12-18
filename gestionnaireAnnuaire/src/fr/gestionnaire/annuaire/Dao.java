@@ -249,6 +249,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
 				+ "WHERE idPers = ?";
 
+		
 		int idPers = p.getIdPers();
 		int idGroup = p.getIdGroup();
 		String firstName = p.getFirstName();
@@ -257,6 +258,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String web = p.getWeb();
 		String naissance = p.getNaissance();
 		String password= p.getPassword();
+		
 		executeUpdate(query, idPers, idGroup, firstName, lastName, mail, web, naissance, password, idPerson);
 	}
 
@@ -318,7 +320,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		} 
 		return g;
 	}
-	
+
 	/**
 	 * Return one group with him id
 	 * @param id The identifiant of the group
@@ -410,32 +412,32 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		return p;
 	}
 
-	
+
 	public Group findGroupNameFromPerson(String email) throws SQLException{
-		
+
 		Group g = new Group();
 		String query = "SELECT g.nomGroup FROM groupe g WHERE g.idGroup = INNER JOIN  personne p  ON g.idGroup = p.idGroup "
 				+ "WHERE mailPers = " +"'" + email +"'" ;
-		
+
 		//Connection conn = null;
 		try (Connection conn = newConnection()){
 			// create new connection and statement
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			
+
 			if(! rs.next())
 				return null;
 			g.setIdGroup( ( Integer.parseInt( rs.getString(1) ) ));
 			g.setNameGroup( rs.getString(2) );
 			conn.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
 		} 
 		return g;
 	}
-	
+
 	public Group findGroupNameFromPerson(long id) throws SQLException{
 
 		Group g = new Group();
@@ -458,5 +460,36 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			throw new SQLException();
 		} 
 		return g;
+	}
+
+	public ArrayList<Person> searchPerson(String search){
+		ArrayList<Person> persons = new ArrayList<Person>();
+		String query =  "SELECT * FROM personne WHERE nomPers    LIKE " + "'%"+ search + "%'" +
+												 " OR prenomPers LIKE " + "'%"+ search + "%'" +
+												 " OR webPers    LIKE " + "'%"+ search + "%'";
+
+		try (Connection conn = newConnection()){
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+				Person p =new Person();
+
+				p.setIdPers( Integer.parseInt( rs.getString(1) ) );
+				p.setIdGroup( Integer.parseInt( rs.getString(2) ) );
+				p.setFirstName( rs.getString(3) );
+				p.setLastName( rs.getString(4) );
+				p.setMail( rs.getString(5) );
+				p.setWeb( rs.getString(6) );
+				p.setNaissance( rs.getString(7) );
+				p.setPassword( rs.getString(8) );
+				persons.add(p);
+			}
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return persons;
 	}
 }

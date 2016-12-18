@@ -1,6 +1,7 @@
 package fr.gestionnaire.web;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,10 @@ public class PersonManager {
 			return null;
 		}
 		return group;
+	}
+	
+	public ArrayList<Person> searchPerson(String search){
+		return dao.searchPerson(search);
 	}
 
 }
