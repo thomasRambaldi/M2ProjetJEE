@@ -80,32 +80,42 @@ public class LoginController {
 		return "editUser";
 	}
 
+	
+		
+	
+	
+	//Commentaire -> ajout comparé a la version opérationnelle
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	public String updatePerson(@ModelAttribute @Valid Person p, @ModelAttribute Group g, BindingResult result, HttpServletRequest request) {
 		Person personSession = (Person) request.getSession().getAttribute("personLogged");
-		String groupSession = request.getParameter("groups");
-		Group group = groupManager.findGroup(groupSession);
-
 		p.setIdPers(personSession.getIdPers());
-
-		p = (Person) request.getSession().getAttribute("personLogged");
-		p.setIdGroup(group.getIdGroup()); // A VOIR SI UTILE
+		
+		String groupSession = request.getParameter("groups"); //------------
+		Group group = groupManager.findGroup(groupSession); //------------
+		
+//		p = (Person) request.getSession().getAttribute("personLogged"); //------------
+		p.setIdGroup(group.getIdGroup()); //------------
 		
 		if (result.hasErrors()) {
 			return "editUser";
 		}
+		
 		try {
+			System.out.println(p);
 			personManager.updatePerson(p);
 		} catch (SQLException | DaoException e) {
 			e.printStackTrace();
 			return "editUser";
 		}
-		Group groupInfo = personManager.findGroupNameFromPerson(group.getIdGroup());
+		
+		Group groupInfo = personManager.findGroupNameFromPerson(group.getIdGroup()); //------------
+
 		HttpSession maSession = request.getSession();
 		maSession.setAttribute("personLogged", p);
-		maSession.setAttribute("groupName", groupInfo);
+		maSession.setAttribute("groupName", groupInfo); //------------
 		return "user";
 	}
+
 
 	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
 	public String logOutUser(HttpServletRequest request) {
@@ -137,7 +147,7 @@ public class LoginController {
 		String groupSession = request.getParameter("groupsSignUp");
 		Group group = groupManager.findGroup(groupSession);
 		p.setIdGroup(group.getIdGroup());
-		
+
 		if (result.hasErrors()) {
 			return "inscription";
 		}
