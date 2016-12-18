@@ -8,7 +8,7 @@
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPersInGroup?id=${groupInList.idGroup}">
 						${groupInList.nameGroup}</a>
-					<c:if test="${connected != null}">
+					<c:if test="${personLogged != null}">
 						<a
 						href="/gestionnaireAnnuaire/actions/lists/deleteGroup?id=${groupInList.idGroup}">
 							Supprimer</a>
@@ -19,7 +19,7 @@
 		</ul>
 	</div>
 	
-	<c:if test="${connected != null}">
+	<c:if test="${personLogged != null}">
 		<p>
 			<a href="/gestionnaireAnnuaire/actions/group/addGroup">Ajouter un nouveau groupe</a>
 		</p>

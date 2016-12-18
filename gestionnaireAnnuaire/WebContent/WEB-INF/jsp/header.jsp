@@ -10,11 +10,6 @@
 <meta name="author" content="Kévin Lebreton / Thomas Rambaldi">
 
 <title>Gestionnaire Annuaire</title>
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

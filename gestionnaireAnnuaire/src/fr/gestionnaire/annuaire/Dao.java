@@ -290,6 +290,29 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		} 
 		return listGroup;
 	}
+	
+	public Collection<Group> findAllGroupWithGroupInFirst(Group group) throws SQLException {
+		Collection<Group> listGroup= new ArrayList<Group>();
+		listGroup.add(group);
+		String query = "SELECT idGroup, NomGroup FROM groupe WHERE idGroup!= "+ group.getIdGroup();
+
+		try (Connection conn = newConnection()){
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				Group g = new Group();
+
+				g.setIdGroup( rs.getInt(1) );
+				g.setNameGroup( rs.getString(2) );
+				listGroup.add(g);
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} 
+		return listGroup;
+	}
 
 	/**
 	 * Return one group with him id
@@ -491,5 +514,45 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 			e.printStackTrace();
 		} 
 		return persons;
+	}
+
+	public void addRandomizedPersons(int numberOfPersons, ArrayList<Integer> idsGroups) {
+	    String[] firstNames = {"Pierre", "Paul", "Jacques", "Henry", "Gregoire", "Nicolas", "Benjamin", "Florian", "Elimelekh", "Joseph"};
+	    String[] lastNames = {"Dupont", "Cohen", "Campanella", "Magron", "Leotier", "Fillon", "Bush", "Bonaparte", "Le Grand", "Porc"};
+	    String mail = "@gmail.com";
+	    String [] naissances ={"10/11/1894","12/03/1922","02/04/1956","19/12/1982"};
+	    String password="test";
+	    for(int i=0;i<numberOfPersons;i++){
+	    	int randfirstName = (int)(Math.random() * firstNames.length-1);
+	    	int randlastName = (int)(Math.random() * lastNames.length-1);
+		    int randIdGroup = (int)(Math.random() * idsGroups.size()-1);
+		    int randNaissance = (int)(Math.random() * naissances.length-1);
+	    	Person p = new Person();
+	    	p.setFirstName(firstNames[randfirstName]);
+	    	p.setLastName(lastNames[randlastName]);
+	    	p.setIdGroup(idsGroups.get(randIdGroup));
+	    	p.setIdPers(i+10);
+	    	p.setMail(firstNames[randfirstName].toLowerCase()+p.getIdPers()+mail);
+	    	p.setWeb("google.fr");
+	    	p.setNaissance(naissances[randNaissance]);
+	    	p.setPassword(password);
+	    	try {
+				savePerson(p);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+	}
+	public void deleteRandomizedPersons(int numberOfPersons) {
+	    for(int i=0;i<numberOfPersons;i++){
+	    	Person p = new Person();
+	    	p.setIdPers(i+10);
+	    	try {
+				deletePerson(p);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 	}
 }

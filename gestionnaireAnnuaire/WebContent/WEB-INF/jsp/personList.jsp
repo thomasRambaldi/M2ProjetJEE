@@ -8,7 +8,7 @@
 				<li><a
 					href="/gestionnaireAnnuaire/actions/person/showPerson?id=${personInList.idPers}">
 						${personInList.lastName} ${personInList.firstName} </a> <c:if
-						test="${connected != null}">
+						test="${personLogged != null}">
 						<a
 							href="/gestionnaireAnnuaire/actions/lists/deletePerson?id=${personInList.idPers}">
 							Supprimer</a>
@@ -17,7 +17,7 @@
 		</ul>
 	</div>
 
-	<c:if test="${connected != null}">
+	<c:if test="${personLogged != null}">
 		<p>
 			<a href="redirect:/gestionnaire/actions/person/editPerson">Ajouter une nouvelle personne</a>
 		</p>

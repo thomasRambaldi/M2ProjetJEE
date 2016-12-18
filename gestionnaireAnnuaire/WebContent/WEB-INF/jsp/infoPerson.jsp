@@ -11,7 +11,7 @@
 			
 			<tr>
 				<td>Groupe :</td>
-				<td>${groupName.nameGroup}</td>
+				<td>${groupPersonListed.nameGroup}</td>
 			</tr>
 			<tr>
 				<td>Prénom :</td>
@@ -23,7 +23,7 @@
 				<td>${infoPerson.lastName}</td>
 			</tr>
 
-			<c:if test="${connected != null}">
+			<c:if test="${personLogged != null}">
 				<tr>
 					<td>Email :</td>
 					<td>${infoPerson.mail}</td>
@@ -35,7 +35,7 @@
 				<td><a target="_blank" href="http://www.${infoPerson.web}">${infoPerson.web}</a></td>
 			</tr>
 
-			<c:if test="${connected != null}">
+			<c:if test="${personLogged != null}">
 				<tr>
 					<td>Naissance :</td>
 					<td>${infoPerson.naissance}</td>

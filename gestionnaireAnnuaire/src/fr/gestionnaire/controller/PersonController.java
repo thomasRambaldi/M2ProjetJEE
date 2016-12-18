@@ -27,9 +27,9 @@ public class PersonController {
 			@RequestParam(value = "id") Integer id){
 
 		Person pers = personManager.findPerson(id);
-		Group group = personManager.findGroupNameFromPerson(id);
+		Group group = personManager.findGroup(pers.getIdGroup());
 		request.getSession().setAttribute("infoPerson", pers);
-		request.getSession().setAttribute("groupName", group);
+		request.getSession().setAttribute("groupPersonListed", group);
 		return "infoPerson";
 	}
 

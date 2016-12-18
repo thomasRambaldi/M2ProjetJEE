@@ -2,7 +2,7 @@ package fr.gestionnaire.controller;
 
 
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import exceptions.DaoException;
 import fr.gestionnaire.annuaire.Group;
 import fr.gestionnaire.annuaire.Person;
 import fr.gestionnaire.web.GroupManager;
@@ -53,11 +52,9 @@ public class LoginController {
 	public String login(@ModelAttribute Person p, Group g,  BindingResult result, HttpServletRequest request){
 		if( loginManager.checkLogin(p) && loginManager.checkPassword(p) ){
 			Person pers = loginManager.infoPersonWithPers(p);
-			Group groupInfo = personManager.findGroupNameFromPerson(pers.getIdGroup());
 			HttpSession maSession = request.getSession();
 			maSession.setAttribute("personLogged", pers);
-			maSession.setAttribute("groupName", groupInfo);
-			maSession.setAttribute("connected", true);
+			maSession.setAttribute("groupPersonLogged", personManager.findGroup(pers.getIdGroup()));
 			return "redirect:user";
 		}
 		return "login";
@@ -74,8 +71,11 @@ public class LoginController {
 	public String editUserInformation(@ModelAttribute Person p, HttpServletRequest request, HttpServletResponse response) {
 		if(request.getSession().getAttribute("personLogged") == null)
 			return "redirect:login";
-
-		Collection<Group> allGroup = groupManager.findAllGroup();
+		
+		HttpSession session = request.getSession();
+	    Person personSession = (Person) session.getAttribute("personLogged");
+	    Group group = personManager.findGroup(personSession.getIdGroup());
+		Collection<Group> allGroup = groupManager.findAllGroupWithGroupInFirst(group);
 		request.getSession().setAttribute("listGroup", allGroup);
 		return "editUser";
 	}
@@ -84,43 +84,46 @@ public class LoginController {
 		
 	
 	
-	//Commentaire -> ajout comparé a la version opérationnelle
+	//Commentaire -> ajout comparï¿½ a la version opï¿½rationnelle
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
-	public String updatePerson(@ModelAttribute @Valid Person p, @ModelAttribute Group g, BindingResult result, HttpServletRequest request) {
-		Person personSession = (Person) request.getSession().getAttribute("personLogged");
-		p.setIdPers(personSession.getIdPers());
-		
-		String groupSession = request.getParameter("groups"); //------------
-		Group group = groupManager.findGroup(groupSession); //------------
-		
-//		p = (Person) request.getSession().getAttribute("personLogged"); //------------
-		p.setIdGroup(group.getIdGroup()); //------------
-		
-		if (result.hasErrors()) {
-			return "editUser";
-		}
-		
-		try {
-			System.out.println(p);
-			personManager.updatePerson(p);
-		} catch (SQLException | DaoException e) {
-			e.printStackTrace();
-			return "editUser";
-		}
-		
-		Group groupInfo = personManager.findGroupNameFromPerson(group.getIdGroup()); //------------
+	public String updatePerson(@ModelAttribute @Valid Person p, BindingResult result, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Person personSession = (Person) session.getAttribute("personLogged");
+	    p.setIdPers(personSession.getIdPers());
+	    
+	    if (result.hasErrors()) {
+	        return "editUser";
+	    }
+	    
+		Group group = groupManager.findGroup(request.getParameter("groups")); //------------
+		p.setIdGroup(group.getIdGroup());
 
-		HttpSession maSession = request.getSession();
-		maSession.setAttribute("personLogged", p);
-		maSession.setAttribute("groupName", groupInfo); //------------
-		return "user";
+	    personManager.updatePerson(p);
+		
+		session.setAttribute("groupPersonLogged", group);
+	    session.setAttribute("personLogged", p);
+	    return "user";
 	}
 
+	@RequestMapping(value = "/testAddPersons", method = RequestMethod.GET)
+	public String addPersons(HttpServletRequest request){
+		ArrayList<Integer> groupsId = new ArrayList<Integer>();
+		Collection<Group> allGroups = groupManager.findAllGroup();
+		for(Group g: allGroups)
+			groupsId.add(g.getIdGroup());
+		personManager.addPersonsTests(10000,groupsId);
+		return "redirect:login";
+	}
+	
+	@RequestMapping(value = "/deleteTestPersons", method = RequestMethod.GET)
+	public String deleteTestPersons(HttpServletRequest request){
+		personManager.deleteTestPersons(10000);
+		return "redirect:login";
+	}
 
 	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
 	public String logOutUser(HttpServletRequest request) {
 		request.getSession().setAttribute("personLogged", null);
-		request.getSession().setAttribute("connected", null);
 		return "redirect:login";
 	}
 
@@ -141,12 +144,10 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/inscription", method = RequestMethod.POST)
-	public String signUpPerson(@ModelAttribute @Valid Person p, @ModelAttribute Group g, BindingResult result, 
+	public String signUpPerson(@ModelAttribute @Valid Person p, BindingResult result, 
 			HttpServletRequest request) {
 
-		String groupSession = request.getParameter("groupsSignUp");
-		Group group = groupManager.findGroup(groupSession);
-		p.setIdGroup(group.getIdGroup());
+		p.setIdGroup(groupManager.findGroup(request.getParameter("groupSignUp")).getIdGroup());
 
 		if (result.hasErrors()) {
 			return "inscription";

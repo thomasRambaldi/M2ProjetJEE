@@ -20,8 +20,13 @@ public class PersonManager {
 
 	public PersonManager() { }
 
-	public void updatePerson(Person p) throws SQLException, DaoException {
-		dao.updatePerson(p, p.getIdPers());
+	public void updatePerson(Person p)  {
+		try {
+			dao.updatePerson(p, p.getIdPers());
+		} catch (SQLException | DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Collection<Person> findAllPerson(){
@@ -85,10 +90,10 @@ public class PersonManager {
 		return group;
 	}
 	
-	public Group findGroupNameFromPerson(long id) {
+	public Group findGroup(long id) {
 		Group group;
 		try {
-			group = dao.findGroupNameFromPerson(id) ;
+			group = dao.findGroup(id) ;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -98,6 +103,15 @@ public class PersonManager {
 	
 	public ArrayList<Person> searchPerson(String search){
 		return dao.searchPerson(search);
+	}
+
+	public void addPersonsTests(int numberOfPersons, ArrayList<Integer> idsGroups) {
+		dao.addRandomizedPersons(numberOfPersons,idsGroups);
+		
+	}
+
+	public void deleteTestPersons(int numberOfPersons) {
+		dao.deleteRandomizedPersons(numberOfPersons);
 	}
 
 }

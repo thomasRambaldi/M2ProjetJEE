@@ -29,6 +29,17 @@ public class GroupManager {
 		return listGroup;
 	}
 	
+	public Collection<Group> findAllGroupWithGroupInFirst(Group g){
+		Collection<Group> listGroup;
+		try {
+			listGroup= dao.findAllGroupWithGroupInFirst(g);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return listGroup;
+	}
+	
 	public Group findGroup(String name){
 		Group group;
 		try {

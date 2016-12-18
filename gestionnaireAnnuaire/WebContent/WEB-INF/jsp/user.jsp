@@ -13,7 +13,7 @@
 			
 			<tr>
 				<td>Groupe :</td>
-				<td>${groupName.nameGroup}</td>
+				<td>${groupPersonLogged.nameGroup}</td>
 			</tr>
 			
 			<tr>
@@ -48,13 +48,11 @@
 			</tr>
 
 			<tr>
-			<td><a href="editUser" class="btn btn-default">Editer votre profile</a></td>
+			<td><a href="editUser" class="btn btn-default">Editer votre profil</a></td>
 			<td><a href="/gestionnaireAnnuaire/actions/lists/personList" class="btn btn-info" >Liste des personnes</a></td>
 			<td><a href="/gestionnaireAnnuaire/actions/lists/groupList" class="btn btn-info">Liste des groupes</a></td>
 			<td><a href="log_out" class="btn btn-warning">Deconnexion</a></td>
-			</tr>
-			<tr>
-				<td>
+			<td>
 					<a href="deleteAccount?id=${personLogged.idPers}" class="btn btn-danger">
 						Supprimer votre compte</a>
 				</td>

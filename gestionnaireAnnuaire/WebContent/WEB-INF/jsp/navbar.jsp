@@ -4,15 +4,6 @@
     <li class="nav-item active">
       <a class="nav-link" href="/gestionnaireAnnuaire">Accueil <span class="sr-only">(current)</span></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/gestionnaireAnnuaire/actions/connexion/login">Se connecter</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/gestionnaireAnnuaire/actions/lists/personList">Liste des personnes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/gestionnaireAnnuaire/actions/lists/groupList">Liste des groupes</a>
-    </li>
     <c:if test="${personLogged != null}">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>
@@ -22,6 +13,18 @@
       </div>
     </li>
     </c:if>
+    <c:if test="${personLogged == null}">
+    <li class="nav-item">
+      <a class="nav-link" href="/gestionnaireAnnuaire/actions/connexion/login">Se connecter</a>
+    </li>
+    </c:if>
+    <li class="nav-item">
+      <a class="nav-link" href="/gestionnaireAnnuaire/actions/lists/personList">Liste des personnes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/gestionnaireAnnuaire/actions/lists/groupList">Liste des groupes</a>
+    </li>
+    
   </ul>
   <form class="form-inline float-xs-right" action="/gestionnaireAnnuaire/actions/connexion/search" method="get">
     <input class="form-control" name="personSearcher" type="text" placeholder="Rechercher une personne">

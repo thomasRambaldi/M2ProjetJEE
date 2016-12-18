@@ -85,13 +85,8 @@
 		<div class="form-group">
 			<label for="idGroup" class="col-lg-2 control-label">Numero groupe</label>
 			<div class="col-md-2">
-<!-- 				<input type="text" class="form-control" id="idGroup" placeholder="Numéro du groupe"> -->
-<%-- 				<form:input path="idGroup" value="${personLogged.idGroup}" class="form-control"/> --%>
-<%-- 				<small class="errors help-block"><form:errors path="idGroup" cssClass="error" /></small> --%>
-				
-				 <select class="form-control" id="select" name="groupsSignUp">
+				 <select class="form-control" id="select" name="groupSignUp">
 		         	 <c:forEach items="${listGroup}" var="group">
-<%-- 		         	 	<option><form:input path="idGroup" value="${group.nameGroup}" class="form-control"/></option> --%>
 	         	 		<option>${group.nameGroup}</option>
 		         	 </c:forEach>
 		        </select>
