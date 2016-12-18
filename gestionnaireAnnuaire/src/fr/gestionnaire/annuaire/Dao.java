@@ -37,7 +37,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		Collection<Person> listPerson= new ArrayList<>();
 
 		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId;
+				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId + "ORDER BY NomPers, PrenomPers";
 
 		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
@@ -76,7 +76,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		Collection<Person> listPerson= new ArrayList<Person>();
 
 		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne";
+				+ " NaissancePers, MdpPers FROM personne ORDER BY NomPers, PrenomPers";
 
 		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
@@ -271,7 +271,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	public Collection<Group> findAllGroups() throws SQLException {
 		Collection<Group> listGroup= new ArrayList<Group>();
 
-		String query = "SELECT idGroup, NomGroup FROM groupe";
+		String query = "SELECT idGroup, NomGroup FROM groupe ORDER BY NomGroup";
 
 		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();
