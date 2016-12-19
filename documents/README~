@@ -1,3 +1,14 @@
-Première partie du devoir JEE
+Rendu du devoir JEE
 
 Kévin LEBRETON - Thomas RAMBALDI M2 FSIL-ISL
+
+Lancer le projet avec eclipse puis faire tourner l'application sur un serveur Tomcat v8.0
+L'adresse de l'application sera http://localhost:8080/gestionnaireAnnuaire/
+L'application fonctionne avec l'aide d'une bdd MySQL composée de deux tables :
+	groupe : idGroup(entier) et nomGroup(varchar)
+	personne : idPers (entier), idGroup(entier), NomPers, PrenomPers, MailPers, WebPers, NaissancePers et MdpPers (tous varchar)
+
+Les informations de connexion à la BDD doivent être renseignées dans le fichier WebContent/WEB-INF/springapp-servlet.xml
+Une section de test est disponible à l'adresse http://localhost:8080/gestionnaireAnnuaire/actions/connexion/test
+Ces test permettront l'ajout de 3000 personnes réparties dans 300 groupes différents.
+
