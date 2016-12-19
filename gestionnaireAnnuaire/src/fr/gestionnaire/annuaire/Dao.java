@@ -36,7 +36,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		Collection<Person> listPerson= new ArrayList<>();
 
 		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId + " ORDER BY NomPers";
+				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId + " ORDER BY NomPers, PrenomPers";
 
 		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
@@ -472,7 +472,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		ArrayList<Person> persons = new ArrayList<Person>();
 		String query =  "SELECT * FROM personne WHERE nomPers    LIKE " + "'%"+ search + "%'" +
 												 " OR prenomPers LIKE " + "'%"+ search + "%'" +
-												 " OR webPers    LIKE " + "'%"+ search + "%'";
+												 " OR webPers    LIKE " + "'%"+ search + "%' ORDER BY NomPers, PrenomPers";
 
 		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();
@@ -518,7 +518,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	
 	public ArrayList<Group> searchGroup(String search){
 		ArrayList<Group> groups = new ArrayList<Group>();
-		String query =  "SELECT * FROM groupe WHERE nomGroup  LIKE " + "'%"+ search + "%'";
+		String query =  "SELECT * FROM groupe WHERE nomGroup  LIKE " + "'%"+ search + "%' ORDER BY nomGroup";
 
 		try (Connection conn = newConnection()){
 			Statement st = conn.createStatement();

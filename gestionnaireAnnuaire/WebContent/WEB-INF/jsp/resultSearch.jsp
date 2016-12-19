@@ -1,9 +1,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="header.jsp"%>
-<h1>Resultat de la recherche</h1>
+<h1>Resultats de la recherche</h1>
+
+<c:if test="${resultSearchGroup != null}">
+	<a href="#groupes" class="btn btn-default">Descendre vers les groupes
+		trouvés</a>
+</c:if>
 
 <c:if test="${resultSearchPerson != null}">
-	<h3>Personnes trouvées</h3>
+	<h3 id="personnes">Personnes trouvées</h3>
+</c:if>
+<c:if test="${resultSearchPerson == null}">
+	<h3>Aucunes personnes trouvées</h3>
 </c:if>
 <div class="container">
 	<ul style="list-style-type: square">
@@ -15,8 +23,16 @@
 	</ul>
 </div>
 
+<c:if test="${resultSearchPerson != null}">
+	<a href="#personnes" class="btn btn-default">Remonter aux personnes
+		trouvées</a>
+</c:if>
+
 <c:if test="${resultSearchGroup != null}">
-	<h3>Groupes trouvés</h3>
+	<h3 id="groupes">Groupes trouvés</h3>
+</c:if>
+<c:if test="${resultSearchGroup == null}">
+	<h3>Aucuns groupes trouvés</h3>
 </c:if>
 <div class="container">
 	<ul style="list-style-type: square">
