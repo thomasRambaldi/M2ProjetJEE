@@ -4,6 +4,9 @@
     <li class="nav-item active">
       <a class="nav-link" href="/gestionnaireAnnuaire">Accueil <span class="sr-only">(current)</span></a>
     </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/gestionnaireAnnuaire/actions/connexion/test">Tests d'ajouts<span class="sr-only">(current)</span></a>
+    </li>
     <c:if test="${personLogged != null}">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>

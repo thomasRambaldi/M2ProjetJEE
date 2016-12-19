@@ -113,14 +113,14 @@ public class LoginController {
 		for(Group g: allGroups)
 			groupsId.add(g.getIdGroup());
 		personManager.addPersonsTests(3000,groupsId);
-		return "redirect:login";
+		return "redirect:test";
 	}
 	
 	@RequestMapping(value = "/deleteTestPersonsAndGroups", method = RequestMethod.GET)
 	public String deleteTestPersons(HttpServletRequest request){
 		personManager.deleteTestPersons(3000);
 		personManager.deleteGroupsTests(300);
-		return "redirect:login";
+		return "redirect:test";
 	}
 
 	@RequestMapping(value = "/log_out", method = RequestMethod.GET)
@@ -165,6 +165,11 @@ public class LoginController {
 		session.setAttribute("resultSearchGroup", groupManager.searchGroup(search));
 		
 		return "resultSearch";
+	}
+	
+	@RequestMapping(value="/test", method = RequestMethod.GET)
+	public String testMapping(HttpServletRequest request ,@RequestParam(value = "personSearcher", required = false) String search){
+		return "accueilTest";
 	}
 
 }

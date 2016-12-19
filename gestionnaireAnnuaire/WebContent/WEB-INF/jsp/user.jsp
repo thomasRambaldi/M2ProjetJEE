@@ -1,9 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="header.jsp"%>
 
-	<h1>Vos informations</h1>
+	<h1>Bienvenue ${personLogged.firstName} ${personLogged.lastName}</h1>
 
-
+	<h3>Vos informations</h3>
 	<form:form method="POST" commandName="person">
 		<table>
 			<tr>
@@ -43,7 +43,7 @@
 			</tr>
 
 			<tr>
-				<td>Password :</td>
+				<td>Mot de passe :</td>
 				<td>${personLogged.password}</td>
 			</tr>
 

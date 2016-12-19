@@ -11,7 +11,10 @@
 			
 			<tr>
 				<td>Groupe :</td>
-				<td>${groupPersonListed.nameGroup}</td>
+				<td><a
+					href="/gestionnaireAnnuaire/actions/person/showPersInGroup?id=${groupPersonListed.idGroup}">
+						${groupPersonListed.nameGroup}</a>
+			</td>
 			</tr>
 			<tr>
 				<td>Prénom :</td>
