@@ -20,7 +20,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -37,7 +36,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		Collection<Person> listPerson= new ArrayList<>();
 
 		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId + "ORDER BY NomPers, PrenomPers";
+				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId;
 
 		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
@@ -116,7 +115,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
 				+ " NaissancePers, MdpPers FROM personne WHERE idPers = " + id ;
 
-		//Connection conn = null;
 		try (Connection conn = newConnection()){
 			// create new connection and statement
 			Statement st = conn.createStatement();
@@ -155,10 +153,9 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		try {
 			init();
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		//Connection conn = null;
+
 		try (Connection conn = newConnection()){
 			// create new connection and statement
 			Statement st = conn.createStatement();
@@ -192,11 +189,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public void savePerson(Person p) throws SQLException{
-
-		//		TODO
-		//		if( ! CheckerMail.validate(p.getMail()) ) throw new DaoException("E-mail is not compliant");
-		//		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
-		//		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
 
 		String query = "INSERT INTO personne (idPers, idGroup, PrenomPers, NomPers, "
 				+ "MailPers, WebPers, NaissancePers, MdpPers) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -240,11 +232,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	 */
 	@Override
 	public void updatePerson(Person p, int idPerson) throws SQLException, DaoException {
-		//		TODO
-		//		if( ! CheckerMail.validate(p.getMail())  ) throw new DaoException("E-mail is not compliant");
-		//		if( ! CheckerWeb.validate(p.getWeb()) )  throw new DaoException("Web is not compliant");
-		//		if( ! CheckerBirthDay.validate(p.getNaissance()) )  throw new DaoException("BirthDay is not compliant. For exemple DD/MM/YYYY");
-
 		String query = "UPDATE personne SET idPers = ?, idGroup = ?, PrenomPers = ?, NomPers = ? ,"
 				+ "MailPers = ?, WebPers = ?, NaissancePers = ?, MdpPers = ? "
 				+ "WHERE idPers = ?";
@@ -411,8 +398,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	@Override
 	public void updateGroup(Group g, int idGrp) throws SQLException, DaoException {
 
-		//		if( ! CheckerGroupName.validate( g.getNameGroup()) )  throw new DaoException("The GroupName is not compliant. For exemple M2 ISL 2015/2016");
-
 		String query = "UPDATE groupe SET idGroup = ?, NomGroup = ? WHERE idGroup = " + idGrp;
 
 		int idGroup = g.getIdGroup();
@@ -442,7 +427,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		String query = "SELECT g.nomGroup FROM groupe g WHERE g.idGroup = INNER JOIN  personne p  ON g.idGroup = p.idGroup "
 				+ "WHERE mailPers = " +"'" + email +"'" ;
 
-		//Connection conn = null;
 		try (Connection conn = newConnection()){
 			// create new connection and statement
 			Statement st = conn.createStatement();
@@ -466,7 +450,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		Group g = new Group();
 		String query = "SELECT g.idGroup, g.nomGroup FROM groupe g WHERE g.idGroup = " + id  ;
 
-		//Connection conn = null;
 		try (Connection conn = newConnection()){
 			// create new connection and statement
 			Statement st = conn.createStatement();
@@ -597,7 +580,6 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 	    	try {
 				deletePerson(p);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
