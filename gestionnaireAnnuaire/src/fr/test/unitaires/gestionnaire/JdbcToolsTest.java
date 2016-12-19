@@ -93,7 +93,6 @@ public class JdbcToolsTest {
 
 	@Test
 	public void quietCloseSQLExceptionTest() throws SQLException {
-		//TODO Modifier la fonction pour tester le cas d'erreur (si necéssaire)
 		jdbc.quietClose(null);
 	}
 	
@@ -126,7 +125,6 @@ public class JdbcToolsTest {
 
 	@Test(expected = SQLException.class)
 	public void executeUpdateViolationTest() throws SQLException, ClassNotFoundException  {
-		// TODO : Write the code
 		jdbc.init();
 		Connection c = jdbc.newConnection();
 		jdbc.executeUpdate("");

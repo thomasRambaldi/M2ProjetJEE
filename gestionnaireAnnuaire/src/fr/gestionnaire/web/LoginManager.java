@@ -70,7 +70,6 @@ public class LoginManager {
 		try {
 			p = dao.findAllPersons();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return p;

@@ -26,7 +26,6 @@ import fr.gestionnaire.annuaire.Group;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:fr/test/unitaires/gestionnaire/spring.xml")
 public class DaoGroupTest {
-	// TODO	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private Dao dao;
@@ -96,7 +95,6 @@ public class DaoGroupTest {
 		assertEquals(3, dao.findGroup(3).getIdGroup());
 	}
 
-	// TODO : Faire le checker de savegroup( comme saveperson) 
 
 	@Test(expected = MySQLIntegrityConstraintViolationException.class)
 	public void saveGroupAlreadyExistTest() throws SQLException, DaoException{
@@ -105,13 +103,6 @@ public class DaoGroupTest {
 		g.setNameGroup("M2 GL 2015/2016");
 		dao.saveGroup(g);
 	}
-
-//	@Test(expected = DaoException.class)
-//	public void saveGroupWithErrorInGroupNameTest() throws SQLException, DaoException{
-//		Group g = new Group();
-//		g.setNameGroup("M3 GL 2015/2016");
-//		dao.saveGroup(g);
-//	}
 
 	@Test
 	public void deleteGroupTest() throws SQLException{

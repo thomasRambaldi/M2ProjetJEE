@@ -24,7 +24,6 @@ public class PersonManager {
 		try {
 			dao.updatePerson(p, p.getIdPers());
 		} catch (SQLException | DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

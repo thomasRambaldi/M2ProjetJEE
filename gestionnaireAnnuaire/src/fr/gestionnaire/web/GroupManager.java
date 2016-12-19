@@ -67,7 +67,6 @@ public class GroupManager {
 		}
 	}
 
-	// TODO : A implementer dans la partie controller
 	public void saveGroup(Group g){
 		try {
 			dao.saveGroup(g);

@@ -181,7 +181,6 @@ public class JdbcTools {
 	 * @return True if connection is established, else return false
 	 * @throws SQLException
 	 */
-	//TODO Changer la fonction isConnect de façon a tester une vraie connexion  en paramètre ou en attribut
 	public boolean isConnect() throws SQLException{
 		if( newConnection() != null )
 			return true; 
