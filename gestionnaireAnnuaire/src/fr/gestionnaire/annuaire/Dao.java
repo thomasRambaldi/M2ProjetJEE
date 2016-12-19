@@ -36,7 +36,7 @@ public class Dao extends JdbcTools implements IPersonDao, IGroupDao{
 		Collection<Person> listPerson= new ArrayList<>();
 
 		String query = "SELECT idPers, idGroup, PrenomPers, NomPers, MailPers, WebPers,"
-				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId;
+				+ " NaissancePers, MdpPers FROM personne WHERE idGroup = " + groupId + " ORDER BY NomPers";
 
 		try(Connection conn = newConnection()) {
 			Statement st = conn.createStatement();
