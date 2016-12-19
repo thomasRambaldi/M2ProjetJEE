@@ -30,7 +30,7 @@
     
   </ul>
   <form class="form-inline float-xs-right" action="/gestionnaireAnnuaire/actions/connexion/search" method="get">
-    <input class="form-control" name="personSearcher" type="text" placeholder="Rechercher une personne">
+    <input class="form-control" name="personSearcher" type="text" placeholder="Une personne, un groupe">
     <button class="btn btn-outline-success" type="submit">Rechercher</button>
   </form>
 </nav>
